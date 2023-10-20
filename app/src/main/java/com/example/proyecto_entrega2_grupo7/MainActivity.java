@@ -13,43 +13,26 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    FirebaseFirestore db;
 
-
+    GestorFirebase ges = new GestorFirebase();
+    List<UserData> users = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-        registrarusuario();
+        ges.db = FirebaseFirestore.getInstance();
+        //ges.registrarusuario("carlos", "blanco", "cobrador de frak","123456","test@test.test");
+       ges.obtenerusuarios(new FirebaseListCallback() {
+           @Override
+           public void onCallback(List<UserData> list) {
+               users = list;
+           }
+       });
     }
-    void registrarusuario(){
-        String correo = "test@test.test";
-        String pass = "12345";
-        mAuth.createUserWithEmailAndPassword(correo, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    // todo: subir datos de usuario
-                    UserData user = new UserData();
-                    user.setId(mAuth.getUid());
-                    user.setNombre("Carlos");
-                    user.setApellidos("Blanco");
-                    user.setPuesto("picateclas");
-                    db.collection("usuarios").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            System.out.println("correcto");
-                        }
-                    });
 
-                }else{
-                    System.out.println("algo fallo");
-                }
-            }
-        });
-    }
+
 }
