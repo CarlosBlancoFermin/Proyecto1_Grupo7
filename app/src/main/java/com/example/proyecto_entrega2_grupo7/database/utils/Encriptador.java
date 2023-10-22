@@ -1,4 +1,4 @@
-package com.example.proyecto_entrega2_grupo7;
+package com.example.proyecto_entrega2_grupo7.database.utils;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,8 +1,12 @@
-package com.example.proyecto_entrega2_grupo7;
+package com.example.proyecto_entrega2_grupo7.database.dao;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyecto_entrega2_grupo7.database.utils.Encriptador;
+import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
+import com.example.proyecto_entrega2_grupo7.database.FirebaseManager;
+import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -15,14 +19,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestorFirebase extends AppCompatActivity {
 
-    FirebaseFirestore db;
+/**
+ * Funciones CRUD de la coleccion Usuario
+ */
+public class UsuarioDAO extends AppCompatActivity {
 
-    void registrarusuario(String nombre, String apellidos, String puesto, String pass, String correo) {
+    //Cuando se instancia este servicio se conecta a la base de datos
+    FirebaseFirestore db = FirebaseManager.getDatabase();
+
+    public void registrarusuario(String nombre, String apellidos, String puesto, String pass, String correo) {
 
 
-        UserData user = new UserData();
+        Usuario user = new Usuario();
         user.setId("");
         user.setNombre(nombre);
         user.setApellidos(apellidos);
@@ -44,7 +53,7 @@ public class GestorFirebase extends AppCompatActivity {
 
     }
 
-    void actualizarusuario(UserData user){
+    public void actualizarusuario(Usuario user){
         db.collection("usuarios").document(user.getId()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -53,8 +62,8 @@ public class GestorFirebase extends AppCompatActivity {
         });
     }
 
-    void obtenerusuarios(FirebaseListCallback callback){
-        List<UserData> listausuarios = new ArrayList<>();
+    public void obtenerusuarios(FirebaseListCallback callback){
+        List<Usuario> listausuarios = new ArrayList<>();
 
         db.collection("usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -62,7 +71,7 @@ public class GestorFirebase extends AppCompatActivity {
                 if(task.isSuccessful()){
 
                     for (QueryDocumentSnapshot doc : task.getResult()){
-                        UserData user = doc.toObject(UserData.class);
+                        Usuario user = doc.toObject(Usuario.class);
                         listausuarios.add(user);
                         System.out.println(user.getNombre());
                     }
@@ -70,10 +79,7 @@ public class GestorFirebase extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
 }
 
 

@@ -5,21 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff2d8"
-    tools:context=".activities.MainActivity">
-
-    <Button
-        android:id="@+id/btPrueba"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Listar empleados"
-        android:backgroundTint="#113946"
-        android:onClick="btListarEmpleados"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.6"/>
+    tools:context=".activities.ListarActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -34,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:paddingVertical="14dp"
-        android:text="Título"
+        android:text="Listar empleados"
         android:textSize="28dp"
         android:textStyle="bold"
         android:background="#bca37f"
@@ -42,7 +28,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/guideline"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-         />
-
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
