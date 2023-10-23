@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff2d8"
+    android:background="@color/background"
     tools:context=".activities.ListarActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -19,11 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:paddingVertical="14dp"
-        android:text="Listar empleados"
-        android:textSize="28dp"
+        android:paddingVertical="18sp"
+        android:text="@string/header_listar"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:background="#bca37f"
+        android:background="@color/accent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/guideline"
         app:layout_constraintLeft_toLeftOf="parent"

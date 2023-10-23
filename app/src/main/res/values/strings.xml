@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Proyecto_Entrega2_Grupo7</string>
+    <string name="header_prueba">Titulo de prueba</string>
+    <string name="header_listar">Lista de empleados</string>
+    <string name="bt_listar">Listar empleados</string>
+
 </resources>
