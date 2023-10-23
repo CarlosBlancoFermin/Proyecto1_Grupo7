@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //ges.registrarusuario("carlos", "blanco", "cobrador de frak","123456","test@test.test");
-        ges.obtenerusuarios(new FirebaseListCallback() {
+        ges.obtenerUsuarios(new FirebaseListCallback() {
            @Override
            public void onCallback(List<Usuario> list) {
                users = list;
