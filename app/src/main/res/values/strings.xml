@@ -3,5 +3,7 @@
     <string name="header_prueba">Titulo de prueba</string>
     <string name="header_listar">Lista de empleados</string>
     <string name="bt_listar">Listar empleados</string>
-
+    <string name="bt_login">Login</string>
+    <string name="bt_crearusuario">Crear un nuevo usuario</string>
+    <string name="bt_verusuario">ver listado de usuarios</string>
 </resources>
