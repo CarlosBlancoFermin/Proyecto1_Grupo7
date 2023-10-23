@@ -30,8 +30,6 @@ public class UsuarioDAO extends AppCompatActivity {
     List<Usuario> usuarios = new ArrayList<>();
 
     public void registrarusuario(String nombre, String apellidos, String puesto, String pass, String correo) {
-
-
         Usuario user = new Usuario();
         user.setId("");
         user.setNombre(nombre);
@@ -54,16 +52,7 @@ public class UsuarioDAO extends AppCompatActivity {
 
     }
 
-    public void actualizarusuario(Usuario user){
-        db.collection("usuarios").document(user.getId()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                System.out.println("usuario actualizado");
-            }
-        });
-    }
-
-    public void obtenerusuarios(FirebaseListCallback callback){
+    public void obtenerUsuarios(FirebaseListCallback callback){
         List<Usuario> listausuarios = new ArrayList<>();
         usuarios = new ArrayList<>();
         db.collection("usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -82,6 +71,25 @@ public class UsuarioDAO extends AppCompatActivity {
             }
         });
     }
+
+    public void actualizarUsuario(Usuario user){
+        db.collection("usuarios").document(user.getId()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                System.out.println("usuario actualizado");
+            }
+        });
+    }
+
+    public void borrarUsuario(Usuario user){
+        db.collection("usuarios").document(user.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                System.out.println("usuario " + user.getNombre() + "eliminado");
+            }
+        });
+    }
+
 }
 
 
