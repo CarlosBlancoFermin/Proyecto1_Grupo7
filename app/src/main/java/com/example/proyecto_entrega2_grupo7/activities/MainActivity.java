@@ -25,19 +25,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-
-        ges.obtenerUsuarios(new FirebaseListCallback() {
-           @Override
-           public void onCallback(List<Usuario> list) {
-               users = list;
-           }
-        });
+        setContentView(R.layout.activity_main);
+        /**
+         * La primera pantalla tiene que cargarse con setContentView;
+         * si se carga como Intent y le das para atrás se queda una pantalla en blanco
+         *
+         * Intent intent = new Intent(this, LoginActivity.class);
+         * startActivity(intent);
+         **/
     }
 
     public void btListarEmpleados(View view){
         Intent intent = new Intent(this, ListarActivity.class);
+        startActivity(intent);
+    }
+
+    public void btLogin(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
