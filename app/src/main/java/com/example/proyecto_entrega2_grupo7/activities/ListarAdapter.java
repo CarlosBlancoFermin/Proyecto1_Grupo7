@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,9 +49,9 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
 
         View view;
         EditText etNombre;
-        Button btDetalles;
-        Button btUpdate;
-        Button btDelete;
+        ImageButton btDetalles;
+        ImageButton btUpdate;
+        ImageButton btDelete;
 
         public ListarViewHolder(@NonNull View itemView) {
             super(itemView);

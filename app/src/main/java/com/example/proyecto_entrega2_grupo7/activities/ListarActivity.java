@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.proyecto_entrega2_grupo7.R;
@@ -63,5 +65,11 @@ public class ListarActivity extends AppCompatActivity implements OnClickCallback
             initRecyclerView();
             Toast.makeText(this,"Usuario borrado",Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void botonAddEmpleado(View view){
+        userService.registrarusuario("son goku", "gonzalez", "programador","123456","test@test.test");
+        initRecyclerView();
+        Toast.makeText(this,"Nuevo usuario registrado",Toast.LENGTH_LONG).show();
     }
 }

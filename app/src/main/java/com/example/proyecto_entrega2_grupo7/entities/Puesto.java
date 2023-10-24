@@ -1,15 +1,15 @@
 package com.example.proyecto_entrega2_grupo7.entities;
 
 public class Puesto {
-    String id;
+    long id;
     String nombre;
     String salario;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

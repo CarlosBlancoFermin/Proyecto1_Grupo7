@@ -55,12 +55,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="24sp"
         android:layout_marginRight="24sp"
-        android:text="Añadir empleado +"
         android:backgroundTint="#4488FF"
-        app:layout_constraintTop_toTopOf="@id/guidelineBottom"
+        android:onClick="botonAddEmpleado"
+        android:text="Añadir empleado +"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="@id/guidelineBottom" />
 
 
 

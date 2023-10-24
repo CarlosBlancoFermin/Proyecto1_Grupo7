@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="2sp">
 
     <EditText
@@ -17,27 +17,27 @@
         android:inputType="text"
         android:layout_weight="4" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btDetalles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
         android:layout_weight="1"
-        android:backgroundTint="#0000aa"
-        android:text="V" />
+        android:backgroundTint="@color/accent"
+        app:srcCompat="@android:drawable/ic_menu_view" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btModificar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
         android:layout_weight="1"
-        android:backgroundTint="#00aa00"
-        android:text="M" />
+        android:backgroundTint="@color/accent"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btBorrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
         android:layout_weight="1"
         android:backgroundTint="#aa0000"
-        android:text="D" />
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 </LinearLayout>
