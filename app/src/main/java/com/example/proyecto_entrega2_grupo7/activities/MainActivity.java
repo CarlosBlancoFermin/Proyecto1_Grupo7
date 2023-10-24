@@ -22,14 +22,12 @@ public class MainActivity extends AppCompatActivity {
      */
     UsuarioDAO ges = new UsuarioDAO();
     List<Usuario> users = new ArrayList<>();
-    List<Usuario> users2 = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
 
-
-        //ges.registrarusuario("carlos", "blanco", "cobrador de frak","123456","test@test.test");
         ges.obtenerUsuarios(new FirebaseListCallback() {
            @Override
            public void onCallback(List<Usuario> list) {

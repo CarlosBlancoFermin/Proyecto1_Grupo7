@@ -27,6 +27,7 @@ public class UsuarioDAO extends AppCompatActivity {
 
     //Cuando se instancia este servicio se conecta a la base de datos
     FirebaseFirestore db = FirebaseManager.getDatabase();
+    List<Usuario> usuarios = new ArrayList<>();
 
     public void registrarusuario(String nombre, String apellidos, String puesto, String pass, String correo) {
         Usuario user = new Usuario();
@@ -53,7 +54,7 @@ public class UsuarioDAO extends AppCompatActivity {
 
     public void obtenerUsuarios(FirebaseListCallback callback){
         List<Usuario> listausuarios = new ArrayList<>();
-
+        usuarios = new ArrayList<>();
         db.collection("usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -61,6 +62,7 @@ public class UsuarioDAO extends AppCompatActivity {
 
                     for (QueryDocumentSnapshot doc : task.getResult()){
                         Usuario user = doc.toObject(Usuario.class);
+                        usuarios.add(user);
                         listausuarios.add(user);
                         System.out.println(user.getNombre());
                     }
