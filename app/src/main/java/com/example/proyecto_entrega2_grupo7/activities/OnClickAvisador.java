@@ -1,7 +1,5 @@
 package com.example.proyecto_entrega2_grupo7.activities;
 
-import android.view.View;
-
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 
 /**
@@ -9,6 +7,6 @@ import com.example.proyecto_entrega2_grupo7.entities.Usuario;
  * que permite gestionar los botones pulsados
  * en un item del RecyclerView
  */
-public interface OnClickCallback {
+public interface OnClickAvisador {
     void onUserClick(Usuario usuario, int id);
 }

@@ -1,6 +1,6 @@
 package com.example.proyecto_entrega2_grupo7.entities;
 
-public class Usuario {
+public class Usuario implements Comparable<Usuario>{
     String id;
     String username;
     String pass;
@@ -86,5 +86,10 @@ public class Usuario {
                 ", horario='" + horario + '\'' +
                 ", correo='" + correo + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Usuario u) {
+        return this.getApellidos().toUpperCase().compareTo(u.getApellidos().toUpperCase());
     }
 }

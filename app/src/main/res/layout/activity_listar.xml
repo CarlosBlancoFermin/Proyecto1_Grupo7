@@ -7,6 +7,7 @@
     android:background="@color/background"
     tools:context=".activities.ListarActivity">
 
+<!--region GUIDELINES-->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
         android:layout_width="wrap_content"
@@ -14,8 +15,24 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineNav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
+    <!--endregion-->
+
+    <!--region HEADER-->
     <TextView
-        android:id="@+id/tvPrueba"
+        android:id="@+id/tvHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -27,28 +44,55 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/guidelineTop"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintRight_toRightOf="parent" />
+    <!--endregion-->
 
+    <!--region NAV-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineNav">
+
+        <Button
+            android:id="@+id/btOrdenar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/dark"
+            android:onClick="pulsarOrdenar"
+            android:text="Ordenar"
+            android:drawableEnd="@android:drawable/arrow_up_float"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/btFiltros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/dark"
+            android:onClick="pulsarFiltros"
+            android:text="Filtros"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <!--endregion-->
+
+    <!--region LISTA-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_lista"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+        app:layout_constraintTop_toTopOf="@+id/guidelineNav"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-         />
+        app:layout_constraintEnd_toEndOf="parent" />
+    <!--endregion-->
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
-
+    <!--region FOOTER-->
     <Button
         android:id="@+id/btAddEmpleado"
         android:layout_width="wrap_content"
@@ -56,13 +100,12 @@
         android:layout_marginLeft="24sp"
         android:layout_marginRight="24sp"
         android:backgroundTint="#4488FF"
-        android:onClick="botonAddEmpleado"
+        android:onClick="pulsarAddEmpleado"
         android:text="Añadir empleado +"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guidelineBottom" />
-
-
+    <!--endregion-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
