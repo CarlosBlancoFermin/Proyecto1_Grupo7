@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +27,7 @@ public class ListarActivity extends AppCompatActivity implements OnClickAvisador
     RecyclerView rvLista;
     Button btOrder;
     boolean ordenDesc;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +66,14 @@ public class ListarActivity extends AppCompatActivity implements OnClickAvisador
      */
     @Override
     public void onUserClick(Usuario usuario, int idButton) {
+
+        final Context context = this;
+
         if(idButton == R.id.btDetalles ){
             Toast.makeText(this,"Detalles de ".concat(usuario.getNombre()),
                     Toast.LENGTH_SHORT).show();
+            intent = new Intent(context, EmpleadoInfoActivity.class);
+            startActivity(intent);
 
         }else if(idButton == R.id.btModificar){
             Toast.makeText(this,"Modificar ".concat(usuario.getNombre()),
