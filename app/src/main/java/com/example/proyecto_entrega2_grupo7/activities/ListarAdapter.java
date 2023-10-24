@@ -1,10 +1,8 @@
 package com.example.proyecto_entrega2_grupo7.activities;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -18,10 +16,10 @@ import java.util.List;
 
 public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarViewHolder> {
     private List<Usuario> lista;
-    private OnClickCallback callback;
+    private OnClickAvisador callback;
 
 
-    public ListarAdapter(List<Usuario> l, OnClickCallback cb) {
+    public ListarAdapter(List<Usuario> l, OnClickAvisador cb) {
         this.lista = l;
         this.callback = cb;
 
@@ -30,7 +28,7 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
     @NonNull
     @Override
     public ListarAdapter.ListarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listar_item, parent,false);
         return new ListarAdapter.ListarViewHolder(view);
     }
 
@@ -63,20 +61,18 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
         }
 
         void bindData(Usuario u){
-            etNombre.setText(u.getNombre());
+            etNombre.setText(u.getNombre().concat("\n").concat(u.getApellidos()));
             addListener(btDetalles);
             addListener(btUpdate);
             addListener(btDelete);
         }
 
         void addListener(View view){
-            view.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    if (callback != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            callback.onUserClick(lista.get(position), view.getId());
-                        }
+            view.setOnClickListener(v -> {
+                if (callback != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        callback.onUserClick(lista.get(position), view.getId());
                     }
                 }
             });
