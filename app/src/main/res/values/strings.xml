@@ -6,4 +6,7 @@
     <string name="bt_login">Login</string>
     <string name="bt_crearusuario">Crear un nuevo usuario</string>
     <string name="bt_verusuario">ver listado de usuarios</string>
+    <string name= "bt_modificarInfoEmpleado">Modificar empleado</string>
+    <string name= "bt_volver_listarEmpleado">Volver</string>
+
 </resources>
