@@ -48,14 +48,11 @@ public class ListarActivity extends AppCompatActivity implements OnClickAvisador
      */
     private void initRecyclerView() {
         OnClickAvisador callback = this;
-        userService.obtenerUsuarios(new FirebaseListCallback() {
-            @Override
-            public void onCallback(List<Usuario> list) {
-                users = list;
-                Collections.sort(users,
-                        ordenDesc ? null : Collections.reverseOrder());
-                rvLista.setAdapter(new ListarAdapter(users,callback));
-            }
+        userService.obtenerUsuarios(list -> {
+            users = list;
+            Collections.sort(users,
+                    ordenDesc ? null : Collections.reverseOrder());
+            rvLista.setAdapter(new ListarAdapter(users,callback));
         });
     }
 
@@ -95,7 +92,11 @@ public class ListarActivity extends AppCompatActivity implements OnClickAvisador
     }
 
     public void pulsarAddEmpleado(View view){
-        userService.registrarusuario("son goku", "gonzalez", "programador","123456","test@test.test");
+        userService.registrarUsuario(
+                "genkidama@test.test", "123456",
+                "Son Goku","Gonzalez",
+                "aAPLZJ5S3Kz2ANlKR6jk",
+                "kM1QHbf6GFoinUC76aec");
         initRecyclerView();
         Toast.makeText(this,"Nuevo usuario registrado",Toast.LENGTH_LONG).show();
     }

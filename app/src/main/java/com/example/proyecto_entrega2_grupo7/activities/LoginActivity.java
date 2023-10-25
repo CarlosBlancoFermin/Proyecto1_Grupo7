@@ -15,6 +15,7 @@ import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
 import com.example.proyecto_entrega2_grupo7.database.utils.Encriptador;
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
@@ -53,10 +54,14 @@ public class LoginActivity extends AppCompatActivity {
         final Context context = this;
         ges.obtenerUsuarios(new FirebaseListCallback() {
             @Override
-            public void onCallback(List<Usuario> list) {
+            public void onCallback(List list) {
                 if(!email.isEmpty()&&!pass.isEmpty()){
                     String encriptedpass = Encriptador.passEncriptada(pass);
-                    for(Usuario user: list){
+
+                    //Convertir la lista genérica en lista de usuarios
+                    List<Usuario> listUsers = new ArrayList<Usuario>(list);
+
+                    for(Usuario user: listUsers){
                         String uemail = user.getCorreo();
                         String upass = user.getPass();
                         if(uemail.equals(email)){

@@ -1,9 +1,7 @@
 package com.example.proyecto_entrega2_grupo7.database.dao;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.proyecto_entrega2_grupo7.database.utils.Encriptador;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseManager;
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
@@ -11,8 +9,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -23,71 +21,56 @@ import java.util.List;
 /**
  * Funciones CRUD de la coleccion Usuario
  */
-public class UsuarioDAO extends AppCompatActivity {
+public class UsuarioDAO {
 
     //Cuando se instancia este servicio se conecta a la base de datos
-    FirebaseFirestore db = FirebaseManager.getDatabase();
-    List<Usuario> usuarios = new ArrayList<>();
+    final CollectionReference DB_COLECCION =
+                FirebaseManager.getDatabase()
+                    .collection("usuarios");
 
-    public void registrarusuario(String nombre, String apellidos, String puesto, String pass, String correo) {
-        Usuario user = new Usuario();
-        user.setId("");
-        user.setNombre(nombre);
-        user.setApellidos(apellidos);
-        user.setPuesto(puesto);
-        user.setPass(Encriptador.passEncriptada(pass));
-        user.setCorreo(correo);
-        db.collection("usuarios").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                user.setId(documentReference.getId());
-                db.collection("usuarios").document(user.getId()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        System.out.println("usuario creado");
-                    }
-                });
-            }
+
+    public void registrarUsuario(String correo, String pass, String nombre, String apellidos, String puesto, String horario) {
+        Usuario user = new Usuario(correo,pass,nombre,apellidos,puesto,horario);
+//        user.setId("");
+//        user.setNombre(nombre);
+//        user.setApellidos(apellidos);
+//        user.setPuesto(puesto);
+//        user.setPass(Encriptador.passEncriptada(pass));
+//        user.setCorreo(correo);
+        DB_COLECCION.add(user).addOnSuccessListener(documentReference -> {
+            user.setId(documentReference.getId());
+            DB_COLECCION.document(user.getId()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    System.out.println("usuario creado");
+                }
+            });
         });
 
     }
 
     public void obtenerUsuarios(FirebaseListCallback callback){
-        List<Usuario> listausuarios = new ArrayList<>();
-        usuarios = new ArrayList<>();
-        db.collection("usuarios").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-
-                    for (QueryDocumentSnapshot doc : task.getResult()){
-                        Usuario user = doc.toObject(Usuario.class);
-                        usuarios.add(user);
-                        listausuarios.add(user);
-                        System.out.println(user.getNombre());
-                    }
-                    callback.onCallback(listausuarios);
+        DB_COLECCION.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                List<Usuario> usuarios = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : task.getResult()){
+                    Usuario user = doc.toObject(Usuario.class);
+                    usuarios.add(user);
+                    System.out.println(user.getNombre());
                 }
+                callback.onCallback(usuarios);
             }
         });
     }
 
     public void actualizarUsuario(Usuario user){
-        db.collection("usuarios").document(user.getId()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                System.out.println("usuario actualizado");
-            }
-        });
+        DB_COLECCION.document(user.getId()).set(user)
+                .addOnSuccessListener(unused -> System.out.println("usuario actualizado"));
     }
 
     public void borrarUsuario(Usuario user){
-        db.collection("usuarios").document(user.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                System.out.println("usuario " + user.getNombre() + "eliminado");
-            }
-        });
+        DB_COLECCION.document(user.getId()).delete()
+                .addOnSuccessListener(unused -> System.out.println("usuario " + user.getNombre() + "eliminado"));
     }
 
 }

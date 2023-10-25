@@ -1,14 +1,28 @@
 package com.example.proyecto_entrega2_grupo7.entities;
 
+import com.example.proyecto_entrega2_grupo7.database.utils.Encriptador;
+
 public class Usuario implements Comparable<Usuario>{
-    String id;
-    String username;
-    String pass;
-    String nombre;
-    String apellidos;
-    String puesto;
-    String horario;
-    String correo;
+    private String id;
+    private String correo;
+    private String pass;
+    private String nombre;
+    private String apellidos;
+    private String puesto;
+    private String horario;
+
+
+    public Usuario() {
+    }
+
+    public Usuario(String correo, String pass, String nombre, String apellidos, String puesto, String horario) {
+        this.correo = correo;
+        this.pass = Encriptador.passEncriptada(pass);
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.puesto = puesto;
+        this.horario = horario;
+    }
 
     public String getId() {
         return id;
@@ -18,12 +32,12 @@ public class Usuario implements Comparable<Usuario>{
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getPass() {
@@ -31,7 +45,7 @@ public class Usuario implements Comparable<Usuario>{
     }
 
     public void setPass(String pass) {
-        this.pass = pass;
+        this.pass = Encriptador.passEncriptada(pass);
     }
 
     public String getNombre() {
@@ -66,25 +80,16 @@ public class Usuario implements Comparable<Usuario>{
         this.horario = horario;
     }
 
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
                 "ID='" + id + '\'' +
-                ", userName='" + username + '\'' +
+                ", correo='" + correo + '\'' +
                 ", pass='" + pass + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", puesto='" + puesto + '\'' +
                 ", horario='" + horario + '\'' +
-                ", correo='" + correo + '\'' +
                 '}';
     }
 

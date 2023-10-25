@@ -16,12 +16,12 @@ import java.util.List;
 
 public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarViewHolder> {
     private List<Usuario> lista;
-    private OnClickAvisador callback;
+    private OnClickAvisador avisador;
 
 
-    public ListarAdapter(List<Usuario> l, OnClickAvisador cb) {
+    public ListarAdapter(List<Usuario> l, OnClickAvisador a) {
         this.lista = l;
-        this.callback = cb;
+        this.avisador = a;
 
     }
 
@@ -69,10 +69,10 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
 
         void addListener(View view){
             view.setOnClickListener(v -> {
-                if (callback != null) {
+                if (avisador != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        callback.onUserClick(lista.get(position), view.getId());
+                        avisador.onUserClick(lista.get(position), view.getId());
                     }
                 }
             });
