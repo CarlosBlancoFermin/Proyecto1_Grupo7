@@ -1,10 +1,17 @@
 package com.example.proyecto_entrega2_grupo7.entities;
 
 public class Horario {
-    String id;
-    String descripcion;
-    String horaEntrada;
-    String horaSalida;
+    private String id;
+    private String nombre;
+    private String horaEntrada;
+    private String horaSalida;
+
+
+    public Horario(String descripcion, String horaEntrada, String horaSalida) {
+        this.nombre = descripcion;
+        this.horaEntrada = horaEntrada;
+        this.horaSalida = horaSalida;
+    }
 
     public String getId() {
         return id;
@@ -14,12 +21,12 @@ public class Horario {
         this.id = id;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getHoraEntrada() {
@@ -42,7 +49,7 @@ public class Horario {
     public String toString() {
         return "Horario{" +
                 "id='" + id + '\'' +
-                ", descripcion='" + descripcion + '\'' +
+                ", descripcion='" + nombre + '\'' +
                 ", horaEntrada='" + horaEntrada + '\'' +
                 ", horaSalida='" + horaSalida + '\'' +
                 '}';
