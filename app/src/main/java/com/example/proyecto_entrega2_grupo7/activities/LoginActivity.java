@@ -48,40 +48,42 @@ public class LoginActivity extends AppCompatActivity {
      * comprueba que el usuario y la contraseña no esten vacios.
      * comprueba que el usuario y la contraseña coincidan en la base de datos y llama a la pantalla del menu
      */
-    public void comprobarLogin(){
+    public void comprobarLogin() {
         email = editTextEmail.getText().toString();
         pass = editTextPass.getText().toString();
         final Context context = this;
         ges.obtenerUsuarios(new FirebaseListCallback() {
             @Override
             public void onCallback(List list) {
-                if(!email.isEmpty()&&!pass.isEmpty()){
+                if (!email.isEmpty() && !pass.isEmpty()) {
                     String encriptedpass = Encriptador.passEncriptada(pass);
 
-                    //Convertir la lista genérica en lista de usuarios
+                    // Convertir la lista genérica en lista de usuarios
                     List<Usuario> listUsers = new ArrayList<Usuario>(list);
+                    boolean loginExitoso = false;
 
-                    for(Usuario user: listUsers){
+                    for (Usuario user : listUsers) {
                         String uemail = user.getCorreo();
                         String upass = user.getPass();
-                        if(uemail.equals(email)){
-                            if(upass.equals(encriptedpass)){
-                                Toast.makeText(LoginActivity.this,"Login correcto", Toast.LENGTH_SHORT).show();
-                                intent = new Intent(context, MenuActivity.class);
-                                startActivity(intent);
-                                break;
-                            }
-                        }else {
-                            Toast.makeText(LoginActivity.this,"Email o contraseña incorrecto", Toast.LENGTH_SHORT).show();
-                            break;
+
+                        if (uemail.equals(email) && upass.equals(encriptedpass)) {
+                            Toast.makeText(LoginActivity.this, "Login correcto", Toast.LENGTH_SHORT).show();
+                            intent = new Intent(context, MenuActivity.class);
+                            startActivity(intent);
+                            loginExitoso = true;
+                            break; // Sal del bucle después del inicio de sesión exitoso
                         }
                     }
-                }else {
-                    Toast.makeText(LoginActivity.this,"Email o contraseña incorrecto", Toast.LENGTH_SHORT).show();
+
+                    if (!loginExitoso) {
+                        Toast.makeText(LoginActivity.this, "Email o contraseña incorrecto", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, "Email o contraseña incorrecto", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
+
 
 }

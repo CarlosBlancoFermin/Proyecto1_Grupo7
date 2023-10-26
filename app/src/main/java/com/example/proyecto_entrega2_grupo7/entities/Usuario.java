@@ -45,7 +45,7 @@ public class Usuario implements Comparable<Usuario>{
     }
 
     public void setPass(String pass) {
-        this.pass = Encriptador.passEncriptada(pass);
+        this.pass = pass;
     }
 
     public String getNombre() {
