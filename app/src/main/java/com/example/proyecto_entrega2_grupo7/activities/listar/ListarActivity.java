@@ -275,10 +275,12 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
         }
     }
 
+
     private void crearDialog(){
         DialogFragment dialog = new FiltrosDialog(
-                new FiltrosAdapter(puestoList,puestosChecked,this),
-                new FiltrosAdapter(horarioList,horariosChecked,this));
+                new FiltrosAdapter[]{
+                    new FiltrosAdapter(puestoList, puestosChecked, this),
+                    new FiltrosAdapter(horarioList, horariosChecked, this)});
         dialog.show(getSupportFragmentManager(), "filtros");
     }
 }
