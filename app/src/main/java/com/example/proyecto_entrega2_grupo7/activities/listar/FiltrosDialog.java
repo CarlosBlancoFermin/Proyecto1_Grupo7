@@ -19,19 +19,19 @@ import com.example.proyecto_entrega2_grupo7.R;
 import java.util.Objects;
 
 public class FiltrosDialog extends DialogFragment {
-    FiltrosAdapter puestoAdapter;
-    FiltrosAdapter horarioAdapter;
-    Button btDesplegableFiltro [];
-    RecyclerView rvFiltro[];
+
+    final int NUM_FILTROS = 2;
+    FiltrosAdapter [] adapters;
+    Button btDesplegableFiltro [] = new Button[NUM_FILTROS];
+    RecyclerView rvFiltro[] = new RecyclerView[NUM_FILTROS];
 
     /*Si hubiese más filtros, se pasarían más FiltrosAdapter por parámetro,
     y se crearían un botón desplegable y un RecyclerView más.
      */
 
 
-    public FiltrosDialog(FiltrosAdapter puestos, FiltrosAdapter horarios) {
-        this.puestoAdapter = puestos;
-        this.horarioAdapter = horarios;
+    public FiltrosDialog(FiltrosAdapter [] fa) {
+        this.adapters = fa.clone();
     }
 
     @NonNull
@@ -70,9 +70,9 @@ public class FiltrosDialog extends DialogFragment {
      * al RecyclerView correspondiente.
      */
     private void initRecyclerView() {
-        rvFiltro[0].setAdapter(puestoAdapter);
-        rvFiltro[1].setAdapter(horarioAdapter);
-        //rvFiltro[n].setAdapter(otroFiltroAdapter);
+        for(int i = 0; i < NUM_FILTROS; i++){
+            rvFiltro[i].setAdapter(adapters[i]);
+        }
     }
 
     /**
