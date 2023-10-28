@@ -1,4 +1,4 @@
-package com.example.proyecto_entrega2_grupo7.activities;
+package com.example.proyecto_entrega2_grupo7.activities.listar;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +16,15 @@ import java.util.List;
 
 public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarViewHolder> {
     private List<Usuario> lista;
-    private OnClickAvisador avisador;
+    private ListarEventReceptor receptor;
+    /*Actividad que recibirá los eventos asignados a los checkbox de cada ViewHolder
+    En este caso, ListarActivity.
+     */
 
 
-    public ListarAdapter(List<Usuario> l, OnClickAvisador a) {
+    public ListarAdapter(List<Usuario> l, ListarEventReceptor r) {
         this.lista = l;
-        this.avisador = a;
-
+        this.receptor = r;
     }
 
     @NonNull
@@ -54,10 +56,10 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
         public ListarViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
-            etNombre = view.findViewById(R.id.etNombre);
-            btDetalles = view.findViewById(R.id.btDetalles);
-            btUpdate = view.findViewById(R.id.btModificar);
-            btDelete = view.findViewById(R.id.btBorrar);
+            etNombre = view.findViewById(R.id.etListarNombre);
+            btDetalles = view.findViewById(R.id.btListarDetalles);
+            btUpdate = view.findViewById(R.id.btListarModificar);
+            btDelete = view.findViewById(R.id.btListarBorrar);
         }
 
         void bindData(Usuario u){
@@ -67,12 +69,20 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
             addListener(btDelete);
         }
 
+        /**
+         * Añade un evento al componente pasado por parámetro,
+         * que se enlazará con la Actividad receptor
+         * (en este caso, ListarActivity),
+         * la cual implementa la función a ejecutar
+         * (a través de su correspondiente función onButtonClick).
+         * @param view componente que desencadena el evento
+         */
         void addListener(View view){
             view.setOnClickListener(v -> {
-                if (avisador != null) {
+                if (receptor != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        avisador.onUserClick(lista.get(position), view.getId());
+                        receptor.onButtonClick(lista.get(position), view.getId());
                     }
                 }
             });

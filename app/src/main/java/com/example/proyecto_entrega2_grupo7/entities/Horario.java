@@ -1,32 +1,15 @@
 package com.example.proyecto_entrega2_grupo7.entities;
 
-public class Horario {
-    private String id;
-    private String nombre;
+public class Horario extends Filtros {
     private String horaEntrada;
     private String horaSalida;
 
+    public Horario() {}
 
-    public Horario(String descripcion, String horaEntrada, String horaSalida) {
-        this.nombre = descripcion;
+    public Horario(String nombre, String horaEntrada, String horaSalida) {
+        super(nombre);
         this.horaEntrada = horaEntrada;
         this.horaSalida = horaSalida;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getHoraEntrada() {
