@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="60dp"
+    android:layout_marginRight="60dp"
+    android:layout_marginTop="120dp"
+    android:layout_marginBottom="120dp"
+    android:orientation="vertical"
+    android:background="#CCFFFFFF">
+
+    <Button
+        android:id="@+id/btListarFiltro1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/element"
+        android:text="@string/filtro1" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListarFiltro1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:background="@color/background"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btListarFiltro2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/element"
+        android:text="@string/filtro2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListarFiltro2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:background="@color/background"
+        android:visibility="gone"/>
+
+</LinearLayout>

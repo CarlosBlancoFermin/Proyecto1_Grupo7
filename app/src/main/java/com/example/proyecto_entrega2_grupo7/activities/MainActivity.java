@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.proyecto_entrega2_grupo7.R;
-import com.example.proyecto_entrega2_grupo7.database.dao.HorarioDAO;
-import com.example.proyecto_entrega2_grupo7.database.dao.PuestoDAO;
+import com.example.proyecto_entrega2_grupo7.activities.listar.ListarActivity;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 
@@ -48,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
 //
 //        horarioService.registrarHorario("Matutino","08:30","14:00");
 //        horarioService.registrarHorario("Vespertino","15:00","21:30");
-        /**
+        /*
          * La primera pantalla tiene que cargarse con setContentView;
          * si se carga como Intent y le das para atrás se queda una pantalla en blanco
          *
          * Intent intent = new Intent(this, LoginActivity.class);
          * startActivity(intent);
-         **/
+         */
     }
 
     public void btListarEmpleados(View view){

@@ -4,9 +4,18 @@
     <string name="header_listar">Lista de empleados</string>
     <string name="bt_listar">Listar empleados</string>
     <string name="bt_login">Login</string>
-    <string name="bt_crearusuario">Crear un nuevo usuario</string>
+    <string name="bt_crearusuario">Crear nuevo usuario</string>
     <string name="bt_verusuario">ver listado de usuarios</string>
-    <string name= "bt_modificarInfoEmpleado">Modificar empleado</string>
-    <string name= "bt_volver_listarEmpleado">Volver</string>
+    <string name="bt_modificarInfoEmpleado">Modificar empleado</string>
+    <string name="bt_volver_listarEmpleado">Volver</string>
+    <string name="bt_ordenar">Ordenar</string>
+    <string name="bt_filtros">Filtros</string>
+    <string name="filtro1">Por puesto</string>
+    <string name="filtro2">Por horario</string>
+    <string name="bt_aplicarFiltro">Aplicar</string>
+    <string name="descripcion_detalles">Detalles del usuario</string>
+    <string name="descripcion_modificar">Modificar usuario</string>
+    <string name="descripcion_eliminar">Eliminar usuario</string>
+
 
 </resources>

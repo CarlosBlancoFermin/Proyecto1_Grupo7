@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".activities.ListarActivity">
+    tools:context=".activities.listar.ListarActivity">
 
 <!--region GUIDELINES-->
     <androidx.constraintlayout.widget.Guideline
@@ -32,7 +32,7 @@
 
     <!--region HEADER-->
     <TextView
-        android:id="@+id/tvHeader"
+        android:id="@+id/tvListarHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -56,22 +56,22 @@
         app:layout_constraintBottom_toBottomOf="@+id/guidelineNav">
 
         <Button
-            android:id="@+id/btOrdenar"
+            android:id="@+id/btListarOrdenar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/dark"
             android:onClick="pulsarOrdenar"
-            android:text="Ordenar"
+            android:text="@string/bt_ordenar"
             android:drawableEnd="@android:drawable/arrow_up_float"
             android:layout_weight="1"
             />
         <Button
-            android:id="@+id/btFiltros"
+            android:id="@+id/btListarFiltros"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/dark"
             android:onClick="pulsarFiltros"
-            android:text="Filtros"
+            android:text="@string/bt_filtros"
             android:layout_weight="1"/>
 
     </LinearLayout>
@@ -80,7 +80,7 @@
 
     <!--region LISTA-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_lista"
+        android:id="@+id/rvListarUsuarios"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -94,14 +94,14 @@
 
     <!--region FOOTER-->
     <Button
-        android:id="@+id/btAddEmpleado"
+        android:id="@+id/btListarAddUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24sp"
         android:layout_marginRight="24sp"
         android:backgroundTint="#4488FF"
         android:onClick="pulsarAddEmpleado"
-        android:text="Añadir empleado +"
+        android:text="@string/bt_crearusuario"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

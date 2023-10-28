@@ -16,7 +16,7 @@
             android:name=".activities.EmpleadoInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ListarActivity"
+            android:name=".activities.listar.ListarActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
