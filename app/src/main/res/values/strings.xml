@@ -6,7 +6,7 @@
     <string name="bt_login">Login</string>
     <string name="bt_crearusuario">Crear nuevo usuario</string>
     <string name="bt_verusuario">ver listado de usuarios</string>
-    <string name="bt_modificarInfoEmpleado">Modificar empleado</string>
+    <string name="bt_modificarInfoEmpleado">Modificar</string>
     <string name="bt_volver_listarEmpleado">Volver</string>
     <string name="bt_ordenar">Ordenar</string>
     <string name="bt_filtros">Filtros</string>
@@ -16,6 +16,11 @@
     <string name="descripcion_detalles">Detalles del usuario</string>
     <string name="descripcion_modificar">Modificar usuario</string>
     <string name="descripcion_eliminar">Eliminar usuario</string>
-
+    <string name="idLabelEmployee">Id</string>
+    <string name="nameLabelEmployee">Nombre</string>
+    <string name="surnameLabelEmployee">Apellidos</string>
+    <string name="phoneLabelEmployee">Teléfono</string>
+    <string name="emailLabelEmployee">Correo electrónico</string>
+    <string name="jobLabelEmployee">Puesto</string>
 
 </resources>

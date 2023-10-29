@@ -2,7 +2,9 @@ package com.example.proyecto_entrega2_grupo7.entities;
 
 import com.example.proyecto_entrega2_grupo7.database.utils.Encriptador;
 
-public class Usuario implements Comparable<Usuario>{
+import java.io.Serializable;
+
+public class Usuario implements Comparable<Usuario>, Serializable {
     private String id;
     private String correo;
     private String pass;

@@ -1,13 +1,20 @@
 package com.example.proyecto_entrega2_grupo7.database.dao;
 
+import android.widget.TextView;
+
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseManager;
 import com.example.proyecto_entrega2_grupo7.entities.*;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +97,32 @@ public class UsuarioDAO {
     public void borrarUsuario(Usuario user){
         DB_COLECCION.document(user.getId()).delete()
                 .addOnSuccessListener(unused -> System.out.println("usuario " + user.getNombre() + "eliminado"));
+    }
+
+    public void detallesUsuario(TextView nombreTextView, TextView apellidoTextView,
+                                TextView correoTextView, TextView puestoTextView, String userId){
+
+        DB_COLECCION.whereEqualTo("id", userId).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                QuerySnapshot document = task.getResult();
+                String nombreEmployee = null;
+                String apellidoEmployee = null;
+                String correoEmployee = null;
+                //telefono = snapdocument.getString("telefono");
+                String puestoEmployee = null;
+                for (QueryDocumentSnapshot snapdocument: document){
+                    nombreEmployee = snapdocument.getString("nombre");
+                    apellidoEmployee  = snapdocument.getString("apellidos");
+                    correoEmployee = snapdocument.getString("correo");
+                    //telefono = snapdocument.getString("telefono");
+                    puestoEmployee = snapdocument.getString("puesto");
+                }
+                nombreTextView.setText(nombreEmployee);
+                apellidoTextView.setText(apellidoEmployee);
+                correoTextView.setText(correoEmployee);
+                puestoTextView.setText(puestoEmployee);
+            }
+        });
     }
 
 }
