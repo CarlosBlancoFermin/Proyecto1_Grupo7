@@ -40,15 +40,14 @@
 
     <Button
         android:id="@+id/bt_ReturnToListarActivity"
-        android:layout_width="123dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginBottom="12dp"
         android:text="@string/bt_volver_listarEmpleado"
         app:layout_constraintBottom_toTopOf="@+id/guideline2BottomEmpleado_Info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline1BottomEmpleado_Info"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.478" />
 
     <Button
         android:id="@+id/bt_ModificarInfoEmpleado"
@@ -68,14 +67,124 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.95" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="375dp"
-        android:layout_height="280dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline1BottomEmpleado_Info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <TextView
+        android:id="@+id/recoverTextNameEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoInformacionGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <TextView
+        android:id="@+id/recoverTextSurnameEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoInformacionGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <TextView
+        android:id="@+id/recoverTextPhoneEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoInformacionGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <TextView
+        android:id="@+id/recoverEmailTextEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="330dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoInformacionGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <TextView
+        android:id="@+id/recoverTextJobEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoInformacionGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <TextView
+        android:id="@+id/nameLabelEmployee"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="120dp"
+        android:text="@string/nameLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <TextView
+        android:id="@+id/surnameLabelEmployee"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="190dp"
+        android:text="@string/surnameLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <TextView
+        android:id="@+id/phoneLabelEmployee"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="260dp"
+        android:text="@string/phoneLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <TextView
+        android:id="@+id/emailLabelEmployee"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="330dp"
+        android:text="@string/emailLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <TextView
+        android:id="@+id/jobLabelEmployee"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="400dp"
+        android:text="@string/jobLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/empleadoInformacionGuidelineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10948905" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/empleadoInformacionGuidelineHorizontal2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

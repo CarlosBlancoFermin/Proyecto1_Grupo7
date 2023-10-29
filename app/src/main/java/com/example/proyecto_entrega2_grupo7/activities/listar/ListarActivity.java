@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.Button;
@@ -122,6 +123,7 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
             Toast.makeText(this,"Detalles de ".concat(usuario.getNombre()),
                     Toast.LENGTH_SHORT).show();
             intent = new Intent(this, EmpleadoInfoActivity.class);
+            intent.putExtra("id", usuario.getId());
             startActivity(intent);
 
         }else if(idButton == R.id.btListarModificar){
