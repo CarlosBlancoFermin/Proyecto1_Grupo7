@@ -22,5 +22,7 @@
     <string name="phoneLabelEmployee">Teléfono</string>
     <string name="emailLabelEmployee">Correo electrónico</string>
     <string name="jobLabelEmployee">Puesto</string>
+    <string name="bt_cancelarModifyEmployee">Cancelar</string>
+    <string name="bt_aceptarModifyEmployee">Aceptar</string>
 
 </resources>
