@@ -2,6 +2,7 @@ package com.example.proyecto_entrega2_grupo7.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -57,7 +58,13 @@ public class EmpleadoModifyActivity extends AppCompatActivity {
         if (intent != null){
             this.userId = intent.getStringExtra("id");
         }
+
         modifyEmployeeDao.detallesUsuario(nombreEmployee, apellidoEmployee, correoEmployee, puestoEmployee, userId);
+        //La función detallesUsuario debería cargar los datos del Usuario en la variable User
+        //La logica de colocar los textos en los EditText debería implementarse en esta clase,
+        //no en el DAO
+
+
         cancelarModificarEmpleado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,18 +76,17 @@ public class EmpleadoModifyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 toAcceptEmployeeModify(true);
-                finish();
             }
         });
 
     }
 
     private void toAcceptEmployeeModify(boolean acceptedModify) {
-
         if (!acceptedModify) {
             finish();
         } else {
             UsuarioDAO auxUsuario = new UsuarioDAO();
+            //Por que creas otra instancia de UsuarioDAO si ya existe una al principio de la clase??
             auxUsuario.obtenerUsuario(userId, usuario -> {
                 user = usuario;
 
@@ -90,7 +96,10 @@ public class EmpleadoModifyActivity extends AppCompatActivity {
                 user.setPuesto(puestoEmployee.getText().toString());
 
                 modifyEmployeeDao.actualizarUsuario(user);
-
+                setResult(Activity.RESULT_OK);//Obliga a Listar a actualizarse
+                finish();
+                //El finish tiene que ir dentro del callback,
+                // si no puede que se ejecute antes de que termine la modificacion
             });
         }
     }

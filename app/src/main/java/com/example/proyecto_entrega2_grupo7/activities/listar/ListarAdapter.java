@@ -14,6 +14,12 @@ import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 
 import java.util.List;
 
+/**
+ * Adaptador personalizado para mostrar las filas del RecyclerView
+ * que contiene la lista de usuarios.
+ * Muestra el nombre de usuario y tres botones,
+ * si bien sus eventos son implementados en ListarActivity.
+ */
 public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarViewHolder> {
     private List<Usuario> lista;
     private ListarEventReceptor receptor;

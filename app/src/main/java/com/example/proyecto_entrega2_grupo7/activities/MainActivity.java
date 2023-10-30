@@ -16,6 +16,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    //CODIGOS DE RESULT ENTRE ACTIVIDADES
+    public static final int UPDATE_CODE = 1;
+
     /**
      * En la actividad se llama al Servicio (UsuarioDAO), y este pilla la conexión
      * No es necesario hacer un "getInstance()" aqui

@@ -15,6 +15,12 @@ import com.example.proyecto_entrega2_grupo7.entities.Filtros;
 
 import java.util.List;
 
+/**
+ * Adaptador personalizado para mostrar las filas del RecyclerView
+ * que contiene los elementos de cada filtro del FiltrosDialog.
+ * Muestra el nombre de cada elemento del filtro y un checkbox,
+ * si bien sus eventos son implementados en ListarActivity.
+ */
 public class FiltrosAdapter extends RecyclerView.Adapter<FiltrosAdapter.FiltrosViewHolder> {
     private List<Filtros> lista;
     /* La lista recibida será de objetos de una clase que herede de Filtros.
@@ -24,8 +30,7 @@ public class FiltrosAdapter extends RecyclerView.Adapter<FiltrosAdapter.FiltrosV
     según posicion */
     private ListarEventReceptor receptor;
     /*Actividad que recibirá los eventos asignados a los checkbox de cada ViewHolder
-    En este caso, ListarActivity.
-     */
+    En este caso, ListarActivity. */
 
 
     public FiltrosAdapter(List<Filtros> l, SparseBooleanArray array, ListarEventReceptor r) {

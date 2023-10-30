@@ -1,21 +1,19 @@
 package com.example.proyecto_entrega2_grupo7.database.dao;
 
+import static com.example.proyecto_entrega2_grupo7.entities.Filtros.NUM_FILTROS;
+import static com.example.proyecto_entrega2_grupo7.entities.Filtros.NOMBRES_FILTROS;
+
 import android.widget.TextView;
 
 import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseManager;
 import com.example.proyecto_entrega2_grupo7.entities.*;
-import com.google.android.gms.tasks.OnSuccessListener;
 
-import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,24 +69,21 @@ public class UsuarioDAO {
     /**
      * Obtiene una lista de Usuarios
      * cuyos atributos coincidan con alguno de los elementos
-     * de las respectivas listas pasadas por parámetro.
+     * de las respectivas listas pasadas por parámetro en un array.
      * (Actualmente Puesto y Horario)
      * Si alguna de la lista es null,
      * significa que ese filtro no se aplica (es decir, vale cualquier valor)
-     * @param puestoList lista de puestos filtrada
-     * @param horarioList lista de horarios filtrada
+     * @param filtrosMarcados array con una lista por cada filtro con los elementos marcados
      * @param callback callback de Firebase
      */
     public void obtenerUsuariosFiltro(
-            List<String> puestoList,
-            List<String> horarioList,
+            List[] filtrosMarcados,
             FirebaseListCallback callback){
 
         Query q = DB_COLECCION;
-        if(puestoList != null)
-                q = q.whereIn("puesto",puestoList);
-        if(horarioList != null)
-                q = q.whereIn("horario",horarioList);
+        for(int i = 0; i < NUM_FILTROS; i++)
+            if(filtrosMarcados[i] != null)
+                q = q.whereIn(NOMBRES_FILTROS[i],filtrosMarcados[i]);
 
         q.get().addOnCompleteListener(task -> {
             if(task.isSuccessful() && task.getResult() != null){
@@ -112,11 +107,15 @@ public class UsuarioDAO {
                 .addOnSuccessListener(unused -> System.out.println("usuario " + user.getNombre() + "eliminado"));
     }
 
+    //El único parámetro que puede recibir esta función es un objeto Usuario o su id
     public void detallesUsuario(TextView nombreTextView, TextView apellidoTextView,
                                 TextView correoTextView, TextView puestoTextView, String userId){
 
         DB_COLECCION.whereEqualTo("id", userId).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
+
+                //Esto no puede ir aqui, la consulta tiene que devolver un objeto Usuario.
+                //El contenido de los editText los tiene que gestionar la Activity
                 QuerySnapshot document = task.getResult();
                 String nombreEmployee = null;
                 String apellidoEmployee = null;
