@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".activities.EmpleadoModifyActivity">
+
+
+    <TextView
+        android:id="@+id/tvPrueba5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/element"
+        android:paddingVertical="18sp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/dark"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineTopEmpleado_Modify"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTopEmpleado_Modify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.11" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1BottomEmpleado_Modify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <Button
+        android:id="@+id/bt_cancelarModificarEmpleado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:text="@string/bt_cancelarModifyEmployee"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2BottomEmpleado_Modify"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1BottomEmpleado_Modify"
+        app:layout_constraintVertical_bias="0.478" />
+
+    <Button
+        android:id="@+id/bt_ModificarEmpleado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:text="@string/bt_aceptarModifyEmployee"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2BottomEmpleado_Modify"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1BottomEmpleado_Modify"
+        app:layout_constraintVertical_bias="0.44" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2BottomEmpleado_Modify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <EditText
+        android:id="@+id/editTextNameEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoModifyGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <EditText
+        android:id="@+id/editTextSurnameEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoModifyGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <EditText
+        android:id="@+id/editTextPhoneEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="100dp"
+        android:inputType="phone"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoModifyGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <EditText
+        android:id="@+id/editEmailTextEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="330dp"
+        android:layout_marginEnd="100dp"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoModifyGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <EditText
+        android:id="@+id/editTextJobEmployee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/empleadoModifyGuidelineHorizontal2"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <TextView
+        android:id="@+id/nameLabelEmployee"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="120dp"
+        android:text="@string/nameLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <TextView
+        android:id="@+id/surnameLabelEmployee"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="190dp"
+        android:text="@string/surnameLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <TextView
+        android:id="@+id/phoneLabelEmployee"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="260dp"
+        android:text="@string/phoneLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <TextView
+        android:id="@+id/emailLabelEmployee"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="330dp"
+        android:text="@string/emailLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <TextView
+        android:id="@+id/jobLabelEmployee"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="400dp"
+        android:text="@string/jobLabelEmployee"
+        app:layout_constraintStart_toStartOf="@+id/empleadoModifyGuidelineHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Modify" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/empleadoModifyGuidelineHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10948905" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/empleadoModifyGuidelineHorizontal2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
