@@ -8,6 +8,10 @@ package com.example.proyecto_entrega2_grupo7.entities;
  * y un nombre (String).
  */
 public abstract class Filtros {
+    public static String [] NOMBRES_FILTROS = new String [] {"puesto","horario"};
+    //nombre de los atributos de usuario que sirven de filtro
+    public static int NUM_FILTROS = 2;
+
     protected String id;
     protected String nombre;
 
