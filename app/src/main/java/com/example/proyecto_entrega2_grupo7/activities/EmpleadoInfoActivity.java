@@ -3,6 +3,7 @@ package com.example.proyecto_entrega2_grupo7.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
     Button modificarBotonEmployee;
     String userId;
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,14 +54,46 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
         correoEmployee = findViewById(R.id.recoverEmailTextEmployee);
         puestoEmployee = findViewById(R.id.recoverTextJobEmployee);
 
+        volverBotonEmployee = findViewById(R.id.bt_ReturnToListarActivity);
+        volverBotonEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        Intent intent = getIntent();
-        if (intent != null){
-            this.userId = intent.getStringExtra("id");
+                toWatchEmployeeInfo(true);
+            }
+        });
+
+        modificarBotonEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toWatchEmployeeInfo(false);
+            }
+        });
+
+
+
+        Intent intentAux = getIntent();
+        if (intentAux != null){
+            this.userId = intentAux.getStringExtra("id");
         }
 
         userEmployeeDao.detallesUsuario(nombreEmployee,
                 apellidoEmployee, correoEmployee, puestoEmployee, this.userId);
 
     }
+
+    private void toWatchEmployeeInfo(boolean unableToModify) {
+
+        if (unableToModify) {
+            finish();
+        } else {
+            intent = new Intent(this, EmpleadoModifyActivity.class);
+
+            intent.putExtra("id", this.userId);
+            startActivity(intent);
+            Log.d("asas", "asas");
+        }
+    }
 }
+
+//Toda esta clase funciona pero no recupera los datos al darle a modificar

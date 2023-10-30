@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.proyecto_entrega2_grupo7.R;
 import com.example.proyecto_entrega2_grupo7.activities.EmpleadoInfoActivity;
+import com.example.proyecto_entrega2_grupo7.activities.EmpleadoModifyActivity;
 import com.example.proyecto_entrega2_grupo7.database.dao.HorarioDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.PuestoDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
@@ -129,6 +130,9 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
         }else if(idButton == R.id.btListarModificar){
             Toast.makeText(this,"Modificar ".concat(usuario.getNombre()),
                     Toast.LENGTH_SHORT).show();
+            intent = new Intent(this, EmpleadoModifyActivity.class);
+            intent.putExtra("id", usuario.getId());
+            startActivity(intent);
 
         }else if(idButton == R.id.btListarBorrar){
             userService.borrarUsuario(usuario);

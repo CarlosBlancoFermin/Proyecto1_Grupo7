@@ -2,6 +2,7 @@ package com.example.proyecto_entrega2_grupo7.database.dao;
 
 import android.widget.TextView;
 
+import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseManager;
 import com.example.proyecto_entrega2_grupo7.entities.*;
@@ -39,6 +40,18 @@ public class UsuarioDAO {
                     System.out.println("usuario creado"));
         });
 
+    }
+
+    public void obtenerUsuario(String userId, FirebaseCallback callback){
+        DB_COLECCION.whereEqualTo("id", userId).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                Usuario usuario = new Usuario();
+                for (QueryDocumentSnapshot doc : task.getResult()){
+                    usuario = doc.toObject(Usuario.class);;
+                }
+                callback.onCallback(usuario);
+            }
+        });
     }
 
     public void obtenerUsuarios(FirebaseListCallback callback){
