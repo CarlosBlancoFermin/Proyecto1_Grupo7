@@ -66,9 +66,9 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
 
         String actionType = getIntent().getStringExtra("ACTION_TYPE");
 
-        Intent intentAux = getIntent();
-        if (intentAux != null) {
-            this.userId = intentAux.getStringExtra("id");
+        intent = getIntent();
+        if (intent != null) {
+            this.userId = intent.getStringExtra("id");
         }
 
         if (actionType != null) {
@@ -87,11 +87,11 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
 
 
 
-
-
     }
 
-
+    /**
+     * Carga los componentes del layout
+     */
     private void chargeContent() {
         nameLabelEmployee = findViewById(R.id.nameLabelEmployee);
         surnameLabelEmployee = findViewById(R.id.surnameLabelEmployee);
@@ -134,18 +134,10 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
 
 
     /**
-     * He metido en una función aparte la carga de los datos del usuario,
-     * para que se pueda volver a ejecutar aisladamente
-     * cuando se vuelva de la pantalla de Modificar
+     * carga los datos del usuario, y se ejecuta aisladamente
+     * cuando vuelve de la pantalla de Modificar
      */
     private void refreshInfo() {
-        /*
-        userEmployeeDao.detallesUsuario(nombreEmployee,
-                apellidoEmployee, correoEmployee, puestoEmployee, this.userId);
-        //La función detallesUsuario debería cargar los datos del Usuario en una variable Usuario de esta clase
-        //La logica de colocar los textos en los EditText debería implementarse en esta clase,
-        //no en el DAO
-         */
 
         userEmployeeDao.obtenerUsuario(this.userId, new FirebaseCallback() {
             @Override
@@ -154,13 +146,6 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
                 apellidoEmployee.setText(usuario.getApellidos());
                 correoEmployee.setText(usuario.getCorreo());
                 puestoEmployee.setText(usuario.getPuesto());
-/*
-                readOnlyEditText(nombreEmployee, true);
-                readOnlyEditText(apellidoEmployee, true);
-                readOnlyEditText(correoEmployee, true);
-                readOnlyEditText(puestoEmployee, true);
-
- */
 
                 setResult(Activity.RESULT_OK);//Obliga a Listar a actualizarse
                 //finish();
@@ -191,14 +176,12 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Transforma el layout de vista de empleado en modificar empleado
+     * @param allowUpdates su valor habilita los componentes escondidos de modificacion
+     */
     private void enableModify(boolean allowUpdates) {
-        /*Aqui el nombre del parametro es confuso.
-         * De hecho, cuando se pulsa el boton volver,
-         * no solo no es unableToModify,
-         * sino que tiene que mandar el mensaje a la Actividad Listar
-         * de que actualice la lista por si se ha modificado el Usuario
-         */
+
         if (!allowUpdates) {
             setResult(Activity.RESULT_OK);//Obliga a Listar a actualizarse
             //finish();
@@ -229,17 +212,13 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
                     finish();
                 }
             });
-
-
-/*
-            intent = new Intent(this, EmpleadoModifyActivity.class);
-            intent.putExtra("id", this.userId);
-            startActivityForResult(intent, UPDATE_CODE);
-            //Al utilizar esta funcion con el UPDATE_CODE (definido en MainActivity)
-*/
         }
     }
 
+    /**
+     * Acepta la información actualizada escrita del empleado
+     * @param acceptedModify su valor modifica la base de datos con la informacion actualizada
+     */
     private void toAcceptEmployeeModify(boolean acceptedModify) {
         if (!acceptedModify) {
             setResult(Activity.RESULT_CANCELED);
@@ -258,7 +237,6 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
 
                     setResult(Activity.RESULT_OK);//Obliga a Listar a actualizarse
 
-                    //finish();
                 }
 
                 @Override
@@ -270,6 +248,11 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Funcion auxiliar para permitir modificacion en los EditText
+     * @param text EditText a cambiar su estado
+     * @param readOnly su valor vuelve el edittext modificable o no
+     */
     private void readOnlyEditText(EditText text, boolean readOnly){
         if(readOnly){
             text.setKeyListener(null);
@@ -286,20 +269,3 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
     }
 
 }
-
-/*
-
-
-
-
-                //El finish tiene que ir dentro del callback,
-                // si no puede que se ejecute antes de que termine la modificacion
-            });
-        }
-    }
-
-
-}
-
-//Toda esta clase funciona pero no recupera los datos al darle a modificar
-*/
