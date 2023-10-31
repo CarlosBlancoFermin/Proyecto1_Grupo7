@@ -107,36 +107,6 @@ public class UsuarioDAO {
                 .addOnSuccessListener(unused -> System.out.println("usuario " + user.getNombre() + "eliminado"));
     }
 
-    //El único parámetro que puede recibir esta función es un objeto Usuario o su id
-    public void detallesUsuario(TextView nombreTextView, TextView apellidoTextView,
-                                TextView correoTextView, TextView puestoTextView, String userId){
-
-        DB_COLECCION.whereEqualTo("id", userId).get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-
-                //Esto no puede ir aqui, la consulta tiene que devolver un objeto Usuario.
-                //El contenido de los editText los tiene que gestionar la Activity
-                QuerySnapshot document = task.getResult();
-                String nombreEmployee = null;
-                String apellidoEmployee = null;
-                String correoEmployee = null;
-                //telefono = snapdocument.getString("telefono");
-                String puestoEmployee = null;
-                for (QueryDocumentSnapshot snapdocument: document){
-                    nombreEmployee = snapdocument.getString("nombre");
-                    apellidoEmployee  = snapdocument.getString("apellidos");
-                    correoEmployee = snapdocument.getString("correo");
-                    //telefono = snapdocument.getString("telefono");
-                    puestoEmployee = snapdocument.getString("puesto");
-                }
-                nombreTextView.setText(nombreEmployee);
-                apellidoTextView.setText(apellidoEmployee);
-                correoTextView.setText(correoEmployee);
-                puestoTextView.setText(puestoEmployee);
-            }
-        });
-    }
-
 }
 
 
