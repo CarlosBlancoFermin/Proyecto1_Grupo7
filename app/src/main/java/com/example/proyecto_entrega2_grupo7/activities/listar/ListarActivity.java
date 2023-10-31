@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.example.proyecto_entrega2_grupo7.R;
 import com.example.proyecto_entrega2_grupo7.activities.EmpleadoInfoActivity;
-import com.example.proyecto_entrega2_grupo7.activities.EmpleadoModifyActivity;
 import com.example.proyecto_entrega2_grupo7.database.dao.HorarioDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.PuestoDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
@@ -228,6 +227,7 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
         private void pulsarBotonDetalles(String userId){
             Intent intent = new Intent(this, EmpleadoInfoActivity.class);
             intent.putExtra("id", userId);
+            intent.putExtra("ACTION_TYPE", "DETALLES_EMPLEADO");
             startActivityForResult(intent, UPDATE_CODE);
             //Esta función aparece como deprecated,
             // pero la alternativa que da chatGPT es mucho mas farragosa
@@ -238,8 +238,9 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
          * @param userId id del usuario
          */
         private void pulsarBotonModificar(String userId){
-            Intent intent = new Intent(this, EmpleadoModifyActivity.class);
+            Intent intent = new Intent(this, EmpleadoInfoActivity.class);
             intent.putExtra("id", userId);
+            intent.putExtra("ACTION_TYPE", "MODIFICAR_EMPLEADO");
             startActivityForResult(intent, UPDATE_CODE);
 
         }

@@ -38,27 +38,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.85" />
 
-    <Button
-        android:id="@+id/bt_ReturnToListarActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:text="@string/bt_volver_listarEmpleado"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2BottomEmpleado_Info"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline1BottomEmpleado_Info"
-        app:layout_constraintVertical_bias="0.478" />
 
-    <Button
-        android:id="@+id/bt_ModificarInfoEmpleado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
-        android:text="@string/bt_modificarInfoEmpleado"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2BottomEmpleado_Info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline1BottomEmpleado_Info"
-        app:layout_constraintVertical_bias="0.44" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2BottomEmpleado_Info"
@@ -67,7 +47,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.95" />
 
-    <TextView
+    <EditText
         android:id="@+id/recoverTextNameEmployee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,7 +58,7 @@
         app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
 
-    <TextView
+    <EditText
         android:id="@+id/recoverTextSurnameEmployee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,7 +69,7 @@
         app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
 
-    <TextView
+    <EditText
         android:id="@+id/recoverTextPhoneEmployee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,7 +80,7 @@
         app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
 
-    <TextView
+    <EditText
         android:id="@+id/recoverEmailTextEmployee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,7 +91,7 @@
         app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
 
-    <TextView
+    <EditText
         android:id="@+id/recoverTextJobEmployee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -172,6 +152,50 @@
         app:layout_constraintStart_toStartOf="@+id/empleadoInformacionGuidelineHorizontal"
         app:layout_constraintTop_toTopOf="@+id/guidelineTopEmpleado_Info" />
 
+    <Button
+        android:id="@+id/bt_ReturnToListarActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:text="@string/bt_volver_listarEmpleado"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2BottomEmpleado_Info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1BottomEmpleado_Info"
+        app:layout_constraintVertical_bias="0.478" />
+
+    <Button
+        android:id="@+id/bt_ModificarInfoEmpleado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:text="@string/bt_modificarInfoEmpleado"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2BottomEmpleado_Info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1BottomEmpleado_Info"
+        app:layout_constraintVertical_bias="0.44" />
+
+    <Button
+        android:id="@+id/bt_cancelarModificarEmpleado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:text="@string/bt_cancelarModifyEmployee"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2BottomEmpleado_Info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1BottomEmpleado_Info"
+        app:layout_constraintVertical_bias="0.478" />
+
+    <Button
+        android:id="@+id/bt_ModificarEmpleado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:text="@string/bt_aceptarModifyEmployee"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2BottomEmpleado_Info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline1BottomEmpleado_Info"
+        app:layout_constraintVertical_bias="0.44" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/empleadoInformacionGuidelineHorizontal"
         android:layout_width="wrap_content"
@@ -185,6 +209,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.90" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
