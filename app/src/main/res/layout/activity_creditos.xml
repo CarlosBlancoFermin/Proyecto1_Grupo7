@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".activities.listar.Creditos">
+
+    <TextView
+        android:id="@+id/tvPrueba"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@color/element"
+        android:paddingVertical="18sp"
+        android:text="@string/creditostitle"
+        android:textAlignment="center"
+        android:textColor="@color/dark"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/creadores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="72dp"
+        android:text="@string/creadores"
+        android:textColor="@color/dark"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrueba" />
+
+    <TextView
+        android:id="@+id/creador1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="45dp"
+        android:text="@string/creador1"
+        android:textColor="@color/dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/creadores" />
+
+    <TextView
+        android:id="@+id/creador2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/creador2"
+        android:textColor="@color/dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btcreador3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/creador1" />
+
+    <TextView
+        android:id="@+id/creador3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/creador3"
+        android:textColor="@color/dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/creador2" />
+
+    <ImageButton
+        android:id="@+id/btcreador1"
+        android:onClick="btcreditos1"
+        android:layout_width="62dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="36dp"
+        android:background="@color/background"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:srcCompat="@mipmap/linkedin" />
+
+    <ImageButton
+        android:id="@+id/btcreador2"
+        android:layout_width="62dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/background"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/linkedin" />
+
+    <ImageButton
+        android:id="@+id/btcreador3"
+        android:onClick="btcreditos2"
+        android:layout_width="62dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="28dp"
+        android:background="@color/background"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/btcreador2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/linkedin" />
+
+    <TextView
+        android:id="@+id/codigofuente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/codigofuente"
+        android:textColor="@color/dark"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="188dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="112dp"
+        android:background="@color/background"
+        android:onClick="btcodigo"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codigofuente"
+        app:srcCompat="@mipmap/githublogo" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="148dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="405dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="84dp"
+        android:layout_height="83dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/background"
+        android:onClick="btcreditosvolver"
+        android:scaleType="fitStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codigofuente"
+        app:srcCompat="@android:drawable/ic_menu_send" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
