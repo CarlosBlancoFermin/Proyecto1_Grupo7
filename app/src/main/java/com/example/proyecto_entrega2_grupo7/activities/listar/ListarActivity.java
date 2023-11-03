@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.proyecto_entrega2_grupo7.R;
 import com.example.proyecto_entrega2_grupo7.activities.EmpleadoInfoActivity;
 import com.example.proyecto_entrega2_grupo7.database.dao.HorarioDAO;
+import com.example.proyecto_entrega2_grupo7.database.dao.IServiceDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.PuestoDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
 import com.example.proyecto_entrega2_grupo7.entities.Filtros;
@@ -44,22 +45,21 @@ import java.util.List;
  */
 public class ListarActivity extends AppCompatActivity implements ListarEventReceptor {
     //Variables de la lista de usuarios
-    UsuarioDAO userService = new UsuarioDAO();
-    List<Usuario> usuarioList;
-    RecyclerView rvLista;//Lista de usuarios
+    UsuarioDAO userService = new UsuarioDAO();//Objeto de acceso a BD
+    List<Usuario> usuarioList;//Lista de objetos de la coleccion
+    RecyclerView rvLista;//Componente visual
 
     //Variables de filtros
     /* Los filtros han de crearse en el mismo orden
      * que en la variable NOMBRES_FILTROS de la clase Filtro. */
-    Class<?> [] filtros = new Class[] {Puesto.class,Horario.class};
-    PuestoDAO puestoService = new PuestoDAO();
-    HorarioDAO horarioService = new HorarioDAO();
-    //Object [] filtrosDAO = {new PuestoDAO(),new HorarioDAO()};
-    //Sustituir por instancia de serviceDAO
-
-
+    Class<?> [] filtrosClass = {Puesto.class,Horario.class};
+        //Clases de los filtros utilizados
+    IServiceDAO[] filtrosDAO = {new PuestoDAO(),new HorarioDAO()};
+        //Clases de acceso a datos de las colecciones de los filtros
     List<Filtros>[] filtrosList = new List[NUM_FILTROS];
+        //Listas de los objetos de cada colección de filtros
     SparseBooleanArray[] filtrosChecked = new SparseBooleanArray[NUM_FILTROS];
+        //Array para guardar los checkbox marcados de cada filtro
 
     //Flags
     boolean ordenDesc = true;
@@ -99,12 +99,12 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
 
     /**
      * Inicializa los elementos de los arrays de filtros
+     * (lista de objetos y array de checks)
      */
     private void initArrays() {
         for(int i = 0; i < NUM_FILTROS; i++){
-            filtrosList[i] = new ArrayList<Filtros>();
+            filtrosList[i] = new ArrayList<>();
             filtrosChecked[i] = new SparseBooleanArray();
-
         }
     }
 
@@ -113,7 +113,7 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
      * y la muestra en el RecyclerView.
      */
     private void consultaInicialUsuarios() {
-        userService.obtenerUsuarios(list -> {
+        userService.obtenerAllRegistros(list -> {
             usuarioList = list;
             llenarRecyclerView();
         });
@@ -131,19 +131,20 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
     }
 
     /**
-     * Recupera de la base de datos los elementos
+     * Por cada filtro, se conecta a la colección de la BD
+     * recupera todos los registros y los carga en una lista,
+     * y marca todas las casillas de los checkbox
      * para mostrar en el DialogFiltros
      * (Actualmente Puestos y Horarios)
      */
     private void cargarListasFiltros(){
-        puestoService.obtenerPuestos(puestoList -> {
-            checkAllFilter(puestoList.size(),filtrosChecked[0]);
-            this.filtrosList[0] = puestoList;
-        });
-        horarioService.obtenerHorarios(horarioList -> {
-            checkAllFilter(horarioList.size(),filtrosChecked[1]);
-            this.filtrosList[1] = horarioList;
-        });
+        for(int i = 0; i < NUM_FILTROS; i++){
+            final int index = i;
+            filtrosDAO[index].obtenerAllRegistros(list -> {
+                checkAllFilter(list.size(),filtrosChecked[index]);
+                this.filtrosList[index] = list;
+            });
+        }
     }
 
     /**
@@ -202,78 +203,79 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
         }
         //endregion
 
-    //region BOTONES DE LISTA DE USUARIOS
-    /**
-     * Gestiona los eventos asignados a botones de un ViewHolder (LISTAR)
-     * en un RecyclerView vinculado a esta Acitivity.
-     * Tres botones: DETALLES, MODIFICAR y ELIMINAR
-     * @param usuario usuario seleccionado
-     * @param idButton id del botón pulsado
-     */
-    @Override
-    public void onButtonClick(Usuario usuario, int idButton) {
-        if(idButton == R.id.btListarDetalles)
-            pulsarBotonDetalles(usuario.getId());
-        else if(idButton == R.id.btListarModificar)
-            pulsarBotonModificar(usuario.getId());
-        else if(idButton == R.id.btListarBorrar)
-            pulsarBotonEliminar(usuario);
-    }
-
+        //region BOTONES DE LISTA DE USUARIOS
         /**
-         * Llama a la Activity que muestra la info del usuario
-         * @param userId id del usuario
+         * Gestiona los eventos asignados a botones de un ViewHolder (LISTAR)
+         * en un RecyclerView vinculado a esta Acitivity.
+         * Tres botones: DETALLES, MODIFICAR y ELIMINAR
+         * @param usuario usuario seleccionado
+         * @param idButton id del botón pulsado
          */
-        private void pulsarBotonDetalles(String userId){
-            Intent intent = new Intent(this, EmpleadoInfoActivity.class);
-            intent.putExtra("id", userId);
-            intent.putExtra("ACTION_TYPE", "DETALLES_EMPLEADO");
-            startActivityForResult(intent, UPDATE_CODE);
-            //Esta función aparece como deprecated,
-            // pero la alternativa que da chatGPT es mucho mas farragosa
+        @Override
+        public void onButtonClick(Usuario usuario, int idButton) {
+            if(idButton == R.id.btListarDetalles)
+                pulsarBotonDetalles(usuario);
+            else if(idButton == R.id.btListarModificar)
+                pulsarBotonModificar(usuario);
+            else if(idButton == R.id.btListarBorrar)
+                pulsarBotonEliminar(usuario);
         }
 
-        /**
-         * Llama a la Activity que modifica la info del usuario
-         * @param userId id del usuario
-         */
-        private void pulsarBotonModificar(String userId){
-            Intent intent = new Intent(this, EmpleadoInfoActivity.class);
-            intent.putExtra("id", userId);
-            intent.putExtra("ACTION_TYPE", "MODIFICAR_EMPLEADO");
-            startActivityForResult(intent, UPDATE_CODE);
+            /**
+             * Llama a la Activity que muestra la info del usuario
+             * @param user objeto usuario
+             */
+            private void pulsarBotonDetalles(Usuario user){
+                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
+                intent.putExtra("id", user.getId());
+                //intent.putExtra("usuario",user); MEJOR MANDAR EL USUARIO COMPLETO
+                intent.putExtra("ACTION_TYPE", "DETALLES_EMPLEADO");
+                startActivityForResult(intent, UPDATE_CODE);
+                //Esta función aparece como deprecated,
+                // pero la alternativa que da chatGPT es mucho mas farragosa
+            }
 
-        }
+            /**
+             * Llama a la Activity que modifica la info del usuario
+             * @param user objeto usuario
+             */
+            private void pulsarBotonModificar(Usuario user){
+                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
+                intent.putExtra("id", user.getId());
+                //intent.putExtra("usuario",user); MEJOR MANDAR EL USUARIO COMPLETO
+                intent.putExtra("ACTION_TYPE", "MODIFICAR_EMPLEADO");
+                startActivityForResult(intent, UPDATE_CODE);
+            }
 
-        /**
-         * Muestra un Dialog de confirmación.
-         * En caso positivo, elimina al usuario de la base de datos
-         * y actualiza la lista.
-         * En caso negativo, vuelve a mostrar la lista.
-         * @param u usuario que debe ser eliminado
-         */
-        private void pulsarBotonEliminar(Usuario u){
-            new AlertDialog.Builder(this)
-                    .setTitle("Eliminar usuario")
-                    .setMessage("¿Deseas eliminar permanentemente a este usuario?")
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            userService.borrarUsuario(u);
-                            actualizarLista();
-                            Toast.makeText(ListarActivity.this,"Usuario borrado",Toast.LENGTH_LONG).show();
+            /**
+             * Muestra un Dialog de confirmación.
+             * En caso positivo, elimina al usuario de la base de datos
+             * y actualiza la lista.
+             * En caso negativo, vuelve a mostrar la lista.
+             * @param u usuario que debe ser eliminado
+             */
+            private void pulsarBotonEliminar(Usuario u){
+                new AlertDialog.Builder(this)
+                        .setTitle("Eliminar usuario")
+                        .setMessage("¿Deseas eliminar permanentemente a este usuario?")
+                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                userService.borrarRegistro(u);
+                                actualizarLista();
+                                Toast.makeText(ListarActivity.this,"Usuario borrado",Toast.LENGTH_LONG).show();
 
-                        }
-                    })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Código para manejar el clic en "Cancelar"
-                        }
-                    })
-                    .show();
-        }
-        //endregion
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Código para manejar el clic en "Cancelar"
+                            }
+                        })
+                        .show();
+            }
+            //endregion
 
         //region FILTROS
         /**
@@ -316,7 +318,7 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
          * @return
          */
         private FiltrosAdapter[] arrayFiltrosAdapter(){
-            FiltrosAdapter array [] = new FiltrosAdapter[NUM_FILTROS];
+            FiltrosAdapter[] array = new FiltrosAdapter[NUM_FILTROS];
             for(int i = 0; i < NUM_FILTROS; i++)
                 array[i] = new FiltrosAdapter(filtrosList[i],filtrosChecked[i],this);
             return array;
@@ -333,7 +335,7 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
         @Override
         public void onCheckboxClick(Filtros item, int position, CheckBox cb) {
             for(int i = 0; i < NUM_FILTROS; i++) {
-                if (filtros[i].isInstance(item)) {
+                if (filtrosClass[i].isInstance(item)) {
                     position = filtrosList[i].indexOf(item);
                     if (position != -1)
                         filtrosChecked[i].put(position, cb.isChecked());
@@ -438,12 +440,13 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
          */
         public void pulsarAddEmpleado(View view){
             //Implementacion provisional
-            userService.registrarUsuario(
-                    "genkidama@test.test", "123456",
-                    "Son Goku","Gonzalez",
-                    "aAPLZJ5S3Kz2ANlKR6jk",
-                    "kM1QHbf6GFoinUC76aec");
+            userService.insertarRegistro(new Usuario("genkidama@test.test", "123456",
+                            "Son Goku","Gonzalez",
+                            "aAPLZJ5S3Kz2ANlKR6jk",
+                            "kM1QHbf6GFoinUC76aec")
+                    );
             consultaInicialUsuarios();
             Toast.makeText(this,"Nuevo usuario registrado",Toast.LENGTH_LONG).show();
-            }
+        }
+        //endregion
     }

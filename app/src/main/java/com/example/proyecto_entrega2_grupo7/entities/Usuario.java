@@ -1,10 +1,15 @@
 package com.example.proyecto_entrega2_grupo7.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.example.proyecto_entrega2_grupo7.database.utils.Encriptador;
 
 import java.io.Serializable;
 
-public class Usuario implements Comparable<Usuario>, Serializable {
+public class Usuario implements Comparable<Usuario>, Parcelable {
     private String id;
     private String correo;
     private String pass;
@@ -26,6 +31,18 @@ public class Usuario implements Comparable<Usuario>, Serializable {
         this.horario = horario;
     }
 
+    //Constructor Parcelable
+    protected Usuario(Parcel in) {
+        id = in.readString();
+        correo = in.readString();
+        pass = in.readString();
+        nombre = in.readString();
+        apellidos = in.readString();
+        puesto = in.readString();
+        horario = in.readString();
+    }
+
+    //Getters y setters
     public String getId() {
         return id;
     }
@@ -95,8 +112,45 @@ public class Usuario implements Comparable<Usuario>, Serializable {
                 '}';
     }
 
+    /**
+     * Metodo para ordenar los usuarios
+     * por apellido
+     * @param u
+     * @return
+     */
     @Override
     public int compareTo(Usuario u) {
         return this.getApellidos().toUpperCase().compareTo(u.getApellidos().toUpperCase());
     }
+
+    //Metodos Parcelable
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
+        @Override
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
+        }
+
+        @Override
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(correo);
+        parcel.writeString(pass);
+        parcel.writeString(nombre);
+        parcel.writeString(apellidos);
+        parcel.writeString(puesto);
+        parcel.writeString(horario);
+    }
 }
+
+

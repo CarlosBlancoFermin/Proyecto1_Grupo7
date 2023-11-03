@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyecto_entrega2_grupo7.R;
-import com.example.proyecto_entrega2_grupo7.activities.listar.Creditos;
 import com.example.proyecto_entrega2_grupo7.activities.listar.ListarActivity;
 
 public class MenuActivity extends AppCompatActivity {
@@ -17,7 +16,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
     }
     public void btcreditos(View view){
-        Intent intent = new Intent(this, Creditos.class);
+        Intent intent = new Intent(this, CreditosActivity.class);
         startActivity(intent);
     }
     public void btListarEmpleados(View view){

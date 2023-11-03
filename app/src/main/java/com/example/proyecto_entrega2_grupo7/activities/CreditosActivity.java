@@ -1,4 +1,4 @@
-package com.example.proyecto_entrega2_grupo7.activities.listar;
+package com.example.proyecto_entrega2_grupo7.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,9 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.proyecto_entrega2_grupo7.R;
-import com.example.proyecto_entrega2_grupo7.activities.MenuActivity;
 
-public class Creditos extends AppCompatActivity {
+public class CreditosActivity extends AppCompatActivity {
 
     String URl;
     Uri link;
