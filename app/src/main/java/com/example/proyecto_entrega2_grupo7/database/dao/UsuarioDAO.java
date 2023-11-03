@@ -3,17 +3,13 @@ package com.example.proyecto_entrega2_grupo7.database.dao;
 import static com.example.proyecto_entrega2_grupo7.entities.Filtros.NUM_FILTROS;
 import static com.example.proyecto_entrega2_grupo7.entities.Filtros.NOMBRES_FILTROS;
 
-import android.widget.TextView;
-
 import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
-import com.example.proyecto_entrega2_grupo7.database.FirebaseManager;
 import com.example.proyecto_entrega2_grupo7.entities.*;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,37 +18,35 @@ import java.util.List;
 /**
  * Funciones CRUD de la coleccion Usuario
  */
-public class UsuarioDAO {
+public class UsuarioDAO implements IServiceDAO {
 
-    //Cuando se instancia este servicio se conecta a la base de datos
-    final CollectionReference DB_COLECCION =
-                FirebaseManager.getDatabase()
-                    .collection("usuarios");
+    //Acceso a la colección usuarios de la BDD
+    final CollectionReference DB_COLECCION = DB.collection("usuarios");
 
-
-    public void registrarUsuario(String correo, String pass, String nombre, String apellidos, String puesto, String horario) {
-        Usuario user = new Usuario(correo,pass,nombre,apellidos,puesto,horario);
+    @Override
+    public void insertarRegistro(Object user) {
         DB_COLECCION.add(user).addOnSuccessListener(documentReference -> {
-            user.setId(documentReference.getId());
-            DB_COLECCION.document(user.getId()).set(user).addOnSuccessListener(unused ->
+            ((Usuario) user).setId(documentReference.getId());
+            DB_COLECCION.document(((Usuario)user).getId()).set(user).addOnSuccessListener(unused ->
                     System.out.println("usuario creado"));
         });
-
     }
 
-    public void obtenerUsuario(String userId, FirebaseCallback callback){
-        DB_COLECCION.whereEqualTo("id", userId).get().addOnCompleteListener(task -> {
+    //!!!ESTA FUNCION SOBRA!!!!
+    public void obtenerUsuarioPorId(String id, FirebaseCallback callback){
+        DB_COLECCION.whereEqualTo("id", id).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 Usuario usuario = new Usuario();
                 for (QueryDocumentSnapshot doc : task.getResult()){
-                    usuario = doc.toObject(Usuario.class);;
+                    usuario = doc.toObject(Usuario.class);
                 }
                 callback.onCallback(usuario);
             }
         });
     }
 
-    public void obtenerUsuarios(FirebaseListCallback callback){
+    @Override
+    public void obtenerAllRegistros(FirebaseListCallback callback){
         DB_COLECCION.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 List<Usuario> usuarios = new ArrayList<>();
@@ -97,14 +91,17 @@ public class UsuarioDAO {
         });
     }
 
-    public void actualizarUsuario(Usuario user){
-        DB_COLECCION.document(user.getId()).set(user)
+    @Override
+    public void actualizarRegistro(Object user){
+        DB_COLECCION.document(((Usuario)user).getId()).set(user)
                 .addOnSuccessListener(unused -> System.out.println("usuario actualizado"));
     }
 
-    public void borrarUsuario(Usuario user){
-        DB_COLECCION.document(user.getId()).delete()
-                .addOnSuccessListener(unused -> System.out.println("usuario " + user.getNombre() + "eliminado"));
+    @Override
+    public void borrarRegistro(Object user){
+        DB_COLECCION.document(((Usuario)user).getId()).delete()
+                .addOnSuccessListener(unused ->
+                        System.out.println("usuario " + ((Usuario)user).getNombre() + "eliminado"));
     }
 
 }

@@ -5,8 +5,6 @@ import static com.example.proyecto_entrega2_grupo7.activities.MainActivity.UPDAT
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,8 +51,8 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
 
     //Variables auxiliares
     String userId;
-    Intent intent;
     UsuarioDAO userEmployeeDao = new UsuarioDAO();
+    Intent intent;
     Usuario user;
 
 
@@ -65,6 +63,19 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
         chargeContent();
 
         String actionType = getIntent().getStringExtra("ACTION_TYPE");
+        userId = getIntent().getStringExtra("id");
+
+        //Recuperar info de usuario desde la actividad Listar
+
+
+        //POSIBILIDAD DE RECUPERAR EL USUARIO COMPLETO DESDE LA ACTIVIDAD
+//        user = getIntent().getParcelableExtra("usuario");
+//        nombreEmployee.setText(user.getNombre());
+//        apellidoEmployee.setText(user.getApellidos());
+//        correoEmployee.setText(user.getCorreo());
+//        puestoEmployee.setText(user.getPuesto());
+
+
 
         intent = getIntent();
         if (intent != null) {
@@ -84,9 +95,6 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
             }
         }
-
-
-
     }
 
     /**
@@ -118,7 +126,6 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
         volverBotonEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 enableModify(false);
                 finish();
             }
@@ -139,7 +146,7 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
      */
     private void refreshInfo() {
 
-        userEmployeeDao.obtenerUsuario(this.userId, new FirebaseCallback() {
+        userEmployeeDao.obtenerUsuarioPorId(this.userId, new FirebaseCallback() {
             @Override
             public void onCallback(Usuario usuario) {
                 nombreEmployee.setText(usuario.getNombre());
@@ -147,7 +154,7 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
                 correoEmployee.setText(usuario.getCorreo());
                 puestoEmployee.setText(usuario.getPuesto());
 
-                setResult(Activity.RESULT_OK);//Obliga a Listar a actualizarse
+                setResult(Activity.RESULT_OK);//Obliga a Listar a actualizarse (???)
                 //finish();
             }
 
@@ -224,7 +231,7 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
             setResult(Activity.RESULT_CANCELED);
             finish();
         } else {
-            userEmployeeDao.obtenerUsuario(userId, new FirebaseCallback() {
+            userEmployeeDao.obtenerUsuarioPorId(userId, new FirebaseCallback() {
                 @Override
                 public void onCallback(Usuario usuario) {
                     user = usuario;
@@ -232,7 +239,7 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
                     user.setApellidos(apellidoEmployee.getText().toString());
                     user.setCorreo(correoEmployee.getText().toString());
                     user.setPuesto(puestoEmployee.getText().toString());
-                    userEmployeeDao.actualizarUsuario(user);
+                    userEmployeeDao.actualizarRegistro(user);
                     refreshInfo();
 
                     setResult(Activity.RESULT_OK);//Obliga a Listar a actualizarse

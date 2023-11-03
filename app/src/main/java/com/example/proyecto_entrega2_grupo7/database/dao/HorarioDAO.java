@@ -1,38 +1,38 @@
 package com.example.proyecto_entrega2_grupo7.database.dao;
 
-import androidx.annotation.NonNull;
-
+import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
-import com.example.proyecto_entrega2_grupo7.database.FirebaseManager;
 import com.example.proyecto_entrega2_grupo7.entities.Horario;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HorarioDAO {
-    //Cuando se instancia este servicio se conecta a la base de datos
-    final CollectionReference DB_COLECCION =
-            FirebaseManager.getDatabase()
-                    .collection("horarios");
+public class HorarioDAO implements IServiceDAO{
+    //Acceso a la colección horarios de la BDD
+    final CollectionReference DB_COLECCION = DB.collection("horarios");
 
-    public void registrarHorario(String nombre, String horaEntrada, String horaSalida) {
-        Horario h = new Horario(nombre,horaEntrada,horaSalida);
-        DB_COLECCION.add(h).addOnSuccessListener(documentReference -> {
-            h.setId(documentReference.getId());
-            DB_COLECCION.document(h.getId()).set(h)
-                    .addOnSuccessListener(unused -> System.out.println("puesto creado"));
+    @Override
+    public void insertarRegistro(Object horario) {
+        DB_COLECCION.add(horario).addOnSuccessListener(documentReference -> {
+            ((Horario)horario).setId(documentReference.getId());
+            DB_COLECCION.document(((Horario)horario).getId()).set(horario)
+                    .addOnSuccessListener(unused -> System.out.println("horario creado"));
         });
 
     }
 
-    public void obtenerHorarios(FirebaseListCallback callback){
+    /**
+     * Devuelve todos los horarios
+     * ordenados por hora de salida
+     * de menor a mayor
+     * @param callback
+     */
+    @Override
+    public void obtenerAllRegistros(FirebaseListCallback callback){
+        Query query = DB_COLECCION.orderBy("horaSalida", Query.Direction.ASCENDING);
         DB_COLECCION.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 List<Horario> horarios = new ArrayList<>();
@@ -46,13 +46,15 @@ public class HorarioDAO {
         });
     }
 
-    public void actualizarHorario(Horario h){
-        DB_COLECCION.document(h.getId()).set(h)
+    @Override
+    public void actualizarRegistro(Object horario){
+        DB_COLECCION.document(((Horario)horario).getId()).set(((Horario)horario))
                 .addOnSuccessListener(unused -> System.out.println("horario actualizado"));
     }
 
-    public void borrarHorario(Horario h){
-        DB_COLECCION.document(h.getId()).delete()
-                .addOnSuccessListener(unused -> System.out.println("horario " + h.getNombre() + "eliminado"));
+    public void borrarRegistro(Object horario){
+        DB_COLECCION.document(((Horario)horario).getId()).delete()
+                .addOnSuccessListener(unused ->
+                        System.out.println("horario " + ((Horario)horario).getNombre() + "eliminado"));
     }
 }
