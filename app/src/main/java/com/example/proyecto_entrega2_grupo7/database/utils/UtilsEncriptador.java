@@ -2,7 +2,7 @@ package com.example.proyecto_entrega2_grupo7.database.utils;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-public class Encriptador {
+public class UtilsEncriptador {
     public static String passEncriptada(String pass) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

@@ -5,9 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import com.example.proyecto_entrega2_grupo7.database.utils.Encriptador;
-
-import java.io.Serializable;
+import com.example.proyecto_entrega2_grupo7.database.utils.UtilsEncriptador;
 
 public class Usuario implements Comparable<Usuario>, Parcelable {
     private String id;
@@ -24,7 +22,7 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
 
     public Usuario(String correo, String pass, String nombre, String apellidos, String puesto, String horario) {
         this.correo = correo;
-        this.pass = Encriptador.passEncriptada(pass);
+        this.pass = UtilsEncriptador.passEncriptada(pass);
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.puesto = puesto;
