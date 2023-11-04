@@ -9,7 +9,7 @@
 
 <!--region GUIDELINES-->
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineBottom"
+        android:id="@+id/glListarBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -50,7 +50,7 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/barraUtils"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintBottom_toTopOf="@+id/glListarBottom"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -59,14 +59,12 @@
     <!--region FOOTER-->
     <Button
         android:id="@+id/btListarAddUsuario"
-        android:layout_marginLeft="24sp"
-        android:layout_marginRight="24sp"
         android:onClick="pulsarAddEmpleado"
         android:text="@string/bt_crearusuario"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guidelineBottom"
+        app:layout_constraintTop_toTopOf="@id/glListarBottom"
         style="@style/botonRedondeado"/>
     <!--endregion-->
 

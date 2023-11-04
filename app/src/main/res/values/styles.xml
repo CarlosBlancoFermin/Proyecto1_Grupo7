@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="componentInfo">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+    <style name="etiquetaInfo" parent="componentInfo">
+        <item name="layout_constraintHorizontal_bias">1</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    <style name="campoInfo" parent="componentInfo">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="layout_constraintHorizontal_bias">1</item>
+        <item name="android:background">#EEEEEE</item>
+    </style>
     <style name="nombreLista">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:padding">0dp</item>

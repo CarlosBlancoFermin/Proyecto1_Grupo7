@@ -31,9 +31,9 @@
     <string name="idLabelEmployee">Id</string>
     <string name="nameLabelEmployee">Nombre</string>
     <string name="surnameLabelEmployee">Apellidos</string>
-    <string name="phoneLabelEmployee">Teléfono</string>
-    <string name="emailLabelEmployee">Correo electrónico</string>
-    <string name="jobLabelEmployee">Puesto</string>
+    <string name="emailLabelEmployee">Email</string>
+    <string name="puestoLabelEmployee">Puesto</string>
+    <string name="horarioLabelEmployee">Horario</string>
     <string name="bt_cancelarModifyEmployee">Cancelar</string>
     <string name="bt_aceptarModifyEmployee">Aceptar</string>
 
