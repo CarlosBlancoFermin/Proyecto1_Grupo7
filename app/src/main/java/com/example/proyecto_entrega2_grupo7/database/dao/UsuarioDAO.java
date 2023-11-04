@@ -32,6 +32,7 @@ public class UsuarioDAO implements IServiceDAO {
         });
     }
 
+    /*
     //!!!ESTA FUNCION SOBRA!!!!
     public void obtenerUsuarioPorId(String id, FirebaseCallback callback){
         DB_COLECCION.whereEqualTo("id", id).get().addOnCompleteListener(task -> {
@@ -44,6 +45,7 @@ public class UsuarioDAO implements IServiceDAO {
             }
         });
     }
+*/
 
     @Override
     public void obtenerAllRegistros(FirebaseListCallback callback){

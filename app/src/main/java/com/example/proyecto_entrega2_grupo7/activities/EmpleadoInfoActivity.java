@@ -39,8 +39,8 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
     EditText puestoEmployee;
 
     //Botones visualizados en visualizar
-    Button volverBotonEmployee;
-    Button modificarBotonEmployee;
+    Button botonIzquierda;
+    Button botonDerecha;
 
 
     //Botones visualizados en modificar
@@ -49,21 +49,84 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
     Button aceptarModificarEmpleado;
 
 
+    //
     //Variables auxiliares
-    String userId;
+    //String userId;
     UsuarioDAO userEmployeeDao = new UsuarioDAO();
     Intent intent;
     Usuario user;
 
+    int defaultValue = 0;
 
+    //Usuario gettinUser;
+
+    //Botones , comparacion con enteros,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.empleado_informacion);
-        chargeContent();
+        uploadComponents();
+        uploadInformationEmployee();
 
-        String actionType = getIntent().getStringExtra("ACTION_TYPE");
-        userId = getIntent().getStringExtra("id");
+        intent = getIntent();
+        if (intent != null) {
+            //this.userId = intent.getStringExtra("id");
+            this.user = intent.getParcelableExtra("usuario");
+        }
+
+        int actionType = getIntent().getIntExtra("ACTION_TYPE", defaultValue); //it return defaultValue if there's no key
+
+        switch (actionType){
+            case 1:
+                //los campos son inmodificables
+                readOnlyEditText(nombreEmployee, true);
+                readOnlyEditText(apellidoEmployee, true);
+                readOnlyEditText(correoEmployee, true);
+                readOnlyEditText(puestoEmployee, true);
+
+                //Volver
+
+                botonIzquierda.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        setResult(Activity.RESULT_OK);
+                        finish();
+                    }
+                });
+                //Modificar
+
+                botonDerecha.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //carga los botones y funciones de modificar
+                        uploadModifyLayout();
+                    }
+                });
+
+
+
+
+
+                break;
+
+            case 2:
+                //los campos son modificables
+                readOnlyEditText(nombreEmployee, false);
+                readOnlyEditText(apellidoEmployee, false);
+                readOnlyEditText(correoEmployee, false);
+                readOnlyEditText(puestoEmployee, false);
+                //carga los botones y funciones de modificar
+                uploadModifyLayout();
+                break;
+            default:
+                break;
+        }
+
+
+
+        //gettinUser = getIntent().getParcelableExtra("usuario");
+
+        //userId = getIntent().getStringExtra("id");
 
         //Recuperar info de usuario desde la actividad Listar
 
@@ -76,11 +139,7 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
 //        puestoEmployee.setText(user.getPuesto());
 
 
-
-        intent = getIntent();
-        if (intent != null) {
-            this.userId = intent.getStringExtra("id");
-        }
+        /*
 
         if (actionType != null) {
             if (actionType.equals("DETALLES_EMPLEADO")) {
@@ -95,12 +154,20 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
             }
         }
+
+         */
     }
 
-    /**
-     * Carga los componentes del layout
-     */
-    private void chargeContent() {
+
+    private void uploadInformationEmployee(){
+        user = getIntent().getParcelableExtra("usuario");
+        nombreEmployee.setText(user.getNombre());
+        apellidoEmployee.setText(user.getApellidos());
+        correoEmployee.setText(user.getCorreo());
+        puestoEmployee.setText(user.getPuesto());
+    }
+
+    private void uploadComponents() {
         nameLabelEmployee = findViewById(R.id.nameLabelEmployee);
         surnameLabelEmployee = findViewById(R.id.surnameLabelEmployee);
         phoneLabelEmployee = findViewById(R.id.phoneLabelEmployee);
@@ -113,38 +180,67 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
         correoEmployee = findViewById(R.id.recoverEmailTextEmployee);
         puestoEmployee = findViewById(R.id.recoverTextJobEmployee);
 
-        volverBotonEmployee = findViewById(R.id.bt_ReturnToListarActivity);
-        modificarBotonEmployee = findViewById(R.id.bt_ModificarInfoEmpleado);
+        botonIzquierda = findViewById(R.id.bt_botonIzquierda);
+        botonDerecha = findViewById(R.id.bt_botonDerecha);
 
-        cancelarModificarEmpleado = findViewById(R.id.bt_cancelarModificarEmpleado);
-        aceptarModificarEmpleado = findViewById(R.id.bt_ModificarEmpleado);
-
-        cancelarModificarEmpleado.setVisibility(View.INVISIBLE);
-        aceptarModificarEmpleado.setVisibility(View.INVISIBLE);
-
-
-        volverBotonEmployee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                enableModify(false);
-                finish();
-            }
-        });
-
-        modificarBotonEmployee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                enableModify(true);
-            }
-        });
     }
 
+
+
+    /**
+     * Carga los componentes del layout
+     */
+    /*
+    private void chargeContent(boolean detalleLayout) {
+        nameLabelEmployee = findViewById(R.id.nameLabelEmployee);
+        surnameLabelEmployee = findViewById(R.id.surnameLabelEmployee);
+        phoneLabelEmployee = findViewById(R.id.phoneLabelEmployee);
+        emailLabelEmployee = findViewById(R.id.emailLabelEmployee);
+        jobLabelEmployee = findViewById(R.id.jobLabelEmployee);
+
+        nombreEmployee = findViewById(R.id.recoverTextNameEmployee);
+        apellidoEmployee = findViewById(R.id.recoverTextSurnameEmployee);
+        telefonoEmployee = findViewById(R.id.recoverTextPhoneEmployee);
+        correoEmployee = findViewById(R.id.recoverEmailTextEmployee);
+        puestoEmployee = findViewById(R.id.recoverTextJobEmployee);
+
+        botonIzquierda = findViewById(R.id.bt_botonIzquierda);
+        botonDerecha = findViewById(R.id.bt_botonDerecha);
+
+        if(detalleLayout){
+            botonIzquierda.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    enableModify(false);
+                    finish();
+                }
+            });
+
+            botonDerecha.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    enableModify(true);
+                }
+            });
+        }
+
+        if(!detalleLayout){
+            botonIzquierda.setText(R.string.bt_cancelarModifyEmployee);
+            botonDerecha.setText(R.string.bt_aceptarModifyEmployee);
+        }
+
+
+
+    }
+*/
 
     /**
      * carga los datos del usuario, y se ejecuta aisladamente
      * cuando vuelve de la pantalla de Modificar
      */
+    /*
     private void refreshInfo() {
+
 
         userEmployeeDao.obtenerUsuarioPorId(this.userId, new FirebaseCallback() {
             @Override
@@ -175,6 +271,7 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
      * @param resultCode
      * @param data
      */
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -182,6 +279,8 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
             refreshInfo();
         }
     }
+
+     */
 
     /**
      * Transforma el layout de vista de empleado en modificar empleado
@@ -193,8 +292,8 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
             setResult(Activity.RESULT_OK);//Obliga a Listar a actualizarse
             //finish();
         } else {
-            volverBotonEmployee.setVisibility(View.INVISIBLE);
-            modificarBotonEmployee.setVisibility(View.INVISIBLE);
+            botonIzquierda.setVisibility(View.INVISIBLE);
+            botonDerecha.setVisibility(View.INVISIBLE);
 
             readOnlyEditText(nombreEmployee, false);
             readOnlyEditText(apellidoEmployee, false);
@@ -231,16 +330,21 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
             setResult(Activity.RESULT_CANCELED);
             finish();
         } else {
-            userEmployeeDao.obtenerUsuarioPorId(userId, new FirebaseCallback() {
+            user.setNombre(nombreEmployee.getText().toString());
+            user.setApellidos(apellidoEmployee.getText().toString());
+            user.setCorreo(correoEmployee.getText().toString());
+            user.setPuesto(puestoEmployee.getText().toString());
+            userEmployeeDao.actualizarRegistro(user);
+            setResult(Activity.RESULT_OK);
+
+
+            /*
+
+            userEmployeeDao.(userId, new FirebaseCallback() {
                 @Override
                 public void onCallback(Usuario usuario) {
                     user = usuario;
-                    user.setNombre(nombreEmployee.getText().toString());
-                    user.setApellidos(apellidoEmployee.getText().toString());
-                    user.setCorreo(correoEmployee.getText().toString());
-                    user.setPuesto(puestoEmployee.getText().toString());
-                    userEmployeeDao.actualizarRegistro(user);
-                    refreshInfo();
+
 
                     setResult(Activity.RESULT_OK);//Obliga a Listar a actualizarse
 
@@ -252,6 +356,8 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
                             "informacion del usuario", Toast.LENGTH_SHORT).show();
                 }
             });
+            */
+
         }
     }
 
@@ -272,6 +378,37 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
             text.setCursorVisible(true);
             text.setFocusableInTouchMode(true);
         }
+
+    }
+
+    private void uploadModifyLayout(){
+
+        botonIzquierda.setText(R.string.bt_cancelarModifyEmployee);
+        botonDerecha.setText(R.string.bt_aceptarModifyEmployee);
+        botonDerecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Cancelar
+
+
+                botonIzquierda.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        toAcceptEmployeeModify(false);
+                        finish();
+                    }
+                });
+                //Aceptar
+
+                botonDerecha.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        toAcceptEmployeeModify(true);
+                        finish();
+                    }
+                });
+            }
+        });
 
     }
 

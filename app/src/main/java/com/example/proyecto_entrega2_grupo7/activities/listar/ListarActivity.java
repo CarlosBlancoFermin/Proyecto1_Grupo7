@@ -227,9 +227,9 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
              */
             private void pulsarBotonDetalles(Usuario user){
                 Intent intent = new Intent(this, EmpleadoInfoActivity.class);
-                intent.putExtra("id", user.getId());
-                //intent.putExtra("usuario",user); MEJOR MANDAR EL USUARIO COMPLETO
-                intent.putExtra("ACTION_TYPE", "DETALLES_EMPLEADO");
+                //intent.putExtra("id", user.getId());
+                intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
+                intent.putExtra("ACTION_TYPE", 1);
                 startActivityForResult(intent, UPDATE_CODE);
                 //Esta función aparece como deprecated,
                 // pero la alternativa que da chatGPT es mucho mas farragosa
@@ -241,9 +241,8 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
              */
             private void pulsarBotonModificar(Usuario user){
                 Intent intent = new Intent(this, EmpleadoInfoActivity.class);
-                intent.putExtra("id", user.getId());
-                //intent.putExtra("usuario",user); MEJOR MANDAR EL USUARIO COMPLETO
-                intent.putExtra("ACTION_TYPE", "MODIFICAR_EMPLEADO");
+                intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
+                intent.putExtra("ACTION_TYPE", 2);
                 startActivityForResult(intent, UPDATE_CODE);
             }
 
