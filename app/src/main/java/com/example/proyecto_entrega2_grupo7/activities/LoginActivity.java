@@ -12,7 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.proyecto_entrega2_grupo7.R;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
-import com.example.proyecto_entrega2_grupo7.database.utils.Encriptador;
+import com.example.proyecto_entrega2_grupo7.database.utils.UtilsEncriptador;
+import com.example.proyecto_entrega2_grupo7.database.utils.UtilsCheckNetwork;
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 
 import java.util.ArrayList;
@@ -34,11 +35,17 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.textEmail);
         editTextPass = findViewById(R.id.textPass);
         btlogin = findViewById(R.id.btlogin);
+        UtilsCheckNetwork con = new UtilsCheckNetwork();
         //llama a la funcion comprobarLogin cuando se le da al boton
         btlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comprobarLogin();
+                if(con.isOnline(LoginActivity.this)){
+                    comprobarLogin();
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -56,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCallback(List list) {
                 if (!email.isEmpty() && !pass.isEmpty()) {
-                    String encriptedpass = Encriptador.passEncriptada(pass);
+                    String encriptedpass = UtilsEncriptador.passEncriptada(pass);
 
                     // Convertir la lista genérica en lista de usuarios
                     List<Usuario> listUsers = new ArrayList<Usuario>(list);
