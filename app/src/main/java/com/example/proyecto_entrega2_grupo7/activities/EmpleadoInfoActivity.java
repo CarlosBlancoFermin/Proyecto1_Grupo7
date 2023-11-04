@@ -7,12 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 
 import com.example.proyecto_entrega2_grupo7.R;
+import com.example.proyecto_entrega2_grupo7.database.dao.HorarioDAO;
+import com.example.proyecto_entrega2_grupo7.database.dao.PuestoDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
+import com.example.proyecto_entrega2_grupo7.entities.Horario;
+import com.example.proyecto_entrega2_grupo7.entities.Puesto;
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
+
+import java.util.List;
 
 
 public class EmpleadoInfoActivity extends SuperLoggedActivity {
@@ -32,9 +38,10 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
     //Text presentes tanto en visualizar como en modificar
     EditText nombreEmployee;
     EditText apellidoEmployee;
-    EditText telefonoEmployee;
     EditText correoEmployee;
-    EditText puestoEmployee;
+    Spinner puestoEmployee;
+    Spinner horarioEmployee;
+
     Button botonIzquierda;//SI PONEMOS EL BOTON VOLVER EN LA BARRA SUPERIOR NOS PODEMOS CARGAR ESTE
     Button botonDerecha;
 
@@ -46,7 +53,11 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
     Button aceptarModificarEmpleado;
     */
 
-
+    //Configuracion de Spinners
+    PuestoDAO puestoDAO = new PuestoDAO();
+    HorarioDAO horarioDAO = new HorarioDAO();
+    List<Puesto> puestoList;
+    List<Horario> horarioList;
 
     //
     //Variables auxiliares
@@ -68,7 +79,7 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.empleado_informacion);
+        setContentView(R.layout.activity_info);
 
         //Establecer el modo de la actividad
 
@@ -156,7 +167,10 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
         readOnlyEditText(nombreEmployee, soloLectura);
         readOnlyEditText(apellidoEmployee, soloLectura);
         readOnlyEditText(correoEmployee, soloLectura);
-        readOnlyEditText(puestoEmployee, soloLectura);
+        puestoEmployee.setEnabled(!soloLectura);
+        puestoEmployee.setClickable(!soloLectura);
+        horarioEmployee.setEnabled(!soloLectura);
+        horarioEmployee.setClickable(!soloLectura);
 
 
             //Asignacion de funciones a los botones
@@ -208,7 +222,7 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
         nombreEmployee.setText(user.getNombre());
         apellidoEmployee.setText(user.getApellidos());
         correoEmployee.setText(user.getCorreo());
-        puestoEmployee.setText(user.getPuesto());
+        //
     }
 
     private void uploadComponents() {
@@ -222,14 +236,14 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
         */
 
 
-        nombreEmployee = findViewById(R.id.recoverTextNameEmployee);
-        apellidoEmployee = findViewById(R.id.recoverTextSurnameEmployee);
-        telefonoEmployee = findViewById(R.id.recoverTextPhoneEmployee);
-        correoEmployee = findViewById(R.id.recoverEmailTextEmployee);
-        puestoEmployee = findViewById(R.id.recoverTextJobEmployee);
+        nombreEmployee = findViewById(R.id.etInfoNombre);
+        apellidoEmployee = findViewById(R.id.etInfoApellidos);
+        correoEmployee = findViewById(R.id.etInfoEmail);
+        puestoEmployee = findViewById(R.id.spInfoPuesto);
+        horarioEmployee = findViewById(R.id.spInfoHorario);
 
         botonIzquierda = findViewById(R.id.bt_botonIzquierda);
-        botonDerecha = findViewById(R.id.bt_botonDerecha);
+        botonDerecha = findViewById(R.id.btInfoAction);
 
     }
 
@@ -382,7 +396,12 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
             user.setNombre(nombreEmployee.getText().toString());
             user.setApellidos(apellidoEmployee.getText().toString());
             user.setCorreo(correoEmployee.getText().toString());
-            user.setPuesto(puestoEmployee.getText().toString());
+
+            Puesto puestoSeleccionado = puestoList.get(puestoEmployee.getSelectedItemPosition());
+            user.setPuesto(puestoSeleccionado.getId());
+            Horario horarioSeleccionado = horarioList.get(horarioEmployee.getSelectedItemPosition());
+            user.setPuesto(horarioSeleccionado.getId());
+
             userEmployeeDao.actualizarRegistro(user);
             setResult(Activity.RESULT_OK);
 
