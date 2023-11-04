@@ -3,6 +3,7 @@ package com.example.proyecto_entrega2_grupo7.database.dao;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.entities.Puesto;
+import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -55,6 +56,19 @@ public class PuestoDAO implements IServiceDAO {
         DB_COLECCION.document(((Puesto)puesto).getId()).delete()
                 .addOnSuccessListener(unused ->
                         System.out.println("puesto " + ((Puesto)puesto).getNombre() + "eliminado"));
+    }
+
+
+    public void obtenerPuestoPorId(String id, FirebaseCallback callback){
+        DB_COLECCION.whereEqualTo("id", id).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                Puesto puesto = new Puesto();
+                for (QueryDocumentSnapshot doc : task.getResult()){
+                   puesto = doc.toObject(Puesto.class);
+                }
+                callback.onCallback(puesto);
+            }
+        });
     }
 
 }

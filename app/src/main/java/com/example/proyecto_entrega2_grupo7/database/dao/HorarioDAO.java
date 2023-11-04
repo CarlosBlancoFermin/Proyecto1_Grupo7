@@ -57,4 +57,6 @@ public class HorarioDAO implements IServiceDAO{
                 .addOnSuccessListener(unused ->
                         System.out.println("horario " + ((Horario)horario).getNombre() + "eliminado"));
     }
+
+
 }
