@@ -7,74 +7,42 @@
     android:background="@color/background"
     tools:context=".activities.MenuActivity">
 
-    <TextView
-        android:id="@+id/tvPrueba"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/element"
-        android:paddingVertical="18sp"
-        android:text="@string/menutitle"
-        android:textAlignment="center"
-        android:textColor="@color/dark"
-        android:textSize="28sp"
-        android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/bt_verusuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="@color/dark"
+        android:id="@+id/btMenuCrearUsuario"
         android:onClick="btListarEmpleados"
-        android:text="@string/bt_verusuario"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:text="@string/tag_nuevoEmpleado"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_crearusuario" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/glMenuBottom"
+        app:layout_constraintVertical_bias="0.3"
+        style="@style/botonLight"/>
 
     <Button
-        android:id="@+id/bt_crearusuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="236dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="@color/dark"
+        android:id="@+id/btMenuListaUsuarios"
         android:onClick="btListarEmpleados"
-        android:text="@string/bt_crearusuario"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:text="@string/tag_listar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/glMenuBottom"
+        app:layout_constraintVertical_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrueba" />
-
-    <Button
-        android:id="@+id/bt_creditos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="@color/dark"
-        android:onClick="btcreditos"
-        android:text="@string/bt_creditos"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_verusuario"
-        app:layout_constraintVertical_bias="0.013" />
+        style="@style/botonLight"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/glMenuBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="671dp" />
+        app:layout_constraintGuide_percent="0.80" />
+
+    <Button
+        android:id="@+id/bt_creditos"
+        android:onClick="btcreditos"
+        android:text="@string/tag_creditos"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glMenuBottom"
+        style="@style/botonRedondeado"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

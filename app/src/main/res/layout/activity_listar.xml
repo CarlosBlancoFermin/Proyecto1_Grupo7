@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
+        app:layout_constraintGuide_percent="0.8" />
     <!--endregion-->
 
     <!--region NAV-->
@@ -30,14 +30,14 @@
             android:text="@string/bt_ordenar"
             android:drawableEnd="@android:drawable/arrow_up_float"
             android:layout_weight="1"
-            style="@style/botonOscuro"
+            style="@style/botonDark"
             />
         <Button
             android:id="@+id/btListarFiltros"
             android:onClick="pulsarFiltros"
             android:text="@string/bt_filtros"
             android:layout_weight="1"
-            style="@style/botonOscuro"/>
+            style="@style/botonDark"/>
 
     </LinearLayout>
 
@@ -60,9 +60,8 @@
     <Button
         android:id="@+id/btListarAddUsuario"
         android:onClick="pulsarAddEmpleado"
-        android:text="@string/bt_crearusuario"
+        android:text="@string/tag_nuevoEmpleado"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/glListarBottom"
         style="@style/botonRedondeado"/>

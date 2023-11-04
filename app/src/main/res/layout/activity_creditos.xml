@@ -7,166 +7,145 @@
     android:background="@color/background"
     tools:context=".activities.CreditosActivity">
 
-    <TextView
-        android:id="@+id/tvPrueba"
+    <LinearLayout
+        android:id="@+id/llCreditsHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@color/element"
-        android:paddingVertical="18sp"
-        android:text="@string/creditostitle"
-        android:textAlignment="center"
-        android:textColor="@color/dark"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:background="@color/dark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:id="@+id/tvCreditosHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/creadores"
+            android:padding="12dp"
+            android:background="@color/accent"
+            android:textColor="@color/negro"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/creadores"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="72dp"
-        android:text="@string/creadores"
-        android:textColor="@color/dark"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrueba" />
-
-    <TextView
-        android:id="@+id/creador1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="45dp"
+        android:id="@+id/tvCreditsCreador1"
         android:text="@string/creador1"
-        android:textColor="@color/dark"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creadores" />
+        app:layout_constraintEnd_toStartOf="@+id/glCreditsVertical"
+        app:layout_constraintTop_toBottomOf="@+id/llCreditsHeader"
+        app:layout_constraintBottom_toTopOf="@+id/tvCreditsCreador2"
+        style="@style/nombreCreadores"/>
 
     <TextView
-        android:id="@+id/creador2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="52dp"
+        android:id="@+id/tvCreditsCreador2"
         android:text="@string/creador2"
-        android:textColor="@color/dark"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btcreador3"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creador1" />
+        app:layout_constraintEnd_toStartOf="@+id/glCreditsVertical"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreditsCreador1"
+        app:layout_constraintBottom_toTopOf="@+id/tvCreditsCreador3"
+        style="@style/nombreCreadores"/>
 
     <TextView
-        android:id="@+id/creador3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="52dp"
+        android:id="@+id/tvCreditsCreador3"
         android:text="@string/creador3"
-        android:textColor="@color/dark"
-        android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creador2" />
+        app:layout_constraintEnd_toStartOf="@+id/glCreditsVertical"
+        app:layout_constraintTop_toBottomOf="@+id/tvCreditsCreador1"
+        app:layout_constraintBottom_toTopOf="@+id/creditsSeparador"
+        style="@style/nombreCreadores" />
 
     <ImageButton
-        android:id="@+id/btcreador1"
+        android:id="@+id/btCreador1"
         android:onClick="btcreditos1"
-        android:layout_width="62dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="36dp"
-        android:background="@color/background"
         android:scaleType="centerInside"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@+id/glCreditsVertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@mipmap/linkedin" />
+        app:layout_constraintTop_toBottomOf="@+id/llCreditsHeader"
+        app:layout_constraintBottom_toTopOf="@+id/btCreador2"
+        app:srcCompat="@mipmap/linkedin"
+        style="@style/logoLinkedin"/>
 
     <ImageButton
-        android:id="@+id/btcreador2"
-        android:layout_width="62dp"
-        android:layout_height="61dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="12dp"
-        android:background="@color/background"
+        android:id="@+id/btCreador2"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/glCreditsVertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/linkedin" />
+        app:layout_constraintTop_toBottomOf="@+id/btCreador1"
+        app:layout_constraintBottom_toTopOf="@+id/btCreador3"
+        app:srcCompat="@mipmap/linkedin"
+        style="@style/logoLinkedin"/>
 
     <ImageButton
-        android:id="@+id/btcreador3"
+        android:id="@+id/btCreador3"
         android:onClick="btcreditos2"
-        android:layout_width="62dp"
-        android:layout_height="61dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="28dp"
-        android:background="@color/background"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/btcreador2"
+        app:layout_constraintStart_toStartOf="@+id/glCreditsVertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/linkedin" />
+        app:layout_constraintTop_toBottomOf="@+id/btCreador2"
+        app:layout_constraintBottom_toTopOf="@+id/creditsSeparador"
+        app:srcCompat="@mipmap/linkedin"
+        style="@style/logoLinkedin"/>
 
-    <TextView
-        android:id="@+id/codigofuente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/codigofuente"
-        android:textColor="@color/dark"
-        android:textSize="28sp"
-        android:textStyle="bold"
+    <View
+        android:id="@+id/creditsSeparador"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCreditsCreador3"/>
 
+    <LinearLayout
+        android:id="@+id/llCreditsFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/negro"
+        app:layout_constraintTop_toBottomOf="@+id/creditsSeparador"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:id="@+id/tvCreditsProyecto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:text="@string/codigofuente"
+            android:textColor="@color/dark"
+            android:background="@color/element"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="188dp"
-        android:layout_height="148dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="112dp"
-        android:background="@color/background"
+        android:id="@+id/btGithub"
+        android:layout_margin="20dp"
         android:onClick="btcodigo"
         android:scaleType="centerInside"
+        app:layout_constraintTop_toBottomOf="@+id/llCreditsFooter"
+        app:layout_constraintBottom_toBottomOf="@id/glCreditsBottom"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codigofuente"
-        app:srcCompat="@mipmap/githublogo" />
+        app:srcCompat="@mipmap/githublogo"
+        style="@style/logoLinkedin"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/glCreditsVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCreditsBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="148dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="405dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="84dp"
-        android:layout_height="83dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/background"
-        android:onClick="btcreditosvolver"
-        android:scaleType="fitStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codigofuente"
-        app:srcCompat="@android:drawable/ic_menu_send" />
+        app:layout_constraintGuide_percent="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

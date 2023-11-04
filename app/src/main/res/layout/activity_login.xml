@@ -7,84 +7,59 @@
     android:background="@color/background"
     tools:context=".activities.LoginActivity">
 
-    <TextView
-        android:id="@+id/tvPrueba"
+    <EditText
+        android:id="@+id/etLoginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:paddingVertical="18sp"
-        android:text="@string/logintitle"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:background="@color/element"
-        android:textColor="@color/dark"
+        android:layout_margin="45dp"
+        android:ems="20"
+        android:hint="@string/emailLabel"
+        android:inputType="textEmailAddress"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/glLoginBottom"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+
         />
 
     <EditText
-        android:id="@+id/textEmail"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="#113946"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/textPass"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="#113946"
-        android:ems="10"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEmail" />
-
-    <Button
-        android:id="@+id/btnuevoUser"
+        android:id="@+id/etLoginPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="@color/dark"
-        android:text="@string/bt_nuevoUser"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_margin="45dp"
+        android:ems="12"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/glLoginBottom"
+        app:layout_constraintVertical_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btlogin" />
+        />
 
     <Button
         android:id="@+id/btlogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="@color/dark"
-        android:text="@string/bt_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:text="@string/tag_login"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/glLoginBottom"
+        app:layout_constraintVertical_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPass" />
+        style="@style/botonLight"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glLoginBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80" />
 
+    <Button
+        android:id="@+id/btnuevoUser"
+        android:text="@string/tag_nuevoEmpleado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glLoginBottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/botonRedondeado"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

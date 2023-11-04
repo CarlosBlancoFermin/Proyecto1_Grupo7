@@ -14,28 +14,47 @@
         android:theme="@style/TemaPrincipal"
         tools:targetApi="31">
         <activity
-            android:name=".activities.CreditosActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.EmpleadoInfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.listar.ListarActivity"
-            android:exported="false" />
+            android:name=".activities.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MenuActivity"
-            android:exported="false" />
+            android:parentActivityName="activities.LoginActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="=android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity"/>
+        </activity>
         <activity
-            android:name=".activities.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".activities.listar.ListarActivity"
+            android:parentActivityName="activities.MenuActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="=android.support.PARENT_ACTIVITY"
+                android:value="activities.MenuActivity"/>
+        </activity>
+        <activity
+            android:name=".activities.EmpleadoInfoActivity"
+            android:parentActivityName="activities.listar.ListarActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="=android.support.PARENT_ACTIVITY"
+                android:value=".ListarActivity"/>
+        </activity>
+        <activity
+            android:name=".activities.CreditosActivity"
+            android:parentActivityName="activities.MenuActivity"
+            android:exported="false">
+            <meta-data
+                android:name="=android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity"/>
         </activity>
     </application>
 

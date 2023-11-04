@@ -1,9 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="TemaPrincipal" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="android:background">@color/background</item>
-<!--        <item name="windowActionBar">false</item>-->
-<!--        <item name="windowNoTitle">true</item>-->
+    <style name="TemaPrincipal" parent="Theme.AppCompat.Light.DarkActionBar">
+<!--        <item name="android:background">@color/background</item>-->
     </style>
 
 <!--    <style name="AppBarStyle" parent="Widget.AppCompat.ActionBar">-->
