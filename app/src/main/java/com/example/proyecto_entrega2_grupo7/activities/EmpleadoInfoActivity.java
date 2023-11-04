@@ -146,18 +146,18 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
         switch (actionType) {
             case MODO_DETALLES:
                 titulo = "Detalles de empleado";
-                textoBotonDerecha = getResources().getString(R.string.bt_modificarInfoEmpleado);
+                textoBotonDerecha = getResources().getString(R.string.bt_modificar);
                 break;
             case MODO_MODIFICAR:
                 titulo = "Modificar empleado";
-                textoBotonDerecha = getResources().getString(R.string.bt_aceptarModifyEmployee);
+                textoBotonDerecha = getResources().getString(R.string.bt_aceptar);
                 break;
             default://MODO_CREAR
                 titulo = "Nuevo empleado";
                 textoBotonDerecha = getResources().getString(R.string.bt_crearusuario);
         }
         super.crearHomebar(titulo);
-        botonIzquierda.setText(R.string.bt_cancelarModifyEmployee);//PUEDE BORRARSE
+        botonIzquierda.setText(R.string.bt_cancelar);//PUEDE BORRARSE
         botonDerecha.setText(textoBotonDerecha);
 
         //Campos de texto readOnly o editables
@@ -451,8 +451,8 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
 
     private void uploadModifyLayout(){
 
-        botonIzquierda.setText(R.string.bt_cancelarModifyEmployee);
-        botonDerecha.setText(R.string.bt_aceptarModifyEmployee);
+        botonIzquierda.setText(R.string.bt_cancelar);
+        botonDerecha.setText(R.string.bt_aceptar);
         botonDerecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

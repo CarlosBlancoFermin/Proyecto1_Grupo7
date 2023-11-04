@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".activities.EmpleadoInfoActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -15,7 +16,7 @@
 
     <TextView
         android:id="@+id/tvInfoNombre"
-        android:text="@string/nameLabelEmployee"
+        android:text="@string/nombreLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
         app:layout_constraintVertical_bias="0.15"
@@ -25,7 +26,7 @@
 
     <TextView
         android:id="@+id/tvInfoApellidos"
-        android:text="@string/surnameLabelEmployee"
+        android:text="@string/apellidosLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
         app:layout_constraintVertical_bias="0.3"
@@ -35,7 +36,7 @@
 
     <TextView
         android:id="@+id/tvInfoEmail"
-        android:text="@string/emailLabelEmployee"
+        android:text="@string/emailLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
         app:layout_constraintVertical_bias="0.45"
@@ -45,7 +46,7 @@
 
     <TextView
         android:id="@+id/tvInfoPuesto"
-        android:text="@string/puestoLabelEmployee"
+        android:text="@string/puestoLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
         app:layout_constraintVertical_bias="0.6"
@@ -55,7 +56,7 @@
 
     <TextView
         android:id="@+id/tvInfoHorario"
-        android:text="@string/horarioLabelEmployee"
+        android:text="@string/horarioLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
         app:layout_constraintVertical_bias="0.75"
@@ -68,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
+        app:layout_constraintGuide_percent="0.8" />
 
     <EditText
         android:id="@+id/etInfoNombre"
@@ -119,7 +120,7 @@
         android:id="@+id/bt_botonIzquierda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bt_volver_listarEmpleado"
+        android:text="@string/bt_volver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/glInfoBottom"

@@ -31,9 +31,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setTitle(getResources().getString(R.string.tag_login));
+
         //guardamos el contenido del editText en una variable
-        editTextEmail = findViewById(R.id.textEmail);
-        editTextPass = findViewById(R.id.textPass);
+        editTextEmail = findViewById(R.id.etLoginEmail);
+        editTextPass = findViewById(R.id.etLoginPass);
         btlogin = findViewById(R.id.btlogin);
         UtilsCheckNetwork con = new UtilsCheckNetwork();
         //llama a la funcion comprobarLogin cuando se le da al boton
@@ -75,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (uemail.equals(email) && upass.equals(encriptedpass)) {
                             Toast.makeText(LoginActivity.this, "Login correcto", Toast.LENGTH_SHORT).show();
+                            SuperLoggedActivity.setUserLogged(user);
                             intent = new Intent(context, MenuActivity.class);
                             startActivity(intent);
                             loginExitoso = true;

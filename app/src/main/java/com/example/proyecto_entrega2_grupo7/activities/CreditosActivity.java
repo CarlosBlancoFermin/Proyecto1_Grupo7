@@ -1,7 +1,5 @@
 package com.example.proyecto_entrega2_grupo7.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,7 +7,7 @@ import android.view.View;
 
 import com.example.proyecto_entrega2_grupo7.R;
 
-public class CreditosActivity extends AppCompatActivity {
+public class CreditosActivity extends SuperLoggedActivity {
 
     String URl;
     Uri link;
@@ -17,6 +15,7 @@ public class CreditosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creditos);
+        super.crearHomebar(getResources().getString(R.string.tag_creditos));
     }
     public void btcreditos2(View view){
         URl = "https://es.linkedin.com/in/carlos-blanco-ferm%C3%ADn-b9ab13229";
