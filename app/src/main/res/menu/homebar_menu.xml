@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TuActividad">
+    <item
+        android:id="@+id/action_opcion1"
+        android:title="@string/menu_verPerfil"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_opcion2"
+        android:title="@string/menu_cerrarSesion"
+        app:showAsAction="never" />
+</menu>

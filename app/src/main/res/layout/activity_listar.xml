@@ -9,20 +9,6 @@
 
 <!--region GUIDELINES-->
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineNav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,49 +16,28 @@
         app:layout_constraintGuide_percent="0.90" />
     <!--endregion-->
 
-    <!--region HEADER-->
-    <TextView
-        android:id="@+id/tvListarHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:paddingVertical="8sp"
-        android:text="@string/header_listar"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:background="@color/accent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineTop"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-    <!--endregion-->
-
     <!--region NAV-->
     <LinearLayout
+        android:id="@+id/barraUtils"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineNav">
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
         <Button
             android:id="@+id/btListarOrdenar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/dark"
             android:onClick="pulsarOrdenar"
             android:text="@string/bt_ordenar"
             android:drawableEnd="@android:drawable/arrow_up_float"
             android:layout_weight="1"
+            style="@style/botonOscuro"
             />
         <Button
             android:id="@+id/btListarFiltros"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/dark"
             android:onClick="pulsarFiltros"
             android:text="@string/bt_filtros"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            style="@style/botonOscuro"/>
 
     </LinearLayout>
 
@@ -83,9 +48,8 @@
         android:id="@+id/rvListarUsuarios"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toTopOf="@+id/guidelineNav"
+        app:layout_constraintTop_toBottomOf="@+id/barraUtils"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,17 +59,15 @@
     <!--region FOOTER-->
     <Button
         android:id="@+id/btListarAddUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="24sp"
         android:layout_marginRight="24sp"
-        android:backgroundTint="#4488FF"
         android:onClick="pulsarAddEmpleado"
         android:text="@string/bt_crearusuario"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guidelineBottom" />
+        app:layout_constraintTop_toTopOf="@id/guidelineBottom"
+        style="@style/botonRedondeado"/>
     <!--endregion-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

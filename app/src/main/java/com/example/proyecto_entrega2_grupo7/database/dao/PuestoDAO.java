@@ -24,6 +24,19 @@ public class PuestoDAO implements IServiceDAO {
         });
     }
 
+    @Override
+    public void obtenerRegistroPorId(String id, FirebaseCallback callback){
+        DB_COLECCION.whereEqualTo("id", id).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                Puesto puesto = new Puesto();
+                for (QueryDocumentSnapshot doc : task.getResult()){
+                    puesto = doc.toObject(Puesto.class);
+                }
+                callback.onCallback(puesto);
+            }
+        });
+    }
+
     /**
      * Devuelve todos los horarios
      * ordenados por salario
@@ -31,7 +44,7 @@ public class PuestoDAO implements IServiceDAO {
      * @param callback
      */
     @Override
-    public void obtenerAllRegistros(FirebaseListCallback callback){
+    public void obtenerTodos(FirebaseListCallback callback){
         Query query = DB_COLECCION.orderBy("salario", Query.Direction.DESCENDING);
         query.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
@@ -39,7 +52,6 @@ public class PuestoDAO implements IServiceDAO {
                 for (QueryDocumentSnapshot doc : task.getResult()){
                     Puesto p = doc.toObject(Puesto.class);
                     puestos.add(p);
-                    System.out.println(p.getNombre());
                 }
                 callback.onCallback(puestos);
             }

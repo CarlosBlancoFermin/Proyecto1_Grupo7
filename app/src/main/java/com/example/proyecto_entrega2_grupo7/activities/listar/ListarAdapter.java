@@ -1,12 +1,15 @@
 package com.example.proyecto_entrega2_grupo7.activities.listar;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_entrega2_grupo7.R;
@@ -42,7 +45,7 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
 
     @Override
     public void onBindViewHolder(@NonNull ListarAdapter.ListarViewHolder holder, int position) {
-        holder.bindData(lista.get(position));
+        holder.bindData(position);
 
     }
 
@@ -54,7 +57,8 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
     class ListarViewHolder extends RecyclerView.ViewHolder{
 
         View view;
-        EditText etNombre;
+        TextView etNombre;
+        TextView etApellido;
         ImageButton btDetalles;
         ImageButton btUpdate;
         ImageButton btDelete;
@@ -62,14 +66,22 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
         public ListarViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
+
             etNombre = view.findViewById(R.id.etListarNombre);
+            etApellido = view.findViewById(R.id.etListarApellido);
             btDetalles = view.findViewById(R.id.btListarDetalles);
             btUpdate = view.findViewById(R.id.btListarModificar);
             btDelete = view.findViewById(R.id.btListarBorrar);
         }
 
-        void bindData(Usuario u){
-            etNombre.setText(u.getNombre().concat("\n").concat(u.getApellidos()));
+        void bindData(int position){
+            Usuario u = lista.get(position);
+            etNombre.setText(u.getNombre());
+            etApellido.setText(u.getApellidos());
+            //Distinto color de las filas pares
+            if(position % 2 != 0)
+                view.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.element));
+
             addListener(btDetalles);
             addListener(btUpdate);
             addListener(btDelete);

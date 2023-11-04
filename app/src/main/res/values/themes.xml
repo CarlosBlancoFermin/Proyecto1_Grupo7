@@ -1,9 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Proyecto_Entrega2_Grupo7" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="TemaPrincipal" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:background">@color/background</item>
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
     </style>
 
-    <style name="Theme.Proyecto_Entrega2_Grupo7" parent="Base.Theme.Proyecto_Entrega2_Grupo7" />
+<!--    <style name="AppBarStyle" parent="Widget.AppCompat.ActionBar">-->
+<!--        <item name="android:background">@color/accent</item>-->
+<!--        <item name="android:titleTextColor">#000000</item>-->
+<!--    </style>-->
+
+<!--    <style name="Theme.Proyecto_Entrega2_Grupo7" parent="Base.Theme.Proyecto_Entrega2_Grupo7" />-->
 </resources>

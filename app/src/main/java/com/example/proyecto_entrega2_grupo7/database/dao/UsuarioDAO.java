@@ -32,9 +32,8 @@ public class UsuarioDAO implements IServiceDAO {
         });
     }
 
-    /*
-    //!!!ESTA FUNCION SOBRA!!!!
-    public void obtenerUsuarioPorId(String id, FirebaseCallback callback){
+    @Override
+    public void obtenerRegistroPorId(String id, FirebaseCallback callback){
         DB_COLECCION.whereEqualTo("id", id).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 Usuario usuario = new Usuario();
@@ -45,17 +44,16 @@ public class UsuarioDAO implements IServiceDAO {
             }
         });
     }
-*/
+
 
     @Override
-    public void obtenerAllRegistros(FirebaseListCallback callback){
+    public void obtenerTodos(FirebaseListCallback callback){
         DB_COLECCION.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 List<Usuario> usuarios = new ArrayList<>();
                 for (QueryDocumentSnapshot doc : task.getResult()){
                     Usuario user = doc.toObject(Usuario.class);
                     usuarios.add(user);
-                    System.out.println(user.getNombre());
                 }
                 callback.onCallback(usuarios);
             }

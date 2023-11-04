@@ -3,6 +3,7 @@ package com.example.proyecto_entrega2_grupo7.database.dao;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.entities.Horario;
+import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -24,6 +25,19 @@ public class HorarioDAO implements IServiceDAO{
 
     }
 
+    @Override
+    public void obtenerRegistroPorId(String id, FirebaseCallback callback){
+        DB_COLECCION.whereEqualTo("id", id).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                Horario horario = new Horario();
+                for (QueryDocumentSnapshot doc : task.getResult()){
+                    horario = doc.toObject(Horario.class);
+                }
+                callback.onCallback(horario);
+            }
+        });
+    }
+
     /**
      * Devuelve todos los horarios
      * ordenados por hora de salida
@@ -31,7 +45,7 @@ public class HorarioDAO implements IServiceDAO{
      * @param callback
      */
     @Override
-    public void obtenerAllRegistros(FirebaseListCallback callback){
+    public void obtenerTodos(FirebaseListCallback callback){
         Query query = DB_COLECCION.orderBy("horaSalida", Query.Direction.ASCENDING);
         DB_COLECCION.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
@@ -39,7 +53,6 @@ public class HorarioDAO implements IServiceDAO{
                 for (QueryDocumentSnapshot doc : task.getResult()){
                     Horario h = doc.toObject(Horario.class);
                     horarios.add(h);
-                    System.out.println(h.getNombre());
                 }
                 callback.onCallback(horarios);
             }
