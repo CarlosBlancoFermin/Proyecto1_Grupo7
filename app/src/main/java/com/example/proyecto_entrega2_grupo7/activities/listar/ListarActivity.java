@@ -1,10 +1,8 @@
 package com.example.proyecto_entrega2_grupo7.activities.listar;
 
-import static com.example.proyecto_entrega2_grupo7.activities.MainActivity.UPDATE_CODE;
 import static com.example.proyecto_entrega2_grupo7.entities.Filtros.NUM_FILTROS;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.proyecto_entrega2_grupo7.R;
 import com.example.proyecto_entrega2_grupo7.activities.EmpleadoInfoActivity;
+import com.example.proyecto_entrega2_grupo7.activities.SuperLoggedActivity;
 import com.example.proyecto_entrega2_grupo7.database.dao.HorarioDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.IServiceDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.PuestoDAO;
@@ -43,7 +42,7 @@ import java.util.List;
  * botones en cada fila para ver detalles, modificar o eliminar un usuario,
  * y un boton para crear un nuevo usuario.
  */
-public class ListarActivity extends AppCompatActivity implements ListarEventReceptor {
+public class ListarActivity extends SuperLoggedActivity implements ListarEventReceptor {
     //Variables de la lista de usuarios
     UsuarioDAO userService = new UsuarioDAO();//Objeto de acceso a BD
     List<Usuario> usuarioList;//Lista de objetos de la coleccion
@@ -71,6 +70,7 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar);
+        super.crearHomebar("Lista de empleados");
 
         initArrays();
 
@@ -113,7 +113,7 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
      * y la muestra en el RecyclerView.
      */
     private void consultaInicialUsuarios() {
-        userService.obtenerAllRegistros(list -> {
+        userService.obtenerTodos(list -> {
             usuarioList = list;
             llenarRecyclerView();
         });
@@ -140,7 +140,7 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
     private void cargarListasFiltros(){
         for(int i = 0; i < NUM_FILTROS; i++){
             final int index = i;
-            filtrosDAO[index].obtenerAllRegistros(list -> {
+            filtrosDAO[index].obtenerTodos(list -> {
                 checkAllFilter(list.size(),filtrosChecked[index]);
                 this.filtrosList[index] = list;
             });
@@ -172,7 +172,7 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == UPDATE_CODE && resultCode == Activity.RESULT_OK)
+        if(requestCode == ACTUALIZABLE && resultCode == Activity.RESULT_OK)
             actualizarLista();
     }
 
@@ -229,8 +229,8 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
                 Intent intent = new Intent(this, EmpleadoInfoActivity.class);
                 //intent.putExtra("id", user.getId());
                 intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
-                intent.putExtra("ACTION_TYPE", 1);
-                startActivityForResult(intent, UPDATE_CODE);
+                intent.putExtra("ACTION_TYPE", MODO_DETALLES);
+                startActivityForResult(intent, ACTUALIZABLE);
                 //Esta función aparece como deprecated,
                 // pero la alternativa que da chatGPT es mucho mas farragosa
             }
@@ -242,8 +242,8 @@ public class ListarActivity extends AppCompatActivity implements ListarEventRece
             private void pulsarBotonModificar(Usuario user){
                 Intent intent = new Intent(this, EmpleadoInfoActivity.class);
                 intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
-                intent.putExtra("ACTION_TYPE", 2);
-                startActivityForResult(intent, UPDATE_CODE);
+                intent.putExtra("ACTION_TYPE", MODO_MODIFICAR);
+                startActivityForResult(intent, ACTUALIZABLE);
             }
 
             /**

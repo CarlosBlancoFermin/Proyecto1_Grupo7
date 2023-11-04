@@ -1,6 +1,5 @@
 package com.example.proyecto_entrega2_grupo7.activities;
 
-import static com.example.proyecto_entrega2_grupo7.activities.MainActivity.UPDATE_CODE;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,19 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyecto_entrega2_grupo7.R;
-import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 
 
-public class EmpleadoInfoActivity extends AppCompatActivity {
+public class EmpleadoInfoActivity extends SuperLoggedActivity {
 
+    /* !!! LAS LABELS YA SE CONFIGURAN EN EL LAYOUT
+    ** SI NO SE VAN A MODIFICAR EN JAVA, NO SON NECESARIAS VARIABLES
 
     //Labels presentes tanto en visualizar como en modificar
     TextView nameLabelEmployee;
@@ -29,6 +26,7 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
     TextView phoneLabelEmployee;
     TextView emailLabelEmployee;
     TextView jobLabelEmployee;
+     */
 
 
     //Text presentes tanto en visualizar como en modificar
@@ -37,16 +35,17 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
     EditText telefonoEmployee;
     EditText correoEmployee;
     EditText puestoEmployee;
-
-    //Botones visualizados en visualizar
-    Button botonIzquierda;
+    Button botonIzquierda;//SI PONEMOS EL BOTON VOLVER EN LA BARRA SUPERIOR NOS PODEMOS CARGAR ESTE
     Button botonDerecha;
 
 
-    //Botones visualizados en modificar
+    /* Botones visualizados en modificar
 
     Button cancelarModificarEmpleado;
+
     Button aceptarModificarEmpleado;
+    */
+
 
 
     //
@@ -56,7 +55,12 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
     Intent intent;
     Usuario user;
 
-    int defaultValue = 0;
+    int actionType;
+        /* Variable que determina el modo de la ventana (CREAR, DETALLES O MODIFICAR)
+        Las constantes correspondientes están en la Superclase SuperLoggedActivity.
+        La he sacado para fuera para que sea accesible a todas las funciones de esta Activity
+         */
+
 
     //Usuario gettinUser;
 
@@ -65,6 +69,12 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.empleado_informacion);
+
+        //Establecer el modo de la actividad
+
+
+
+
         uploadComponents();
         uploadInformationEmployee();
 
@@ -74,53 +84,9 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
             this.user = intent.getParcelableExtra("usuario");
         }
 
-        int actionType = getIntent().getIntExtra("ACTION_TYPE", defaultValue); //it return defaultValue if there's no key
+        //¡¡¡FUNCION NUEVA PARA CONFIGURAR LO QUE DEPENDA DEL ACTION TYPE!!!
+        setActionType();
 
-        switch (actionType){
-            case 1:
-                //los campos son inmodificables
-                readOnlyEditText(nombreEmployee, true);
-                readOnlyEditText(apellidoEmployee, true);
-                readOnlyEditText(correoEmployee, true);
-                readOnlyEditText(puestoEmployee, true);
-
-                //Volver
-
-                botonIzquierda.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        setResult(Activity.RESULT_OK);
-                        finish();
-                    }
-                });
-                //Modificar
-
-                botonDerecha.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //carga los botones y funciones de modificar
-                        uploadModifyLayout();
-                    }
-                });
-
-
-
-
-
-                break;
-
-            case 2:
-                //los campos son modificables
-                readOnlyEditText(nombreEmployee, false);
-                readOnlyEditText(apellidoEmployee, false);
-                readOnlyEditText(correoEmployee, false);
-                readOnlyEditText(puestoEmployee, false);
-                //carga los botones y funciones de modificar
-                uploadModifyLayout();
-                break;
-            default:
-                break;
-        }
 
 
 
@@ -158,6 +124,84 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
          */
     }
 
+    private void setActionType() {
+        actionType = getIntent().getIntExtra("ACTION_TYPE", MODO_CREAR);
+            //Si no se pasa valor: ventana de crear usuario,
+            // que tampoco requiere que se le pase ningun usuario
+
+        //Titulo de la barra superior Y nombres botones
+        String titulo = "";
+        String textoBotonDerecha = "";
+        switch (actionType) {
+            case MODO_DETALLES:
+                titulo = "Detalles de empleado";
+                textoBotonDerecha = getResources().getString(R.string.bt_modificarInfoEmpleado);
+                break;
+            case MODO_MODIFICAR:
+                titulo = "Modificar empleado";
+                textoBotonDerecha = getResources().getString(R.string.bt_aceptarModifyEmployee);
+                break;
+            default://MODO_CREAR
+                titulo = "Nuevo empleado";
+                textoBotonDerecha = getResources().getString(R.string.bt_crearusuario);
+        }
+        super.crearHomebar(titulo);
+        botonIzquierda.setText(R.string.bt_cancelarModifyEmployee);//PUEDE BORRARSE
+        botonDerecha.setText(textoBotonDerecha);
+
+        //Campos de texto readOnly o editables
+        boolean soloLectura = (actionType == MODO_DETALLES);
+            //SI ES MODIFICAR O CREAR, es false
+
+        readOnlyEditText(nombreEmployee, soloLectura);
+        readOnlyEditText(apellidoEmployee, soloLectura);
+        readOnlyEditText(correoEmployee, soloLectura);
+        readOnlyEditText(puestoEmployee, soloLectura);
+
+
+            //Asignacion de funciones a los botones
+            //!!!SI PONES EL SWITCH DENTRO TE AHORRAS UNAS CUANTAS LINEAS
+
+            botonIzquierda.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    switch(actionType) {
+                        case MODO_DETALLES:
+                            //FUNCION BOTON IZQUIERDA - DETALLES
+                            setResult(Activity.RESULT_OK);
+                            finish();
+                            break;
+                        case MODO_MODIFICAR:
+                            //FUNCION BOTON IZQUIERDA - MODIFICAR
+                            setResult(Activity.RESULT_OK);
+                            finish();
+                            break;
+                        default://MODO_CREAR
+                            //FUNCION BOTON IZQUIERDA - CREAR
+                    }
+                }
+            });
+
+            botonDerecha.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    switch(actionType) {
+                        case MODO_DETALLES:
+                            //FUNCION BOTON DERECHA - DETALLES
+                            setResult(Activity.RESULT_OK);
+                            finish();
+                            break;
+                        case MODO_MODIFICAR:
+                            //FUNCION BOTON DERECHA - MODIFICAR
+                            uploadModifyLayout();
+                            break;
+                        default://MODO_CREAR
+                            //FUNCION BOTON DERECHA - CREAR
+                    }
+                }
+            });
+    }
+
 
     private void uploadInformationEmployee(){
         user = getIntent().getParcelableExtra("usuario");
@@ -168,11 +212,15 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
     }
 
     private void uploadComponents() {
+        /* !!! LAS LABELS YA SE CONFIGURAN EN EL LAYOUT
+        ** SI NO SE VAN A MODIFICAR EN JAVA, NO SON NECESARIAS VARIABLES
         nameLabelEmployee = findViewById(R.id.nameLabelEmployee);
         surnameLabelEmployee = findViewById(R.id.surnameLabelEmployee);
         phoneLabelEmployee = findViewById(R.id.phoneLabelEmployee);
         emailLabelEmployee = findViewById(R.id.emailLabelEmployee);
         jobLabelEmployee = findViewById(R.id.jobLabelEmployee);
+        */
+
 
         nombreEmployee = findViewById(R.id.recoverTextNameEmployee);
         apellidoEmployee = findViewById(R.id.recoverTextSurnameEmployee);
@@ -282,10 +330,10 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
 
      */
 
-    /**
+    /* !!!ESTA FUNCION QUEDA SUSTITUIDA POR setActionType() linea 127+
      * Transforma el layout de vista de empleado en modificar empleado
      * @param allowUpdates su valor habilita los componentes escondidos de modificacion
-     */
+
     private void enableModify(boolean allowUpdates) {
 
         if (!allowUpdates) {
@@ -320,6 +368,7 @@ public class EmpleadoInfoActivity extends AppCompatActivity {
             });
         }
     }
+    */
 
     /**
      * Acepta la información actualizada escrita del empleado

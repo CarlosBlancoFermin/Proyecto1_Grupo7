@@ -1,47 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="2sp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditText
-        android:id="@+id/etListarNombre"
+    <LinearLayout
+        android:id="@+id/llNombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineItem">
+        <TextView
+            android:id="@+id/etListarNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:ems="10"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:theme="@style/nombreLista"/>
+        <TextView
+            android:id="@+id/etListarApellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:ems="10"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:theme="@style/nombreLista"/>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:enabled="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:layout_weight="4" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.55" />
 
     <ImageButton
         android:id="@+id/btListarDetalles"
-        android:layout_width="@android:dimen/notification_large_icon_width"
-        android:layout_height="@android:dimen/notification_large_icon_height"
-        android:layout_marginTop="5dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/accent"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineItem"
+        app:layout_constraintRight_toLeftOf="@+id/btListarModificar"
+        android:background="@color/accent"
         app:srcCompat="@android:drawable/ic_menu_view"
         android:contentDescription="@string/descripcion_detalles"/>
 
     <ImageButton
         android:id="@+id/btListarModificar"
-        android:layout_width="@android:dimen/notification_large_icon_width"
-        android:layout_height="@android:dimen/notification_large_icon_height"
-        android:layout_marginTop="5dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/accent"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btListarDetalles"
+        app:layout_constraintRight_toLeftOf="@id/btListarBorrar"
+        android:background="@color/accent"
         app:srcCompat="@android:drawable/ic_menu_edit"
         android:contentDescription="@string/descripcion_modificar"/>/>
 
     <ImageButton
         android:id="@+id/btListarBorrar"
-        android:layout_width="@android:dimen/notification_large_icon_width"
-        android:layout_height="@android:dimen/notification_large_icon_height"
-        android:layout_marginTop="5dp"
-        android:layout_weight="1"
-        android:backgroundTint="#aa0000"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btListarModificar"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="#aa0000"
         app:srcCompat="@android:drawable/ic_menu_delete"
         android:contentDescription="@string/descripcion_eliminar"/>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

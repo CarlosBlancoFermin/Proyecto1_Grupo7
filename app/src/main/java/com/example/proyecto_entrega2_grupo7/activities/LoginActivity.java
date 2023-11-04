@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         email = editTextEmail.getText().toString();
         pass = editTextPass.getText().toString();
         final Context context = this;
-        ges.obtenerAllRegistros(new FirebaseListCallback() {
+        ges.obtenerTodos(new FirebaseListCallback() {
             @Override
             public void onCallback(List list) {
                 if (!email.isEmpty() && !pass.isEmpty()) {

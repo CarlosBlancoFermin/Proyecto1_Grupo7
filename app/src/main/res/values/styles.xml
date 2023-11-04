@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="TransparentActivity" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:backgroundDimEnabled">false</item> <!-- importante -->
+    <style name="nombreLista">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+    <style name="botonOscuro" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/dark</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+    <style name="botonRedondeado" parent="botonOscuro">
+        <item name="android:radius">12dp</item>
+
     </style>
 
 </resources>

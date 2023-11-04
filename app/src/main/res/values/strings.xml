@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Proyecto_Entrega2_Grupo7</string>
+    <string name="menu_verPerfil">Ver perfil</string>
+    <string name="menu_cerrarSesion">Cerrar sesión</string>
     <string name="header_prueba">Testing</string>
     <string name="header_listar">Lista de empleados</string>
     <string name="bt_listar">Listar empleados</string>

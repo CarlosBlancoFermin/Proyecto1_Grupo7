@@ -1,5 +1,6 @@
 package com.example.proyecto_entrega2_grupo7.database.dao;
 
+import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseManager;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,10 +21,17 @@ public interface IServiceDAO {
     void insertarRegistro(Object element);
 
     /**
+     * Permite obtener un registro por su id
+     * @param id
+     * @param callback
+     */
+    void obtenerRegistroPorId(String id, FirebaseCallback callback);
+
+    /**
      * Permite obtener una lista con todos los objetos de la colección
      * @param callback
      */
-    void obtenerAllRegistros(FirebaseListCallback callback);
+    void obtenerTodos(FirebaseListCallback callback);
 
     /**
      * Actualiza el documento de la coleccion
