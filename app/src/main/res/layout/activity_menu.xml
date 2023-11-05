@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/btMenuCrearUsuario"
-        android:onClick="btListarEmpleados"
+        android:onClick="pulsarBotonMenu"
         android:text="@string/tag_nuevoEmpleado"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,7 +19,7 @@
 
     <Button
         android:id="@+id/btMenuListaUsuarios"
-        android:onClick="btListarEmpleados"
+        android:onClick="pulsarBotonMenu"
         android:text="@string/tag_listar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/glMenuBottom"
@@ -35,8 +35,8 @@
         app:layout_constraintGuide_percent="0.80" />
 
     <Button
-        android:id="@+id/bt_creditos"
-        android:onClick="btcreditos"
+        android:id="@+id/btMenuCreditos"
+        android:onClick="pulsarBotonMenu"
         android:text="@string/tag_creditos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
