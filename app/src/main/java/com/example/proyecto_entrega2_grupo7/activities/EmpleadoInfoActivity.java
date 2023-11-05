@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 import com.example.proyecto_entrega2_grupo7.R;
 import com.example.proyecto_entrega2_grupo7.database.dao.HorarioDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.PuestoDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
+import com.example.proyecto_entrega2_grupo7.database.utils.UtilsCheckNetwork;
 import com.example.proyecto_entrega2_grupo7.entities.Horario;
 import com.example.proyecto_entrega2_grupo7.entities.Puesto;
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
@@ -44,6 +46,7 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
 
     Button botonIzquierda;//SI PONEMOS EL BOTON VOLVER EN LA BARRA SUPERIOR NOS PODEMOS CARGAR ESTE
     Button botonDerecha;
+    UtilsCheckNetwork con = new UtilsCheckNetwork();
 
 
     /* Botones visualizados en modificar
@@ -179,39 +182,51 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
             botonIzquierda.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switch(actionType) {
-                        case MODO_DETALLES:
-                            //FUNCION BOTON IZQUIERDA - DETALLES
-                            setResult(Activity.RESULT_OK);
-                            finish();
-                            break;
-                        case MODO_MODIFICAR:
-                            //FUNCION BOTON IZQUIERDA - MODIFICAR
-                            setResult(Activity.RESULT_OK);
-                            finish();
-                            break;
-                        default://MODO_CREAR
-                            //FUNCION BOTON IZQUIERDA - CREAR
+                    if(con.isOnline(EmpleadoInfoActivity.this)){
+                        switch(actionType) {
+                            case MODO_DETALLES:
+                                //FUNCION BOTON IZQUIERDA - DETALLES
+                                setResult(Activity.RESULT_OK);
+                                finish();
+                                break;
+                            case MODO_MODIFICAR:
+                                //FUNCION BOTON IZQUIERDA - MODIFICAR
+                                setResult(Activity.RESULT_OK);
+                                finish();
+                                break;
+                            default://MODO_CREAR
+                                //FUNCION BOTON IZQUIERDA - CREAR
+                        }
                     }
+                    else {
+                        Toast.makeText(EmpleadoInfoActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
 
             botonDerecha.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switch(actionType) {
-                        case MODO_DETALLES:
-                            //FUNCION BOTON DERECHA - DETALLES
-                            setResult(Activity.RESULT_OK);
-                            finish();
-                            break;
-                        case MODO_MODIFICAR:
-                            //FUNCION BOTON DERECHA - MODIFICAR
-                            uploadModifyLayout();
-                            break;
-                        default://MODO_CREAR
-                            //FUNCION BOTON DERECHA - CREAR
+                    if(con.isOnline(EmpleadoInfoActivity.this)){
+                        switch(actionType) {
+                            case MODO_DETALLES:
+                                //FUNCION BOTON DERECHA - DETALLES
+                                setResult(Activity.RESULT_OK);
+                                finish();
+                                break;
+                            case MODO_MODIFICAR:
+                                //FUNCION BOTON DERECHA - MODIFICAR
+                                uploadModifyLayout();
+                                break;
+                            default://MODO_CREAR
+                                //FUNCION BOTON DERECHA - CREAR
+                        }
                     }
+                    else {
+                        Toast.makeText(EmpleadoInfoActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
     }
