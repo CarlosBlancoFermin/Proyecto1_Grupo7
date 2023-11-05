@@ -1,4 +1,4 @@
-package com.example.proyecto_entrega2_grupo7.activities.listar;
+package com.example.proyecto_entrega2_grupo7.activities;
 
 import static com.example.proyecto_entrega2_grupo7.entities.Filtros.NUM_FILTROS;
 
@@ -20,8 +20,10 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.proyecto_entrega2_grupo7.R;
-import com.example.proyecto_entrega2_grupo7.activities.EmpleadoInfoActivity;
-import com.example.proyecto_entrega2_grupo7.activities.SuperLoggedActivity;
+import com.example.proyecto_entrega2_grupo7.activities.listarUtils.FiltrosAdapter;
+import com.example.proyecto_entrega2_grupo7.activities.listarUtils.FiltrosDialog;
+import com.example.proyecto_entrega2_grupo7.activities.listarUtils.ListarAdapter;
+import com.example.proyecto_entrega2_grupo7.activities.listarUtils.ListarEventReceptor;
 import com.example.proyecto_entrega2_grupo7.database.dao.HorarioDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.IServiceDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.PuestoDAO;
@@ -203,80 +205,7 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
         }
         //endregion
 
-        //region BOTONES DE LISTA DE USUARIOS
-        /**
-         * Gestiona los eventos asignados a botones de un ViewHolder (LISTAR)
-         * en un RecyclerView vinculado a esta Acitivity.
-         * Tres botones: DETALLES, MODIFICAR y ELIMINAR
-         * @param usuario usuario seleccionado
-         * @param idButton id del botón pulsado
-         */
-        @Override
-        public void onButtonClick(Usuario usuario, int idButton) {
-            if(idButton == R.id.btListarDetalles)
-                pulsarBotonDetalles(usuario);
-            else if(idButton == R.id.btListarModificar)
-                pulsarBotonModificar(usuario);
-            else if(idButton == R.id.btListarBorrar)
-                pulsarBotonEliminar(usuario);
-        }
-
-            /**
-             * Llama a la Activity que muestra la info del usuario
-             * @param user objeto usuario
-             */
-            private void pulsarBotonDetalles(Usuario user){
-                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
-                //intent.putExtra("id", user.getId());
-                intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
-                intent.putExtra("ACTION_TYPE", MODO_DETALLES);
-                startActivityForResult(intent, ACTUALIZABLE);
-                //Esta función aparece como deprecated,
-                // pero la alternativa que da chatGPT es mucho mas farragosa
-            }
-
-            /**
-             * Llama a la Activity que modifica la info del usuario
-             * @param user objeto usuario
-             */
-            private void pulsarBotonModificar(Usuario user){
-                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
-                intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
-                intent.putExtra("ACTION_TYPE", MODO_MODIFICAR);
-                startActivityForResult(intent, ACTUALIZABLE);
-            }
-
-            /**
-             * Muestra un Dialog de confirmación.
-             * En caso positivo, elimina al usuario de la base de datos
-             * y actualiza la lista.
-             * En caso negativo, vuelve a mostrar la lista.
-             * @param u usuario que debe ser eliminado
-             */
-            private void pulsarBotonEliminar(Usuario u){
-                new AlertDialog.Builder(this)
-                        .setTitle("Eliminar usuario")
-                        .setMessage("¿Deseas eliminar permanentemente a este usuario?")
-                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                userService.borrarRegistro(u);
-                                actualizarLista();
-                                Toast.makeText(ListarActivity.this,"Usuario borrado",Toast.LENGTH_LONG).show();
-
-                            }
-                        })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Código para manejar el clic en "Cancelar"
-                            }
-                        })
-                        .show();
-            }
-            //endregion
-
-        //region FILTROS
+        //region BOTOM FILTROS
         /**
          * Si se han cargado todos los filtros lanza el Dialog de Filtros;
          * en caso contrario, muestra un mensaje al usuario
@@ -381,9 +310,9 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
                 filtroCambiado = false;
 
                 //CONTROL FILTRO COMPLETO
-                /* Si no se ha desmarcado ningún elemento,
-                se manda la lista como null
-                para que no se aplique el condicional */
+                    /* Si no se ha desmarcado ningún elemento,
+                    se manda la lista como null
+                    para que no se aplique el condicional */
                 for(int i = 0; i < NUM_FILTROS; i++)
                     if(filtrosMarcados[i].size() == filtrosList[i].size())
                         filtrosMarcados[i] = null;
@@ -431,6 +360,98 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
         }
         //endregion
 
+        //region BOTONES DE LISTA DE USUARIOS
+        /**
+         * Gestiona los eventos asignados a botones de un ViewHolder (LISTAR)
+         * en un RecyclerView vinculado a esta Acitivity.
+         * Tres botones: DETALLES, MODIFICAR y ELIMINAR
+         * @param usuario usuario seleccionado
+         * @param idButton id del botón pulsado
+         */
+        @Override
+        public void onButtonClick(Usuario usuario, int idButton) {
+            if(idButton == R.id.btListarDetalles)
+                pulsarBotonDetalles(usuario);
+            else if(idButton == R.id.btListarModificar)
+                pulsarBotonModificar(usuario);
+            else if(idButton == R.id.btListarBorrar)
+                pulsarBotonEliminar(usuario);
+        }
+
+            /**
+             * Llama a la Activity que muestra la info del usuario
+             * @param user objeto usuario
+             */
+            private void pulsarBotonDetalles(Usuario user){
+                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
+                //intent.putExtra("id", user.getId());
+                intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
+                intent.putExtra("ACTION_TYPE", MODO_DETALLES);
+                startActivityForResult(intent, ACTUALIZABLE);
+                //Esta función aparece como deprecated,
+                // pero la alternativa que da chatGPT es mucho mas farragosa
+            }
+
+            /**
+             * Llama a la Activity que modifica la info del usuario
+             * @param user objeto usuario
+             */
+            private void pulsarBotonModificar(Usuario user){
+                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
+                intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
+                intent.putExtra("ACTION_TYPE", MODO_MODIFICAR);
+                startActivityForResult(intent, ACTUALIZABLE);
+            }
+
+            /**
+             * Muestra un Dialog de confirmación.
+             * En caso positivo, elimina al usuario de la base de datos
+             * y actualiza la lista.
+             * En caso negativo, vuelve a mostrar la lista.
+             * @param u usuario que debe ser eliminado
+             */
+            private void pulsarBotonEliminar(Usuario u){
+                new AlertDialog.Builder(this)
+                        .setTitle(getResources().getString(R.string.tag_eliminar))
+                        .setMessage("¿Deseas eliminar permanentemente a este empleado?")
+                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(u.equals(userLogged)){
+                                    dialog.dismiss();
+                                    confirmarEliminar(u);
+                                }else {
+                                    userService.borrarRegistro(u);
+                                    actualizarLista();
+                                    Toast.makeText(ListarActivity.this,
+                                            "Empleado eliminado",
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancelar", (dialog, which) -> {})
+                        .show();
+            }
+
+            private AlertDialog confirmarEliminar(Usuario u){
+                return new AlertDialog.Builder(this)
+                        .setTitle("Eliminar usuario actual")
+                        .setMessage("Si eliminas a tu usuario,\n" +
+                                "volverás a la pantalla de login.\n" +
+                                "¿Estás segur@?")
+                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                userService.borrarRegistro(u);
+                                userLogged = null;
+                                pulsarCerrarSesion();
+                            }
+                        })
+                        .setNegativeButton("Cancelar", (dialog, which) -> {})
+                        .show();
+            }
+            //endregion
+
         //region BOTON CREAR EMPLEADO
 
         /**
@@ -448,4 +469,5 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
             Toast.makeText(this,"Nuevo usuario registrado",Toast.LENGTH_LONG).show();
         }
         //endregion
+    //endregion
     }

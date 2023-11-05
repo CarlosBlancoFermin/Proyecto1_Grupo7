@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 
 import com.example.proyecto_entrega2_grupo7.database.utils.UtilsEncriptador;
 
+import java.util.Objects;
+
 public class Usuario implements Comparable<Usuario>, Parcelable {
     private String id;
     private String correo;
@@ -100,7 +102,6 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
     @Override
     public String toString() {
         return "Usuario{" +
-                "ID='" + id + '\'' +
                 ", correo='" + correo + '\'' +
                 ", pass='" + pass + '\'' +
                 ", nombre='" + nombre + '\'' +
@@ -108,6 +109,19 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
                 ", puesto='" + puesto + '\'' +
                 ", horario='" + horario + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return id.equals(usuario.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     /**

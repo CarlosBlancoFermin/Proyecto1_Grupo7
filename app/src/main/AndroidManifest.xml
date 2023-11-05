@@ -33,7 +33,7 @@
                 android:value=".LoginActivity"/>
         </activity>
         <activity
-            android:name=".activities.listar.ListarActivity"
+            android:name=".activities.ListarActivity"
             android:parentActivityName="activities.MenuActivity"
             android:exported="false" >
             <meta-data
@@ -42,7 +42,7 @@
         </activity>
         <activity
             android:name=".activities.EmpleadoInfoActivity"
-            android:parentActivityName="activities.listar.ListarActivity"
+            android:parentActivityName=".activities.ListarActivity"
             android:exported="false" >
             <meta-data
                 android:name="=android.support.PARENT_ACTIVITY"

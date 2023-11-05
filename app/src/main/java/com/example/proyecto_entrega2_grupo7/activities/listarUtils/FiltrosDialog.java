@@ -1,4 +1,4 @@
-package com.example.proyecto_entrega2_grupo7.activities.listar;
+package com.example.proyecto_entrega2_grupo7.activities.listarUtils;
 
 import static com.example.proyecto_entrega2_grupo7.entities.Filtros.NUM_FILTROS;
 

@@ -1,7 +1,6 @@
-package com.example.proyecto_entrega2_grupo7.activities.listar;
+package com.example.proyecto_entrega2_grupo7.activities.listarUtils;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_entrega2_grupo7.R;
+import com.example.proyecto_entrega2_grupo7.activities.SuperLoggedActivity;
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
 
         View view;
         TextView etNombre;
-        TextView etApellido;
+        TextView etApellidos;
         ImageButton btDetalles;
         ImageButton btUpdate;
         ImageButton btDelete;
@@ -68,7 +68,7 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
             view = itemView;
 
             etNombre = view.findViewById(R.id.etListarNombre);
-            etApellido = view.findViewById(R.id.etListarApellido);
+            etApellidos = view.findViewById(R.id.etListarApellidos);
             btDetalles = view.findViewById(R.id.btListarDetalles);
             btUpdate = view.findViewById(R.id.btListarModificar);
             btDelete = view.findViewById(R.id.btListarBorrar);
@@ -77,11 +77,18 @@ public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ListarView
         void bindData(int position){
             Usuario u = lista.get(position);
             etNombre.setText(u.getNombre());
-            etApellido.setText(u.getApellidos());
-            //Distinto color de las filas pares
-            if(position % 2 != 0)
-                view.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.element));
+            etApellidos.setText(u.getApellidos());
 
+            //Resaltar nombre usuario logeado
+            if(u.equals(SuperLoggedActivity.getUserLogged())){
+                etNombre.setTextColor(ContextCompat.getColor(view.getContext(),R.color.dark));
+                etNombre.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                etApellidos.setTextColor(ContextCompat.getColor(view.getContext(),R.color.dark));
+                etApellidos.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                view.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.fila_sel));
+            }
+            else if(position % 2 != 0)//Distinto color de las filas pares
+                view.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.element));
             addListener(btDetalles);
             addListener(btUpdate);
             addListener(btDelete);

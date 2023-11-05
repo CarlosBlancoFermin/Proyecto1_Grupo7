@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.proyecto_entrega2_grupo7.R;
-import com.example.proyecto_entrega2_grupo7.activities.listar.ListarActivity;
-import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
 import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 
 import java.util.ArrayList;

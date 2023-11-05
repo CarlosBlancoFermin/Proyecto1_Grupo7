@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".TuActividad">
     <item
-        android:id="@+id/action_opcion1"
+        android:id="@+id/hbOpcion1"
         android:title="@string/menu_verPerfil"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_opcion2"
+        android:id="@+id/hbOpcion2"
         android:title="@string/menu_cerrarSesion"
         app:showAsAction="never" />
 </menu>

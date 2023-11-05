@@ -7,6 +7,7 @@
     <string name="tag_login">Iniciar sesión</string>
     <string name="tag_menu">Menu principal</string>
     <string name="tag_nuevoEmpleado">Crear nuevo empleado</string>
+    <string name="tag_miperfil">Mi perfil</string>
     <string name="tag_detalles">Detalles del empleado</string>
     <string name="tag_modificar">Modificar empleado</string>
     <string name="tag_eliminar">Eliminar empleado</string>
