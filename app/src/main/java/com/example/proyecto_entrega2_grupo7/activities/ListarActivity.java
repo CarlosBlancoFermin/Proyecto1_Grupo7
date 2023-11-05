@@ -460,13 +460,12 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
          */
         public void pulsarAddEmpleado(View view){
             //Implementacion provisional
-            userService.insertarRegistro(new Usuario("genkidama@test.test", "123456",
-                            "Son Goku","Gonzalez",
-                            "aAPLZJ5S3Kz2ANlKR6jk",
-                            "kM1QHbf6GFoinUC76aec")
-                    );
-            consultaInicialUsuarios();
-            Toast.makeText(this,"Nuevo usuario registrado",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, EmpleadoInfoActivity.class);
+            //intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
+            intent.putExtra("ACTION_TYPE", MODO_CREAR);
+            startActivityForResult(intent, ACTUALIZABLE);
+
+            //Toast.makeText(this,"Nuevo usuario registrado",Toast.LENGTH_LONG).show();
         }
         //endregion
     //endregion
