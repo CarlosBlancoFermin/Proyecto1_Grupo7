@@ -28,6 +28,7 @@ import com.example.proyecto_entrega2_grupo7.database.dao.HorarioDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.IServiceDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.PuestoDAO;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
+import com.example.proyecto_entrega2_grupo7.database.utils.UtilsCheckNetwork;
 import com.example.proyecto_entrega2_grupo7.entities.Filtros;
 import com.example.proyecto_entrega2_grupo7.entities.Horario;
 import com.example.proyecto_entrega2_grupo7.entities.Puesto;
@@ -370,12 +371,19 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
          */
         @Override
         public void onButtonClick(Usuario usuario, int idButton) {
-            if(idButton == R.id.btListarDetalles)
-                pulsarBotonDetalles(usuario);
-            else if(idButton == R.id.btListarModificar)
-                pulsarBotonModificar(usuario);
-            else if(idButton == R.id.btListarBorrar)
-                pulsarBotonEliminar(usuario);
+            UtilsCheckNetwork con = new UtilsCheckNetwork();
+            if(con.isOnline(ListarActivity.this)){
+                if(idButton == R.id.btListarDetalles)
+                    pulsarBotonDetalles(usuario);
+                else if(idButton == R.id.btListarModificar)
+                    pulsarBotonModificar(usuario);
+                else if(idButton == R.id.btListarBorrar)
+                    pulsarBotonEliminar(usuario);
+            }
+            else {
+                Toast.makeText(ListarActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
             /**
@@ -460,13 +468,20 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
          */
         public void pulsarAddEmpleado(View view){
             //Implementacion provisional
-            userService.insertarRegistro(new Usuario("genkidama@test.test", "123456",
-                            "Son Goku","Gonzalez",
-                            "aAPLZJ5S3Kz2ANlKR6jk",
-                            "kM1QHbf6GFoinUC76aec")
-                    );
-            consultaInicialUsuarios();
-            Toast.makeText(this,"Nuevo usuario registrado",Toast.LENGTH_LONG).show();
+            UtilsCheckNetwork con = new UtilsCheckNetwork();
+            if(con.isOnline(ListarActivity.this)){
+                userService.insertarRegistro(new Usuario("genkidama@test.test", "123456",
+                        "Son Goku","Gonzalez",
+                        "aAPLZJ5S3Kz2ANlKR6jk",
+                        "kM1QHbf6GFoinUC76aec")
+                );
+                consultaInicialUsuarios();
+                Toast.makeText(this,"Nuevo usuario registrado",Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(ListarActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+            }
+
         }
         //endregion
     //endregion

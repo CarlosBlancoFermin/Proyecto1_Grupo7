@@ -30,7 +30,7 @@ public class CreditosActivity extends SuperLoggedActivity {
         startActivity(intent);
     }
     public void btcreditos3(View view){
-        URl = "https://www.linkedin.com/in/andresmonvi/";
+        URl = "https://www.linkedin.com/in/daniel-liñera-aa6088295";
         link = Uri.parse(URl);
         Intent intent = new Intent(Intent.ACTION_VIEW,link);
         startActivity(intent);

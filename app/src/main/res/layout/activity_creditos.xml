@@ -74,6 +74,7 @@
     <ImageButton
         android:id="@+id/btCreador2"
         android:scaleType="centerInside"
+        android:onClick="btcreditos2"
         app:layout_constraintStart_toStartOf="@+id/glCreditsVertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btCreador1"
@@ -83,7 +84,7 @@
 
     <ImageButton
         android:id="@+id/btCreador3"
-        android:onClick="btcreditos2"
+        android:onClick="btcreditos3"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="@+id/glCreditsVertical"
         app:layout_constraintEnd_toEndOf="parent"
