@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.proyecto_entrega2_grupo7.R;
+import com.example.proyecto_entrega2_grupo7.database.utils.UtilsCheckNetwork;
 
 public class MenuActivity extends SuperLoggedActivity {
 
@@ -13,6 +15,7 @@ public class MenuActivity extends SuperLoggedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         String titulo = "";
+        UtilsCheckNetwork con = new UtilsCheckNetwork();
         if(userLogged != null)
             titulo = new StringBuilder().append("¡Hola, ")
                             .append(userLogged.getNombre())
@@ -52,21 +55,28 @@ public class MenuActivity extends SuperLoggedActivity {
      * @param view boton pulsado
      */
     public void pulsarBotonMenu(View view){
-        int idButton = view.getId();
-        Class nuevaActividad = null;
-        if(idButton == R.id.btMenuCrearUsuario)
-            nuevaActividad = EmpleadoInfoActivity.class;
-        else if(idButton == R.id.btMenuListaUsuarios)
-            nuevaActividad = ListarActivity.class;
-        else if(idButton == R.id.btMenuCreditos)
-            nuevaActividad = CreditosActivity.class;
+        UtilsCheckNetwork con = new UtilsCheckNetwork();
+        if(con.isOnline(MenuActivity.this)){
+            int idButton = view.getId();
+            Class nuevaActividad = null;
+            if(idButton == R.id.btMenuCrearUsuario)
+                nuevaActividad = EmpleadoInfoActivity.class;
+            else if(idButton == R.id.btMenuListaUsuarios)
+                nuevaActividad = ListarActivity.class;
+            else if(idButton == R.id.btMenuCreditos)
+                nuevaActividad = CreditosActivity.class;
 
-        //Crear el intent de la nueva actividad
-        Intent intent = new Intent(this, nuevaActividad);
-        if(idButton == R.id.btMenuCrearUsuario)
-            intent.putExtra(ACTION_TYPE,MODO_CREAR);
+            //Crear el intent de la nueva actividad
+            Intent intent = new Intent(this, nuevaActividad);
+            if(idButton == R.id.btMenuCrearUsuario)
+                intent.putExtra(ACTION_TYPE,MODO_CREAR);
 
-        //Lanzar la nueva actividad
-        startActivity(intent);
+            //Lanzar la nueva actividad
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(MenuActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
