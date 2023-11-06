@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Proyecto_Entrega2_Grupo7</string>
+    <string name="app_name">Control7</string>
     <string name="menu_verPerfil">Ver perfil</string>
     <string name="menu_cerrarSesion">Cerrar sesión</string>
     <string name="header_prueba">Testing</string>
@@ -17,7 +17,7 @@
     <string name="tag_eliminar">Eliminar empleado</string>
     <string name="tag_eliminarUser">Eliminar usuario actual</string>
     <string name="tag_creditos">Créditos</string>
-    <string name="creadores">Equipo de desarrollo</string>
+    <string name="creadores">Desarrollado por</string>
     <string name="codigofuente">Código del proyecto</string>
     <string name="creador1">Andrés Montaño Villafañe</string>
     <string name="creador2">Carlos Blanco Fermin</string>

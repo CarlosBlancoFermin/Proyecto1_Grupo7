@@ -1,5 +1,9 @@
 package com.example.proyecto_entrega2_grupo7.entities;
 
+/**
+ * Clase POJO que se relaciona
+ * con los elementos de la colección horarios de la BD.
+ */
 public class Horario extends Filtros {
     private String horaEntrada;
     private String horaSalida;

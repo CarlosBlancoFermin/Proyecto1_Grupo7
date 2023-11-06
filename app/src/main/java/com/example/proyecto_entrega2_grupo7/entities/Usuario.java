@@ -9,6 +9,12 @@ import com.example.proyecto_entrega2_grupo7.database.utils.UtilsEncriptador;
 
 import java.util.Objects;
 
+/**
+ * Clase POJO que se relaciona
+ * con los elementos de la colección usuarios de la BD.
+ * COMPARABLE: Se ordena por apellidos alfabeticamente
+ * PARCELABLE: Para serializarse entre actividades como Extra
+ */
 public class Usuario implements Comparable<Usuario>, Parcelable {
     private String id;
     private String correo;
@@ -19,8 +25,7 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
     private String horario;
 
 
-    public Usuario() {
-    }
+    public Usuario() {}
 
     //Constructor que recibe todos los atributos y ENCRIPTA la contraseña pasada por parametro
     public Usuario(String correo, String pass, String nombre, String apellidos, String puesto, String horario) {
@@ -110,6 +115,12 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
                 '}';
     }
 
+    /** Metodo equals personalizado
+     * para detectar si el usuario
+     * ha hecho cambios en la pantalla modificar
+     * @param o nuevo usuario
+     * @return true/false
+     */
     public boolean sinCambios(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -117,6 +128,11 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
         return Objects.equals(id, usuario.id) && Objects.equals(correo, usuario.correo) && Objects.equals(pass, usuario.pass) && Objects.equals(nombre, usuario.nombre) && Objects.equals(apellidos, usuario.apellidos) && Objects.equals(puesto, usuario.puesto) && Objects.equals(horario, usuario.horario);
     }
 
+    /**Método equals que considera iguales
+     * a los usuarios con mismo id
+     * @param o usuario a comparar
+     * @return true/false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -10,9 +10,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * cuando se instancie por segunda vez, obtendrá la conexión ya establecida.
  */
 public class FirebaseManager {
-    private static FirebaseFirestore mDatabase;
+    private FirebaseFirestore mDatabase;
 
-    public static FirebaseFirestore getDatabase() {
+    public FirebaseFirestore getDatabase() {
         if (mDatabase == null) {
             mDatabase = FirebaseFirestore.getInstance();
         }

@@ -21,7 +21,12 @@ import java.util.List;
 public class UsuarioDAO implements IServiceDAO {
 
     //Acceso a la colección usuarios de la BDD
-    final CollectionReference DB_COLECCION = DB.collection("usuarios");
+    final CollectionReference DB_COLECCION;
+
+    public UsuarioDAO() {
+        DB_COLECCION = DB.getDatabase()
+                .collection("usuarios");
+    }
 
     @Override
     public void insertarRegistro(Object user) {

@@ -8,6 +8,7 @@ import java.util.Objects;
  * de la base de datos y puedan actuar como filtro.
  * Todos los Filtros disponen de un atributo id (String)
  * y un nombre (String).
+ * (Actualmente heredan Puesto y Horario)
  */
 public abstract class Filtros {
     public static String [] NOMBRES_FILTROS = new String [] {"puesto","horario"};
