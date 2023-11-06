@@ -6,6 +6,7 @@
     <color name="dark">#113946</color>
     <color name="blanco">#FFFFFF</color>
     <color name="negro">#000000</color>
+    <color name="transparente">#00000000</color>
     <color name="fila_sel">#882a9c2a</color>
 
 </resources>

@@ -392,7 +392,6 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
              */
             private void pulsarBotonDetalles(Usuario user){
                 Intent intent = new Intent(this, EmpleadoInfoActivity.class);
-                //intent.putExtra("id", user.getId());
                 intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
                 intent.putExtra("ACTION_TYPE", MODO_DETALLES);
                 startActivityForResult(intent, ACTUALIZABLE);
@@ -468,14 +467,8 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
          */
         public void pulsarAddEmpleado(View view){
             if(con.isOnline(ListarActivity.this)){
-                //Implementacion provisional
-                userService.insertarRegistro(new Usuario("genkidama@test.test", "123456",
-                        "Son Goku","Gonzalez",
-                        "aAPLZJ5S3Kz2ANlKR6jk",
-                        "kM1QHbf6GFoinUC76aec")
-                );
-                consultaInicialUsuarios();
-                Toast.makeText(this,"Nuevo usuario registrado",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
+                startActivityForResult(intent, ACTUALIZABLE);
             }
             else {
                 Toast.makeText(ListarActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();

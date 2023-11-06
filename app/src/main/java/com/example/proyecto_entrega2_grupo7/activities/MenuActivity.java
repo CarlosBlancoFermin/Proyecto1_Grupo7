@@ -61,6 +61,7 @@ public class MenuActivity extends SuperLoggedActivity {
             Class nuevaActividad = null;
             if(idButton == R.id.btMenuCrearUsuario)
                 nuevaActividad = EmpleadoInfoActivity.class;
+                //Por defecto se lanza el MODO_CREAR
             else if(idButton == R.id.btMenuListaUsuarios)
                 nuevaActividad = ListarActivity.class;
             else if(idButton == R.id.btMenuCreditos)
@@ -68,8 +69,6 @@ public class MenuActivity extends SuperLoggedActivity {
 
             //Crear el intent de la nueva actividad
             Intent intent = new Intent(this, nuevaActividad);
-            if(idButton == R.id.btMenuCrearUsuario)
-                intent.putExtra(ACTION_TYPE,MODO_CREAR);
 
             //Lanzar la nueva actividad
             startActivity(intent);

@@ -111,6 +111,13 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
                 '}';
     }
 
+    public boolean sinCambios(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id) && Objects.equals(correo, usuario.correo) && Objects.equals(pass, usuario.pass) && Objects.equals(nombre, usuario.nombre) && Objects.equals(apellidos, usuario.apellidos) && Objects.equals(puesto, usuario.puesto) && Objects.equals(horario, usuario.horario);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

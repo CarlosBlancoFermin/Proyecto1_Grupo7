@@ -1,5 +1,7 @@
 package com.example.proyecto_entrega2_grupo7.entities;
 
+import java.util.Objects;
+
 /**
  * Superclase abstracta de la que deben heredar
  * todas las clases que representen entidades/tablas
@@ -36,4 +38,18 @@ public abstract class Filtros {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Filtros filtros = (Filtros) o;
+        return Objects.equals(id, filtros.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }
