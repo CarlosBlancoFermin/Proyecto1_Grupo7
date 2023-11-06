@@ -22,6 +22,7 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
     public Usuario() {
     }
 
+    //Constructor que recibe todos los atributos y ENCRIPTA la contraseña pasada por parametro
     public Usuario(String correo, String pass, String nombre, String apellidos, String puesto, String horario) {
         this.correo = correo;
         this.pass = UtilsEncriptador.passEncriptada(pass);
@@ -63,9 +64,7 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
         return pass;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
+    public void setPass(String pass) { this.pass = pass; }
 
     public String getNombre() {
         return nombre;
@@ -102,7 +101,7 @@ public class Usuario implements Comparable<Usuario>, Parcelable {
     @Override
     public String toString() {
         return "Usuario{" +
-                ", correo='" + correo + '\'' +
+                "correo='" + correo + '\'' +
                 ", pass='" + pass + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +

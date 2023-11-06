@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 
-public class EmpleadoInfoActivity extends SuperLoggedActivity {
+public class InfoActivity extends SuperActivityBase {
 
     //Text presentes tanto en visualizar como en modificar
     EditText etNombre;
@@ -38,7 +39,6 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
     EditText etPassword;
     Spinner spPuesto;
     Spinner spHorario;
-    TextView tvHorasHorario;
     Button btAction;
 
     //Configuracion de Spinners
@@ -54,8 +54,11 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
     UsuarioDAO userDAO = new UsuarioDAO();
     Usuario user;
     boolean usuarioCargado = false;
+    List<String> emailList;
+        /* Se almacenan los emails de la base de datos,
+        para evitar repeticiones en inserts/updates.
+        En caso de modificacion, no se incluye el del user a modificar */
 
-    UtilsCheckNetwork con = new UtilsCheckNetwork();
     int actionType;
         /* Variable que determina el modo de la ventana (CREAR, DETALLES O MODIFICAR)
         Las constantes correspondientes están en la Superclase SuperLoggedActivity. */
@@ -69,7 +72,7 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
         actionType = getIntent().getIntExtra(ACTION_TYPE, MODO_CREAR);
 
         //Cargar objeto usuario (solo DETALLES/MODIFICAR)
-        if(actionType != MODO_CREAR)
+        if (actionType != MODO_CREAR)
             user = getIntent().getParcelableExtra("usuario");
 
         //Asignar variables a componentes
@@ -86,14 +89,13 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
         etPassword = findViewById(R.id.etInfoPass);
         spPuesto = findViewById(R.id.spInfoPuesto);
         spHorario = findViewById(R.id.spInfoHorario);
-        tvHorasHorario = findViewById(R.id.tvInfoHoras);
         btAction = findViewById(R.id.btInfoAction);
     }
 
     private void cargarComponentes() {
         //Asignacion de textos segun modo
-        String titulo ="";
-        String textoBoton ="";
+        String titulo = "";
+        String textoBoton = "";
         switch (actionType) {
             case MODO_DETALLES:
                 titulo = (user.equals(userLogged) ?
@@ -109,10 +111,21 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
                 break;
             default://MODO_CREAR
                 titulo = "Nuevo empleado";
-                textoBoton = getResources().getString(R.string.bt_crearusuario);
+                textoBoton = getResources().getString(R.string.tag_nuevoEmpleado);
         }
         super.crearHomebar(titulo);
         btAction.setText(textoBoton);
+
+        /* En modo CREAR/MODIFICAR:
+        1. Se recupera la lista de emails para evitar repeticiones.
+        2. Se asignan listeners al campo contraseña y al boton para mostrarla.
+         */
+        if (actionType != MODO_DETALLES) {
+            recuperarEmails(user == null ? null : user.getCorreo());
+            setBotonMostrarPass(//Metodo de la superclase
+                    (ImageButton) findViewById(R.id.btInfoShowPass),
+                    etPassword);
+        }
 
         //Establecer campos de solo lectura o editables
         setEditables();
@@ -121,7 +134,7 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
         setBotonAction();
 
         //Cargar datos del usuario en EditText (solo DETALLES/MODIFICAR)
-        if(actionType != MODO_CREAR)
+        if (actionType != MODO_CREAR)
             cargarDatosUsuario();
 
         //Cargar elementos de los spinners
@@ -148,10 +161,10 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
         int color = (editable ?
                 R.color.element :
                 R.color.transparente);
-        etNombre.setBackgroundColor(ContextCompat.getColor(this,color));
-        etApellidos.setBackgroundColor(ContextCompat.getColor(this,color));
-        etEmail.setBackgroundColor(ContextCompat.getColor(this,color));
-        etPassword.setBackgroundColor(ContextCompat.getColor(this,color));
+        etNombre.setBackgroundColor(ContextCompat.getColor(this, color));
+        etApellidos.setBackgroundColor(ContextCompat.getColor(this, color));
+        etEmail.setBackgroundColor(ContextCompat.getColor(this, color));
+        etPassword.setBackgroundColor(ContextCompat.getColor(this, color));
         int fondoSpinner = (editable ?
                 R.drawable.spinner_selected :
                 R.drawable.spinner_background);
@@ -162,11 +175,11 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
 
     /**
      * Funcion auxiliar para permitir modificacion en los EditText
-     * @param text EditText a cambiar su estado
+     * @param text     EditText a cambiar su estado
      * @param editable su valor vuelve el edittext modificable o no
      */
-    private void textoEditable(EditText text, boolean editable){
-        if(editable)
+    private void textoEditable(EditText text, boolean editable) {
+        if (editable)
             text.setKeyListener(new EditText(this).getKeyListener());
         else
             text.setKeyListener(null);
@@ -183,15 +196,29 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
      * después de realizar las consultas.)
      */
     private void cargarDatosUsuario() {
-        if(!usuarioCargado){
+        if (!usuarioCargado) {
             etNombre.setText(user.getNombre());
             etApellidos.setText(user.getApellidos());
             etEmail.setText(user.getCorreo());
-            etPassword.setText(user.getPass());
+            etPassword.setHint(R.string.passwordCensura);
             usuarioCargado = true;
         }
-        if(actionType == MODO_MODIFICAR)//Coloca el cursor al final del primer campo
+        if (actionType == MODO_MODIFICAR)//Coloca el cursor al final del primer campo
             etNombre.setSelection(etNombre.getText().toString().length());
+
+    }
+
+    /**
+     * Recupera en una lista los correos de todos los usuarios,
+     * salvo el del usuario a modificar,
+     * para evitar repeticiones en CREAR o MODIFICAR
+     * @param emailUser
+     */
+    private void recuperarEmails(String emailUser) {
+        userDAO.obtenerTodosEmails(emailUser,
+                correos -> {
+            emailList = correos;
+        });
     }
 
     /**
@@ -200,17 +227,23 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
      */
     private void setBotonAction() {
         btAction.setOnClickListener(view -> {
-            switch (actionType) {
-                case MODO_DETALLES:
-                    pulsarBotonModoDetalles();
-                    break;
-                case MODO_MODIFICAR:
-                    pulsarBotonModoModificar();
-                    break;
-                default://MODO_CREAR
-                    pulsarBotonModoCrear();
-            }
+            pulsarBotonAction();
         });
+    }
+
+    private void pulsarBotonAction(){
+        if(!hayConexion())
+            return;
+        switch (actionType) {
+            case MODO_DETALLES:
+                pulsarBotonModoDetalles();
+                break;
+            case MODO_MODIFICAR:
+                pulsarBotonModoModificar();
+                break;
+            default://MODO_CREAR
+                pulsarBotonModoCrear();
+        }
     }
 
     /**
@@ -218,11 +251,6 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
      * y vuelve a cargar los componentes
      */
     private void pulsarBotonModoDetalles() {
-//        Intent intent = new Intent(EmpleadoInfoActivity.this, EmpleadoInfoActivity.class);
-//        intent.putExtra("usuario", user);
-//        intent.putExtra("ACTION_TYPE", MODO_MODIFICAR);
-//        startActivityForResult(intent, ACTUALIZABLE);
-//        finish();
         actionType = MODO_MODIFICAR;
         cargarComponentes();
     }
@@ -234,23 +262,29 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
      */
     private void pulsarBotonModoModificar() {
         //Comprobar input
-        if(!inputControl()) {
+        if (!inputControl()) {
             return;
         }
 
         //Nueva instancia de usuario con datos actualizados
         Usuario actualizado = nuevoUsuario();
         actualizado.setId(user.getId());
+        if (actionType == MODO_MODIFICAR && etPassword.getText().toString().isEmpty())
+            actualizado.setPass(user.getPass());
+        //Si no se ha introducido nueva contraseña, se setea la anterior sin encriptar
 
         //Comprobar si ha habido cambios
-        if(user.sinCambios(actualizado)) {
-            Toast.makeText(this, "No se ha hecho ningún cambio", Toast.LENGTH_SHORT);
+        if (user.sinCambios(actualizado)) {
+            Toast.makeText(this,
+                    getResources().getString(R.string.msj_sinCambios),
+                    Toast.LENGTH_SHORT).show();
             return;
         }
         //Actualizar la base de datos y volver
         userDAO.actualizarRegistro(actualizado);
         setResult(RESULT_OK);
-        Toast.makeText(this,"Empleado modificado",
+        Toast.makeText(this,
+                getResources().getString(R.string.msj_modificarOK),
                 Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -262,7 +296,7 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
      */
     private void pulsarBotonModoCrear() {
         //Comprobar input
-        if(!inputControl()) {
+        if (!inputControl()) {
             return;
         }
 
@@ -271,48 +305,72 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
 
         userDAO.insertarRegistro(nuevo);
         setResult(RESULT_OK);
-        Toast.makeText(this,"Empleado creado con éxito",
+        Toast.makeText(this,
+                getResources().getString(R.string.msj_crearOK),
                 Toast.LENGTH_SHORT).show();
         finish();
     }
 
     /**
      * Controla que no haya campos vacíos en el formulario
-     * y que la contraseña tenga al menos 6 caracteres.
+     * y que la nueva contraseña tenga al menos 6 caracteres.
+     * En el MODO_MODIFICAR, la contraseña está vacía por defecto,
+     * y si se deja asi se entiende que no se cambia.
+     *
      * @return true/false
      */
     private boolean inputControl() {
-        //CAMPOS VACIOS
-        if(etEmail.getText().toString().equals("") ||
-                etPassword.getText().toString().equals("") ||
-                etNombre.getText().toString().equals("") ||
-                etApellidos.getText().toString().equals("")) {
-            Toast.makeText(this,"Debe rellenar todos los campos",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        //CONTROL DEL EMAIL ???
-        if(!Pattern.compile(
-                "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-                Pattern.CASE_INSENSITIVE)
-                .matcher(etEmail.getText().toString()).matches()){
-            Toast.makeText(this,"El email no tiene un formato correcto",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        String nombreInput = etNombre.getText().toString();
+        String apellidosInput = etApellidos.getText().toString();
+        String emailInput = etEmail.getText().toString();
+        String passInput = etPassword.getText().toString();
 
+        //CAMPOS VACIOS
+        boolean emptyPass = (passInput.isEmpty()
+                && actionType == MODO_CREAR);
+        if (nombreInput.isEmpty() ||
+                apellidosInput.isEmpty() ||
+                emailInput.isEmpty() ||
+                emptyPass) {
+            Toast.makeText(this,
+                    getResources().getString(R.string.msj_rellenarCampos),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        //CONTROL DEL EMAIL
+        if (!Pattern.compile(
+                        "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+                        Pattern.CASE_INSENSITIVE)
+                .matcher(emailInput).matches()) {
+            Toast.makeText(this, getResources().getString(R.string.msj_emailFail),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
         //CONTRASEÑA MINIMA
-        if(etPassword.getText().toString().length() < 6) {
-            Toast.makeText(this,"La contraseña ha de tener al menos 6 caracteres",
+        boolean mismaPass = (actionType == MODO_MODIFICAR
+                && passInput.isEmpty());
+        if (passInput.length() < 6 && !mismaPass) {
+            Toast.makeText(this,
+                    getResources().getString(R.string.msj_passwordFail),
                     Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        //EMAIL REPETIDO
+        if(emailList.contains(emailInput)){
+            Toast.makeText(this,
+                    getResources().getString(R.string.msj_emailExiste),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         return true;
     }
 
     /**
      * Devuelve un usuario con los datos del formulario
+     *
      * @return nuevo usuario
      */
     private Usuario nuevoUsuario() {
@@ -321,8 +379,8 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
                 etPassword.getText().toString(),
                 etNombre.getText().toString(),
                 etApellidos.getText().toString(),
-                puestoList.get((int)spPuesto.getSelectedItemId()).getId(),
-                horarioList.get((int)spHorario.getSelectedItemId()).getId());
+                puestoList.get((int) spPuesto.getSelectedItemId()).getId(),
+                horarioList.get((int) spHorario.getSelectedItemId()).getId());
                     /*De la posicion seleccionada en el spinner
                       obtiene el puesto/horario de la lista
                       y de él coge su id */
@@ -335,19 +393,19 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
      */
     private void cargarSpinners() {
         setListenersSpinnerHorario();
-        if(actionType == MODO_DETALLES){
+        if (actionType == MODO_DETALLES) {
             //Solo se carga el puesto y horario del Usuario
             puestoDAO.obtenerRegistroPorId(user.getPuesto(),
                     element -> {
-                        puestoList.add((Filtros)element);
+                        puestoList.add((Filtros) element);
                         llenarSpinner(PUESTO);
                     });
             horarioDAO.obtenerRegistroPorId(user.getHorario(),
                     element -> {
-                        horarioList.add((Filtros)element);
+                        horarioList.add((Filtros) element);
                         llenarSpinner(HORARIO);
                     });
-        }else{
+        } else {
             //Se cargan todos los horarios y puestos
             puestoDAO.obtenerTodos(
                     puestos -> {
@@ -372,8 +430,9 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
                         .append(sel.getHoraEntrada())
                         .append(" a ")
                         .append(sel.getHoraSalida());
-                tvHorasHorario.setText(cadena.toString());
+                ((TextView) findViewById(R.id.tvInfoHoras)).setText(cadena.toString());
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
@@ -384,16 +443,17 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
      * Mete los elementos de las listas de Puesto y Horario
      * en los spinners a través de un Adapter
      * y selecciona el elemento correspondiente al usuario
+     *
      * @param tipo
      */
     private void llenarSpinner(int tipo) {
-        switch(tipo){
+        switch (tipo) {
             case PUESTO:
                 spPuesto.setAdapter(new ArrayAdapter<>(
                         this,
                         android.R.layout.simple_spinner_item,
                         listaNombres(puestoList)));
-                if(actionType != MODO_CREAR){
+                if (actionType != MODO_CREAR) {
                     Puesto p = new Puesto();
                     p.setId(user.getPuesto());
                     spPuesto.setSelection(puestoList.indexOf(p));
@@ -404,7 +464,7 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
                         this,
                         android.R.layout.simple_spinner_item,
                         listaNombres(horarioList)));
-                if(actionType != MODO_CREAR) {
+                if (actionType != MODO_CREAR) {
                     Horario h = new Horario();
                     h.setId(user.getHorario());
                     spHorario.setSelection(horarioList.indexOf(h));
@@ -415,236 +475,8 @@ public class EmpleadoInfoActivity extends SuperLoggedActivity {
 
     private List<String> listaNombres(List<Filtros> listaObjects) {
         List listaNombres = new ArrayList();
-        for(Filtros element : listaObjects)
+        for (Filtros element : listaObjects)
             listaNombres.add(element.getNombre());
         return listaNombres;
     }
-/*
-
-
-        switch (actionType) {
-            case MODO_DETALLES:
-                titulo = "Detalles de empleado";
-                textoBotonDerecha = getResources().getString(R.string.bt_modificar);
-                //Carga de la informacion
-                uploadInformationEmployee();
-                //Funcion para cambiar a modo modificar si se clica a modificar
-                btAction.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        intent = new Intent(EmpleadoInfoActivity.this, EmpleadoInfoActivity.class);
-                        intent.putExtra("usuario", user);
-                        intent.putExtra("ACTION_TYPE", MODO_MODIFICAR);
-                        startActivityForResult(intent, ACTUALIZABLE);
-                        finish();
-                    }
-                });
-
-
-                break;
-            //MODO MODIFICAR FUNCIONA
-            case MODO_MODIFICAR:
-                titulo = "Modificar empleado";
-                textoBotonDerecha = getResources().getString(R.string.bt_aceptar);
-                uploadInformationEmployee();
-                //que se pueda modificar y guardar
-                btAction.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        System.out.println(user);
-                        toAcceptEmployeeModify(true, MODO_MODIFICAR);
-                        System.out.println(user);
-                        finish();
-                    }
-                });
-
-
-                break;
-            case MODO_CREAR:
-                titulo = "Nuevo empleado";
-                textoBotonDerecha = getResources().getString(R.string.bt_crearusuario);
-                btAction.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        toAcceptEmployeeModify(true, MODO_CREAR);
-                    }
-                });
-
-                break;
-
-        }
-
-
-        //Campos de texto readOnly o editables
-
-    }
-
-    private void uploadInformationEmployee(){
-
-        intent = getIntent();
-        if (intent != null) {
-            user = intent.getParcelableExtra("usuario");
-
-            puestoDAO.obtenerRegistroPorId(user.getPuesto(), new FirebaseCallback() {
-                @Override
-                public void onCallback(Object element) {
-                    Puesto puesto = (Puesto) element;
-                    puestoList = new ArrayList<>();
-                    puestoList.add(puesto.getNombre());
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(EmpleadoInfoActivity.this,
-                            android.R.layout.simple_spinner_item, puestoList);
-                    puestoEmployee.setAdapter(adapter);
-                }
-
-                @Override
-                public void onFailedCallback() {
-                    System.out.println("Callback failed.");
-                }
-            });
-
-            horarioDAO.obtenerRegistroPorId(user.getHorario(), new FirebaseCallback() {
-                @Override
-                public void onCallback(Object element) {
-                    Horario horario = (Horario) element;
-                    horarioList = new ArrayList<>();
-                    horarioList.add(horario.getHoraEntrada());
-                    horarioList.add(horario.getHoraSalida());
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(EmpleadoInfoActivity.this,
-                            android.R.layout.simple_spinner_item, Collections.singletonList(horarioList.get(0)));
-                    horarioEmployee.setAdapter(adapter);
-
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(EmpleadoInfoActivity.this,
-                            android.R.layout.simple_spinner_item, Collections.singletonList(horarioList.get(1)));
-                    horarioEmployeeSalida.setAdapter(adapter2);
-                }
-
-                @Override
-                public void onFailedCallback() {
-                    System.out.println("Callback failed.");
-                }
-            });
-
-        }
-    }
-
-
-
-
-
-
-    private void toAcceptEmployeeModify(boolean acceptedModify, int type) {
-        if (!acceptedModify) {
-            setResult(Activity.RESULT_CANCELED);
-            finish();
-        } else {
-
-            //inicializando el objeto usuario ya se guarda en la base de datos pero si se hace
-            //aqui afuera, ya no actualiza la base de datos
-
-
-
-
-            Puesto puestoSeleccionado = puestoList.get(puestoEmployee.getSelectedItemPosition());
-            user.setPuesto(puestoSeleccionado.getId());
-            Horario horarioSeleccionado = horarioList.get(horarioEmployee.getSelectedItemPosition());
-            user.setPuesto(horarioSeleccionado.getId());
-
-
-            NO GUARDA EL USUARIO EN LA BASE DE DATOS
-            if(type == MODO_MODIFICAR){
-                user.setNombre(nombreEmployee.getText().toString());
-                user.setApellidos(apellidoEmployee.getText().toString());
-                user.setCorreo(correoEmployee.getText().toString());
-                userEmployeeDao.actualizarRegistro(user);
-                setResult(Activity.RESULT_OK);
-            } else if (type == MODO_CREAR){
-                user = new Usuario();
-                user.setNombre(nombreEmployee.getText().toString());
-                user.setApellidos(apellidoEmployee.getText().toString());
-                user.setCorreo(correoEmployee.getText().toString());
-                userEmployeeDao.insertarRegistro(user);
-                setResult(Activity.RESULT_OK);
-                //consultaInicialUsuarios();
-                Toast.makeText(this,"Nuevo usuario registrado", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-*/
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-
-
-            botonIzquierda.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View view) {
-        if(con.isOnline(EmpleadoInfoActivity.this)){
-        switch(actionType) {
-        case MODO_DETALLES:
-        //FUNCION BOTON IZQUIERDA - DETALLES
-        setResult(Activity.RESULT_OK);
-        finish();
-        break;
-        case MODO_MODIFICAR:
-        //FUNCION BOTON IZQUIERDA - MODIFICAR
-        setResult(Activity.RESULT_OK);
-        finish();
-        break;
-default://MODO_CREAR
-        //FUNCION BOTON IZQUIERDA - CREAR
-        }
-        }
-        else {
-        Toast.makeText(EmpleadoInfoActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
-        }
-
-        }
-        });
-
-        botonDerecha.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View view) {
-        if(con.isOnline(EmpleadoInfoActivity.this)){
-        switch(actionType) {
-        case MODO_DETALLES:
-        //FUNCION BOTON DERECHA - DETALLES
-        setResult(Activity.RESULT_OK);
-        finish();
-        break;
-        case MODO_MODIFICAR:
-        //FUNCION BOTON DERECHA - MODIFICAR
-        uploadModifyLayout();
-        break;
-default://MODO_CREAR
-        //FUNCION BOTON DERECHA - CREAR
-        }
-        }
-        else {
-        Toast.makeText(EmpleadoInfoActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
-        }
-
-        }
-        });
-        }
-
-*/
-

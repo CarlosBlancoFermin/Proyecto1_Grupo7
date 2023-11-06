@@ -1,21 +1,15 @@
 package com.example.proyecto_entrega2_grupo7.activities;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.InputType;
-import android.view.MotionEvent;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.proyecto_entrega2_grupo7.R;
-import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.database.dao.UsuarioDAO;
 import com.example.proyecto_entrega2_grupo7.database.utils.UtilsEncriptador;
 import com.example.proyecto_entrega2_grupo7.database.utils.UtilsCheckNetwork;
@@ -24,7 +18,7 @@ import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends SuperActivityBase {
     UsuarioDAO ges = new UsuarioDAO();
     Button btlogin;
     String email;
@@ -41,20 +35,16 @@ public class LoginActivity extends AppCompatActivity {
 
         //Asignacion de variables
         dataBinding();
+    }
 
-
-        //llama a la funcion comprobarLogin cuando se le da al boton
-//        btlogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(con.isOnline(LoginActivity.this)){
-//                    comprobarLogin();
-//                }
-//                else {
-//
-//                }
-//            }
-//        });
+    /**
+     * Funcion para que no se cree el submenu en esta pantalla
+     * @param menu
+     * @return false
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -62,49 +52,31 @@ public class LoginActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etLoginEmail);
         etPass = findViewById(R.id.etLoginPass);
         btlogin = findViewById(R.id.btlogin);
-        btShowPass = findViewById(R.id.btShowPass);
+        btShowPass = findViewById(R.id.btLoginShowPass);
 
-        btShowPass.setOnTouchListener((v, event) -> {
-            if(etPass.getText().toString().equals(""))
-                return false;
-            switch (event.getAction() ) {
-                case MotionEvent.ACTION_DOWN:
-                    etPass.setInputType(//Texto visible
-                            InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    new Handler().postDelayed(() ->
-                                    etPass.setInputType(
-                                            InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD),
-                            400);
-                    break;
-            }
-            return true;
-        });
+        setBotonMostrarPass(btShowPass,etPass);//Funcion de la SuperActivityBase
     }
-
-
 
     /**
      * comprueba que el usuario y la contraseña no esten vacios.
      * comprueba que el usuario y la contraseña coincidan en la base de datos y llama a la pantalla del menu
      */
-    public void comprobarLogin(View view) {
+    public void pulsarAcceder(View view) {
+        //Primero comprueba que no haya conexion
+        if(!hayConexion())
+            return;
+
+        //Luego comprueba que ambos campos esten cubiertos
         email = etEmail.getText().toString();
         pass = etPass.getText().toString();
-
-        if(email.isEmpty() && pass.isEmpty()){
+        if(email.isEmpty() || pass.isEmpty()){
             Toast.makeText(LoginActivity.this,
-                    "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                    getResources().getString(R.string.msj_rellenarCampos),
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(!con.isOnline(LoginActivity.this)){
-            Toast.makeText(LoginActivity.this,
-                    "No hay conexion a internet", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
+        //Finalmente se hace el cruce con la BD
         ges.obtenerTodos(list -> {
             String encriptedpass = UtilsEncriptador.passEncriptada(pass);
 
@@ -117,8 +89,10 @@ public class LoginActivity extends AppCompatActivity {
                 String upass = user.getPass();
 
                 if (uemail.equals(email) && upass.equals(encriptedpass)) {
-                    Toast.makeText(LoginActivity.this, "Login correcto", Toast.LENGTH_SHORT).show();
-                    SuperLoggedActivity.setUserLogged(user);
+                    Toast.makeText(LoginActivity.this,
+                            getResources().getString(R.string.msj_loginOK),
+                            Toast.LENGTH_SHORT).show();
+                    SuperActivityBase.setUserLogged(user);
                     Intent intent = new Intent(this, MenuActivity.class);
                     startActivity(intent);
                     loginExitoso = true;
@@ -127,9 +101,18 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             if (!loginExitoso) {
-                Toast.makeText(LoginActivity.this, "Email o contraseña incorrecto", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,
+                        getResources().getString(R.string.msj_loginKO),
+                        Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void pulsarCrearEmpleado(View view){
+        if(!hayConexion())
+            return;
+
+        startActivity(new Intent(this, InfoActivity.class));
     }
 
 

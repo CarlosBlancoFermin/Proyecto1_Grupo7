@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.example.proyecto_entrega2_grupo7.R;
 import com.example.proyecto_entrega2_grupo7.database.utils.UtilsCheckNetwork;
 
-public class MenuActivity extends SuperLoggedActivity {
+public class MenuActivity extends SuperActivityBase {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,27 +55,30 @@ public class MenuActivity extends SuperLoggedActivity {
      * @param view boton pulsado
      */
     public void pulsarBotonMenu(View view){
-        UtilsCheckNetwork con = new UtilsCheckNetwork();
-        if(con.isOnline(MenuActivity.this)){
-            int idButton = view.getId();
-            Class nuevaActividad = null;
-            if(idButton == R.id.btMenuCrearUsuario)
-                nuevaActividad = EmpleadoInfoActivity.class;
-                //Por defecto se lanza el MODO_CREAR
-            else if(idButton == R.id.btMenuListaUsuarios)
-                nuevaActividad = ListarActivity.class;
-            else if(idButton == R.id.btMenuCreditos)
-                nuevaActividad = CreditosActivity.class;
+        int idButton = view.getId();
 
-            //Crear el intent de la nueva actividad
-            Intent intent = new Intent(this, nuevaActividad);
 
-            //Lanzar la nueva actividad
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(MenuActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
-        }
+        if(idButton != R.id.btMenuCreditos){
+            //Los creditos no necesitan conexion
+            if(!hayConexion()){
+                //Si no hay conexion, muestra mensaje y no hace nada
+                return;
+        }}
 
+        Class nuevaActividad = null;
+        if(idButton == R.id.btMenuCrearUsuario)
+            nuevaActividad = InfoActivity.class;
+            //Por defecto se lanza el MODO_CREAR
+        else if(idButton == R.id.btMenuListaUsuarios)
+            nuevaActividad = ListarActivity.class;
+        else if(idButton == R.id.btMenuCreditos)
+            nuevaActividad = CreditosActivity.class;
+
+        //Crear el intent de la nueva actividad
+        Intent intent = new Intent(this, nuevaActividad);
+
+        //Lanzar la nueva actividad
+        startActivity(intent);
     }
 }
+

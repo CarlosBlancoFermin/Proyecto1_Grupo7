@@ -91,6 +91,34 @@ public class UsuarioDAO implements IServiceDAO {
         });
     }
 
+    /**
+     * Obtiene una lista con todos los emails,
+     * salvo el pasado por parametro si no es null,
+     * para evitar repeticiones de emails en inserts y updates
+     * @param emailExcluido el email del usuario que se modifica, en su caso
+     */
+    public void obtenerTodosEmails(
+            String emailExcluido,
+           FirebaseListCallback callback){
+
+        Query q = DB_COLECCION;
+        if(emailExcluido != null){
+            q = q.whereNotEqualTo("correo",emailExcluido);
+        }
+
+        q.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful() && task.getResult() != null){
+                List<String> correoList = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : task.getResult()){
+                    String correo = doc.toObject(Usuario.class).getCorreo();
+                    correoList.add(correo);
+                }
+                callback.onCallback(correoList);
+            }
+        });
+
+    }
+
     @Override
     public void actualizarRegistro(Object user){
         DB_COLECCION.document(((Usuario)user).getId()).set(user)

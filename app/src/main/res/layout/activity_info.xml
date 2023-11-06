@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".activities.EmpleadoInfoActivity">
+    tools:context=".activities.InfoActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glInfoVertical"
@@ -111,10 +111,26 @@
         android:id="@+id/etInfoPass"
         android:inputType="textPassword"
         android:maxLength="16"
+        android:textColorHint="@color/negro"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvInfoPass"
         app:layout_constraintStart_toStartOf="@id/glInfoVertical"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/campoInfo" />
+
+    <ImageButton
+        android:id="@+id/btInfoShowPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:visibility="gone"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
+        app:layout_constraintVertical_bias="0.55"
+        app:layout_constraintStart_toStartOf="@id/glInfoVertical"
+        app:layout_constraintEnd_toEndOf="@+id/etInfoPass"
+        app:layout_constraintHorizontal_bias="1"
+        app:srcCompat="@android:drawable/ic_menu_view" />
 
     <Spinner
         android:id="@+id/spInfoPuesto"

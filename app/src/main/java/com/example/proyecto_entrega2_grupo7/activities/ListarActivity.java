@@ -45,7 +45,7 @@ import java.util.List;
  * botones en cada fila para ver detalles, modificar o eliminar un usuario,
  * y un boton para crear un nuevo usuario.
  */
-public class ListarActivity extends SuperLoggedActivity implements ListarEventReceptor {
+public class ListarActivity extends SuperActivityBase implements ListarEventReceptor {
     //Variables de la lista de usuarios
     UsuarioDAO userService = new UsuarioDAO();//Objeto de acceso a BD
     List<Usuario> usuarioList;//Lista de objetos de la coleccion
@@ -207,7 +207,7 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
         }
         //endregion
 
-        //region BOTOM FILTROS
+        //region BOTON FILTROS
         /**
          * Si se han cargado todos los filtros lanza el Dialog de Filtros;
          * en caso contrario, muestra un mensaje al usuario
@@ -281,6 +281,8 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
          */
         @Override
         public void onDialogAccept() {
+            if(!hayConexion())
+                return;
             aplicarFiltros();
         }
 
@@ -372,18 +374,15 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
          */
         @Override
         public void onButtonClick(Usuario usuario, int idButton) {
-            if(con.isOnline(ListarActivity.this)){
-                if(idButton == R.id.btListarDetalles)
-                    pulsarBotonDetalles(usuario);
-                else if(idButton == R.id.btListarModificar)
-                    pulsarBotonModificar(usuario);
-                else if(idButton == R.id.btListarBorrar)
-                    pulsarBotonEliminar(usuario);
-            }
-            else {
-                Toast.makeText(ListarActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
-            }
+            if(!hayConexion())
+                return;
 
+            if(idButton == R.id.btListarDetalles)
+                pulsarBotonDetalles(usuario);
+            else if(idButton == R.id.btListarModificar)
+                pulsarBotonModificar(usuario);
+            else if(idButton == R.id.btListarBorrar)
+                pulsarBotonEliminar(usuario);
         }
 
             /**
@@ -391,7 +390,7 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
              * @param user objeto usuario
              */
             private void pulsarBotonDetalles(Usuario user){
-                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
+                Intent intent = new Intent(this, InfoActivity.class);
                 intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
                 intent.putExtra("ACTION_TYPE", MODO_DETALLES);
                 startActivityForResult(intent, ACTUALIZABLE);
@@ -404,7 +403,7 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
              * @param user objeto usuario
              */
             private void pulsarBotonModificar(Usuario user){
-                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
+                Intent intent = new Intent(this, InfoActivity.class);
                 intent.putExtra("usuario",user); //MEJOR MANDAR EL USUARIO COMPLETO
                 intent.putExtra("ACTION_TYPE", MODO_MODIFICAR);
                 startActivityForResult(intent, ACTUALIZABLE);
@@ -431,7 +430,7 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
                                     userService.borrarRegistro(u);
                                     actualizarLista();
                                     Toast.makeText(ListarActivity.this,
-                                            "Empleado eliminado",
+                                            getResources().getString(R.string.msj_eliminarOK),
                                             Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -442,19 +441,18 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
 
             private AlertDialog confirmarEliminar(Usuario u){
                 return new AlertDialog.Builder(this)
-                        .setTitle("Eliminar usuario actual")
-                        .setMessage("Si eliminas a tu usuario,\n" +
-                                "volverás a la pantalla de login.\n" +
+                        .setTitle(getResources().getString(R.string.tag_eliminarUser))
+                        .setMessage("Si continuas,volverás\n" +
+                                "a la pantalla de login.\n" +
                                 "¿Estás segur@?")
-                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                userService.borrarRegistro(u);
-                                userLogged = null;
-                                pulsarCerrarSesion();
-                            }
+                        .setPositiveButton(getResources().getString(R.string.bt_confirmar),
+                                (dialog, which) -> {
+                            userService.borrarRegistro(u);
+                            userLogged = null;
+                            pulsarCerrarSesion();
                         })
-                        .setNegativeButton("Cancelar", (dialog, which) -> {})
+                        .setNegativeButton(getResources().getString(R.string.bt_cancelar),
+                                (dialog, which) -> {})
                         .show();
             }
             //endregion
@@ -465,15 +463,12 @@ public class ListarActivity extends SuperLoggedActivity implements ListarEventRe
          * Llama a la Actividad de crear usuario
          * @param view
          */
-        public void pulsarAddEmpleado(View view){
-            if(con.isOnline(ListarActivity.this)){
-                Intent intent = new Intent(this, EmpleadoInfoActivity.class);
-                startActivityForResult(intent, ACTUALIZABLE);
-            }
-            else {
-                Toast.makeText(ListarActivity.this, "No hay conexion a internet", Toast.LENGTH_SHORT).show();
-            }
+        public void pulsarNuevoEmpleado(View view){
+            if(!hayConexion())
+                return;
 
+            Intent intent = new Intent(this, InfoActivity.class);
+            startActivityForResult(intent, ACTUALIZABLE);
         }
         //endregion
     //endregion
