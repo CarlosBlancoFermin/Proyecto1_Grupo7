@@ -59,7 +59,7 @@
     <!--region FOOTER-->
     <Button
         android:id="@+id/btListarAddUsuario"
-        android:onClick="pulsarAddEmpleado"
+        android:onClick="pulsarNuevoEmpleado"
         android:text="@string/tag_nuevoEmpleado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

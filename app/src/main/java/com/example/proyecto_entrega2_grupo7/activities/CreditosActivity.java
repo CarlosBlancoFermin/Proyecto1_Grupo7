@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.example.proyecto_entrega2_grupo7.R;
 
-public class CreditosActivity extends SuperLoggedActivity {
+public class CreditosActivity extends SuperActivityBase {
 
     String URl;
     Uri link;

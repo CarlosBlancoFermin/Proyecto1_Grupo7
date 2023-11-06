@@ -5,18 +5,24 @@
     <string name="header_prueba">Testing</string>
     <string name="tag_listar">Lista de empleados</string>
     <string name="tag_login">Iniciar sesión</string>
+    <string name="msg_noConexion">No hay conexion a internet</string>
+    <string name="msj_rellenarCampos">Rellene todos los campos</string>
+    <string name="msj_loginOK">Login correcto</string>
+    <string name="msj_loginKO">Email o contraseña incorrecto</string>
     <string name="tag_menu">Menu principal</string>
     <string name="tag_nuevoEmpleado">Crear nuevo empleado</string>
     <string name="tag_miperfil">Mi perfil</string>
     <string name="tag_detalles">Detalles del empleado</string>
     <string name="tag_modificar">Modificar empleado</string>
     <string name="tag_eliminar">Eliminar empleado</string>
+    <string name="tag_eliminarUser">Eliminar usuario actual</string>
     <string name="tag_creditos">Créditos</string>
     <string name="creadores">Equipo de desarrollo</string>
     <string name="codigofuente">Código del proyecto</string>
     <string name="creador1">Andrés Montaño Villafañe</string>
     <string name="creador2">Carlos Blanco Fermin</string>
     <string name="creador3">Daniel Liñeira Santos</string>
+    <string name="bt_confirmar">Confirmar</string>
     <string name="bt_modificar">Modificar</string>
     <string name="bt_volver">Volver</string>
     <string name="bt_ordenar">Ordenar</string>
@@ -32,7 +38,15 @@
     <string name="puestoLabel">Puesto</string>
     <string name="horarioLabel">Horario</string>
     <string name="passwordLabel">Contraseña</string>
-    <string name="bt_crearusuario">Crear nuevo empleado</string>
+    <string name="passwordCensura">********</string>
+    <string name="msj_passwordFail">La contraseña ha de tener al menos 6 caracteres</string>
+    <string name="msj_emailFail">El email no tiene un formato correcto</string>
+    <string name="msj_emailExiste">Ya hay otro usuario registrado con ese email</string>
+    <string name="msj_sinCambios">No se ha hecho ningun cambio</string>
+    <string name="msj_modificarOK">Empleado modificado</string>
+    <string name="msj_crearOK">Empleado creado con éxito</string>
+    <string name="msj_eliminarOK">Empleado eliminado</string>
+
 
 
 </resources>

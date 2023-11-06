@@ -37,11 +37,12 @@
         />
 
     <ImageButton
-        android:id="@+id/btShowPass"
+        android:id="@+id/btLoginShowPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5sp"
         android:background="@android:color/transparent"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glLoginBottom"
         app:layout_constraintVertical_bias="0.45"
@@ -53,7 +54,7 @@
     <Button
         android:id="@+id/btlogin"
         android:text="@string/tag_login"
-        android:onClick="comprobarLogin"
+        android:onClick="pulsarAcceder"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glLoginBottom"
         app:layout_constraintVertical_bias="0.75"
@@ -70,6 +71,7 @@
     <Button
         android:id="@+id/btnuevoUser"
         android:text="@string/tag_nuevoEmpleado"
+        android:onClick="pulsarCrearEmpleado"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/glLoginBottom"
