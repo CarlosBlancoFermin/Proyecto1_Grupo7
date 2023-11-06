@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.30" />
 
     <TextView
         android:id="@+id/tvInfoNombre"
         android:text="@string/nombreLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
-        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintVertical_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/glInfoVertical"
         style="@style/etiquetaInfo"/>
@@ -29,7 +29,7 @@
         android:text="@string/apellidosLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/glInfoVertical"
         style="@style/etiquetaInfo"/>
@@ -39,7 +39,17 @@
         android:text="@string/emailLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
-        app:layout_constraintVertical_bias="0.45"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/glInfoVertical"
+        style="@style/etiquetaInfo"/>
+
+    <TextView
+        android:id="@+id/tvInfoPass"
+        android:text="@string/passwordLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
+        app:layout_constraintVertical_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/glInfoVertical"
         style="@style/etiquetaInfo"/>
@@ -49,9 +59,10 @@
         android:text="@string/puestoLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
-        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintVertical_bias="0.70"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/glInfoVertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         style="@style/etiquetaInfo"/>
 
     <TextView
@@ -59,9 +70,10 @@
         android:text="@string/horarioLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
-        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintVertical_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/glInfoVertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         style="@style/etiquetaInfo"/>
 
     <androidx.constraintlayout.widget.Guideline
@@ -73,6 +85,7 @@
 
     <EditText
         android:id="@+id/etInfoNombre"
+        android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvInfoNombre"
         app:layout_constraintStart_toStartOf="@id/glInfoVertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,6 +93,7 @@
 
     <EditText
         android:id="@+id/etInfoApellidos"
+        android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvInfoApellidos"
         app:layout_constraintStart_toStartOf="@id/glInfoVertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,55 +101,55 @@
 
     <EditText
         android:id="@+id/etInfoEmail"
+        android:inputType="textEmailAddress"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvInfoEmail"
+        app:layout_constraintStart_toStartOf="@id/glInfoVertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/campoInfo" />
+
+    <EditText
+        android:id="@+id/etInfoPass"
+        android:inputType="textPassword"
+        android:maxLength="16"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvInfoPass"
         app:layout_constraintStart_toStartOf="@id/glInfoVertical"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/campoInfo" />
 
     <Spinner
         android:id="@+id/spInfoPuesto"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvInfoPuesto"
-        app:layout_constraintStart_toStartOf="@id/glInfoVertical"
+        app:layout_constraintTop_toBottomOf="@+id/tvInfoPuesto"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        style="@style/campoInfo" />
+        app:layout_constraintHorizontal_bias="0.5"
+        style="@style/spinnerInfo" />
 
     <Spinner
         android:id="@+id/spInfoHorario"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvInfoHorario"
-        app:layout_constraintStart_toStartOf="@id/glInfoVertical"
+        app:layout_constraintTop_toBottomOf="@+id/tvInfoHorario"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        style="@style/campoInfo" />
+        app:layout_constraintHorizontal_bias="0.5"
+        style="@style/spinnerInfo" />
 
+    <TextView
+        android:id="@+id/tvInfoHoras"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/glInfoBottom"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintStart_toStartOf="@+id/spInfoHorario"
+        app:layout_constraintEnd_toEndOf="@+id/spInfoHorario"/>
 
     <Button
         android:id="@+id/btInfoAction"
-        android:text="Prueba"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/glInfoBottom"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/botonRedondeado"/>
-
-    <Button
-        android:id="@+id/bt_botonIzquierda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bt_volver"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/glInfoBottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.1" />
-
-    <Spinner
-        android:id="@+id/spInfoHorario2"
-        android:layout_width="225dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/glInfoVertical"
-        app:layout_constraintTop_toBottomOf="@+id/tvInfoHorario" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
