@@ -280,6 +280,10 @@ public class InfoActivity extends SuperActivityBase {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+
+        //Si el usuario actual se modifica, se actualiza
+        if(user.equals(userLogged))
+            userLogged = actualizado;
         //Actualizar la base de datos y volver
         userDAO.actualizarRegistro(actualizado);
         setResult(RESULT_OK);

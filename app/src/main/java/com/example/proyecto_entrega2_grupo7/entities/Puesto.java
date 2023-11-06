@@ -1,5 +1,9 @@
 package com.example.proyecto_entrega2_grupo7.entities;
 
+/**
+ * Clase POJO que se relaciona
+ * con los elementos de la colección puestos de la BD.
+ */
 public class Puesto extends Filtros {
     private String salario;
 

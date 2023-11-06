@@ -31,7 +31,12 @@ public class LoginActivity extends SuperActivityBase {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().setTitle(getResources().getString(R.string.tag_login));
+        getSupportActionBar().setTitle(
+                new StringBuilder()
+                        .append(getResources().getString(R.string.app_name))
+                        .append(" - ")
+                        .append(getResources().getString(R.string.tag_login))
+                        .toString());
 
         //Asignacion de variables
         dataBinding();

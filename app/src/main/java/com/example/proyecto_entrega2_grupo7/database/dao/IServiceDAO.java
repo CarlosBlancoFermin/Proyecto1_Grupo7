@@ -3,7 +3,6 @@ package com.example.proyecto_entrega2_grupo7.database.dao;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseManager;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * Interfaz con los métodos básicos a implementar
@@ -12,7 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public interface IServiceDAO {
 
-    FirebaseFirestore DB = FirebaseManager.getDatabase();
+    FirebaseManager DB = new FirebaseManager();
 
     /**
      * Recibe un objeto y lo inserta en la coleccion

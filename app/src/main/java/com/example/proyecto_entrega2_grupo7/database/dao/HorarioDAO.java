@@ -3,7 +3,6 @@ package com.example.proyecto_entrega2_grupo7.database.dao;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseCallback;
 import com.example.proyecto_entrega2_grupo7.database.FirebaseListCallback;
 import com.example.proyecto_entrega2_grupo7.entities.Horario;
-import com.example.proyecto_entrega2_grupo7.entities.Usuario;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -13,7 +12,12 @@ import java.util.List;
 
 public class HorarioDAO implements IServiceDAO{
     //Acceso a la colección horarios de la BDD
-    final CollectionReference DB_COLECCION = DB.collection("horarios");
+    final CollectionReference DB_COLECCION;
+
+    public HorarioDAO() {
+        DB_COLECCION = DB.getDatabase()
+                .collection("horarios");
+    }
 
     @Override
     public void insertarRegistro(Object horario) {
@@ -47,7 +51,7 @@ public class HorarioDAO implements IServiceDAO{
     @Override
     public void obtenerTodos(FirebaseListCallback callback){
         Query query = DB_COLECCION.orderBy("horaSalida", Query.Direction.ASCENDING);
-        DB_COLECCION.get().addOnCompleteListener(task -> {
+        query.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 List<Horario> horarios = new ArrayList<>();
                 for (QueryDocumentSnapshot doc : task.getResult()){
@@ -61,7 +65,7 @@ public class HorarioDAO implements IServiceDAO{
 
     @Override
     public void actualizarRegistro(Object horario){
-        DB_COLECCION.document(((Horario)horario).getId()).set(((Horario)horario))
+        DB_COLECCION.document(((Horario)horario).getId()).set((horario))
                 .addOnSuccessListener(unused -> System.out.println("horario actualizado"));
     }
 
